@@ -6,7 +6,7 @@ class AppText{
   static const String forgotPassword = 'Forgot password?';
   static const String email = 'Email';
   static const String password = 'Password';
-  static const String joinQuestionaire = 'Join questionaire!  ✏️';
+  static const String joinQuestionaire = 'Join questionaire!✏️';
   static const String or = 'Or';
 
   static const String createAccount = 'Create account';

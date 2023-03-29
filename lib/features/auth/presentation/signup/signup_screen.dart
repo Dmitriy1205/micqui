@@ -19,8 +19,9 @@ class SignUpScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+        resizeToAvoidBottomInset:false,
       body: Padding(
-        padding: const EdgeInsets.only(left: 24, right: 24, top: 95),
+        padding:  EdgeInsets.only(left: 24, right: 24, top: MediaQuery.of(context).size.height/11),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

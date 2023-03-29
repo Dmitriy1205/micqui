@@ -24,174 +24,181 @@ class SignInScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Padding(
-        padding: const EdgeInsets.only(left: 24, right: 24, top: 95),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              AppText.joinQuestionaire,
-              style: AppTheme.themeData.textTheme.titleLarge,
-            ),
-            const Spacer(),
-            Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  TextFormField(
-                    controller: _emailController,
-                    style: AppTheme.themeData.textTheme.labelSmall!
-                        .copyWith(fontSize: 14),
-                    decoration: const InputDecoration(
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                      hintText: AppText.email,
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(
-                          left: 12,
-                          bottom: 10,
-                          top: 13,
-                        ),
-                        child: FaIcon(
-                          FontAwesomeIcons.solidEnvelope,
-                          size: 20,
-                        ),
-                      ),
-                    ),
-                    validator: context.validateEmailAddress,
-                  ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  TextFormField(
-                    controller: _passwordController,
-                    obscureText: true,
-                    style: AppTheme.themeData.textTheme.labelSmall!
-                        .copyWith(fontSize: 14),
-                    decoration: const InputDecoration(
-                      contentPadding:
-                          EdgeInsets.symmetric(vertical: 10, horizontal: 10),
-                      hintText: AppText.password,
-                      prefixIcon: Padding(
-                        padding: EdgeInsets.only(left: 12, bottom: 10, top: 12),
-                        child: FaIcon(
-                          FontAwesomeIcons.lock,
-                          size: 20,
-                        ),
-                      ),
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return ' Password cant be empty';
-                      }
-                      return null;
-                    },
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(bottom: 30, top: 10),
-              child: SizedBox(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  children: [
-                    GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>  ForgotPassword(),
-                          ),
-                        );
-                      },
-                      child: Text(
-                        AppText.forgotPassword,
-                        style: AppTheme.themeData.textTheme.titleMedium,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const Flexible(
-              child: SizedBox(
-                height: 57,
-              ),
-            ),
-            Row(
+
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          width: MediaQuery.of(context).size.width,
+          child: Padding(
+            padding: EdgeInsets.only(
+                left: 24, right: 24, top: MediaQuery.of(context).size.height / 11),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Flexible(
-                  child: Divider(
-                    color: AppColors.text,
-                    height: 3,
-                  ),
+                Text(
+                  AppText.joinQuestionaire,
+                  style: AppTheme.themeData.textTheme.titleLarge,
                 ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10),
-                  child: Text(
-                    AppText.or,
-                    style: AppTheme.themeData.textTheme.labelSmall,
-                  ),
-                ),
-                const Flexible(
-                  child: Divider(
-                    color: AppColors.text,
-                    height: 3,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(
-              height: 32,
-            ),
-            const GoogleSignInButton(),
-            const SizedBox(
-              height: 21,
-            ),
-            const AppleSignInButton(),
-            Flexible(
-              child: Padding(
-                padding: const EdgeInsets.only( top: 22),
-                child: SizedBox(
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
+                const SizedBox(height: 85,),
+                Form(
+                  key: _formKey,
+                  child: Column(
                     children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SignUpScreen(),
+                      TextFormField(
+                        controller: _emailController,
+                        style: AppTheme.themeData.textTheme.labelSmall!
+                            .copyWith(fontSize: 14),
+                        decoration: const InputDecoration(
+                          contentPadding:
+                              EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                          hintText: AppText.email,
+                          prefixIcon: Padding(
+                            padding: EdgeInsets.only(
+                              left: 12,
+                              bottom: 10,
+                              top: 13,
                             ),
-                          );
-                        },
-                        child: Text(
-                          '${AppText.signUp} >',
-                          style: AppTheme.themeData.textTheme.displayMedium,
+                            child: FaIcon(
+                              FontAwesomeIcons.solidEnvelope,
+                              size: 20,
+                            ),
+                          ),
                         ),
+                        validator: context.validateEmailAddress,
+                      ),
+                      const SizedBox(
+                        height: 15,
+                      ),
+                      TextFormField(
+                        controller: _passwordController,
+                        obscureText: true,
+                        style: AppTheme.themeData.textTheme.labelSmall!
+                            .copyWith(fontSize: 14),
+                        decoration: const InputDecoration(
+                          contentPadding:
+                              EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                          hintText: AppText.password,
+                          prefixIcon: Padding(
+                            padding: EdgeInsets.only(left: 12, bottom: 10, top: 12),
+                            child: FaIcon(
+                              FontAwesomeIcons.lock,
+                              size: 20,
+                            ),
+                          ),
+                        ),
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return ' Password cant be empty';
+                          }
+                          return null;
+                        },
                       ),
                     ],
                   ),
                 ),
-              ),
-            ),
-            const Spacer(
-              flex: 3,
-            ),
-            AppElevatedButton(
-                text: AppText.signIn.toUpperCase(), onPressed: () {
-              Navigator.push(
-                context,
-                MaterialPageRoute(
-                  builder: (context) =>  const Home(),
+                Padding(
+                  padding: const EdgeInsets.only(top: 10),
+                  child: SizedBox(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ForgotPassword(),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            AppText.forgotPassword,
+                            style: AppTheme.themeData.textTheme.titleMedium,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-              );
-            }),
-            const SizedBox(
-              height: 27,
+                const Flexible(
+                  child: SizedBox(
+                    height: 77,
+                  ),
+                ),
+                Row(
+                  children: [
+                    const Flexible(
+                      child: Divider(
+                        color: AppColors.text,
+                        height: 3,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 10),
+                      child: Text(
+                        AppText.or,
+                        style: AppTheme.themeData.textTheme.labelSmall,
+                      ),
+                    ),
+                    const Flexible(
+                      child: Divider(
+                        color: AppColors.text,
+                        height: 3,
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(
+                  height: 32,
+                ),
+                const GoogleSignInButton(),
+                const SizedBox(
+                  height: 21,
+                ),
+                const AppleSignInButton(),
+                Padding(
+                  padding: const EdgeInsets.only(top: 22),
+                  child: SizedBox(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => SignUpScreen(),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            '${AppText.signUp} >',
+                            style: AppTheme.themeData.textTheme.displayMedium,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                const Spacer(
+                  flex: 3,
+                ),
+                AppElevatedButton(
+                    text: AppText.signIn.toUpperCase(),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const Home(),
+                        ),
+                      );
+                    }),
+                const SizedBox(
+                  height: 27,
+                ),
+              ],
             ),
-          ],
+          ),
         ),
       ),
     );
