@@ -1,0 +1,54 @@
+{
+  "project_info": {
+    "project_number": "48858966559",
+    "project_id": "micqui",
+    "storage_bucket": "micqui.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:48858966559:android:aa9a2fd6e563bc5bbb832a",
+        "android_client_info": {
+          "package_name": "com.pandascode.micqui"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "48858966559-vt1ua3osi32jp0hlo5aa6cj4icjj8qjc.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pandascode.micqui",
+            "certificate_hash": "1c365e3db7c943ee25141b747c8aea1b1b61e43e"
+          }
+        },
+        {
+          "client_id": "48858966559-51n2fn3vkla7mccpec9h4oa2beta9ghf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXu3o_TtjFCXLQ80e0s4sP1A_sDcOS0wA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "48858966559-51n2fn3vkla7mccpec9h4oa2beta9ghf.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "48858966559-7v4op7023mqvvs34j875ji4te6975oce.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.pandascode.micqui"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>48858966559-7v4op7023mqvvs34j875ji4te6975oce.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.48858966559-7v4op7023mqvvs34j875ji4te6975oce</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>48858966559-vt1ua3osi32jp0hlo5aa6cj4icjj8qjc.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyAA3XPLspdPg5mF_Gw3prW4QUg8qEHKeo8</string>
+	<key>GCM_SENDER_ID</key>
+	<string>48858966559</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.pandascode.micqui</string>
+	<key>PROJECT_ID</key>
+	<string>micqui</string>
+	<key>STORAGE_BUCKET</key>
+	<string>micqui.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:48858966559:ios:db035a23cff4654cbb832a</string>
+</dict>
+</plist>

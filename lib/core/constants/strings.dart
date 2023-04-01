@@ -22,5 +22,8 @@ class AppText{
   static const String dateOfBirth = 'Date of birth';
   static const String fullName = 'Full name';
 
+  static const String emptyName = 'Name is Empty';
+  static const String emptyEmail = 'Email is Empty';
+
 
 }

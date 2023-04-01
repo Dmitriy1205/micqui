@@ -26,12 +26,12 @@ class AppTheme {
       errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(
-            color: Color(0xFFFF0000),
+            color: Color(0xFFFC4445),
           )),
       focusedErrorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10),
           borderSide: const BorderSide(
-            color: Color(0xFFFF0000),
+            color: Color(0xFFFC4445),
           )),
     ),
     useMaterial3: true,

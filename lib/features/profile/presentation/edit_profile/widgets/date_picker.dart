@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+
 class Picker {
   Future<DateTime?> birthDatePicker(BuildContext context) {
     return showDatePicker(
@@ -17,8 +18,8 @@ class Picker {
                   ),
                 ),
               ),
-              // primarySwatch: Colors.orange,
-              // splashColor: Colors.black,
+              primarySwatch: Colors.grey,
+              splashColor: Colors.black,
               textTheme: const TextTheme(
                 titleMedium: TextStyle(color: Colors.black),
                 labelLarge: TextStyle(color: Colors.black),
