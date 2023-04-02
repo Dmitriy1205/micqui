@@ -17,7 +17,7 @@ import '../../../../../core/widgets/loading_indicator.dart';
 import '../../forgot_password/forgot_password.dart';
 
 class SignInScreen extends StatefulWidget {
-  SignInScreen({Key? key}) : super(key: key);
+  const SignInScreen({Key? key}) : super(key: key);
 
   @override
   State<SignInScreen> createState() => _SignInScreenState();
@@ -149,7 +149,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => ForgotPassword(),
+                                      builder: (context) => const ForgotPassword(),
                                     ),
                                   );
                                 },
@@ -210,7 +210,7 @@ class _SignInScreenState extends State<SignInScreen> {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (context) => SignUpScreen(),
+                                      builder: (context) => const SignUpScreen(),
                                     ),
                                   );
                                 },

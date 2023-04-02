@@ -81,8 +81,8 @@ class _ForgotPasswordState extends State<ForgotPassword> {
                     child: Ink(
                         width: 40,
                         height: 40,
-                        child: Center(
-                          child: const FaIcon(
+                        child: const Center(
+                          child: FaIcon(
                       FontAwesomeIcons.arrowLeft,
                       size: 25,
                     ),

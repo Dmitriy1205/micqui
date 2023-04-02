@@ -6,17 +6,18 @@ import 'package:image_picker/image_picker.dart';
 import '../../../../../../core/constants/colors.dart';
 import '../../../../../../core/themes/theme.dart';
 import '../../../../../../core/widgets/app_elevated_button.dart';
+import '../../../../../../data/models/user/user_model.dart';
 
 class ProfileImagePicker extends StatefulWidget {
   final Function(File) userImage;
   final Widget? avatar;
-  final String? imageFromProfile;
+  final UserModel? user;
 
-  ProfileImagePicker({
+  const ProfileImagePicker({
     Key? key,
     required this.userImage,
     required this.avatar,
-    this.imageFromProfile,
+    this.user,
   }) : super(key: key);
 
   @override
@@ -61,14 +62,14 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
                 )
               : Center(
                   child: _image == null
-                      ? widget.imageFromProfile == null || widget.imageFromProfile!.isEmpty
-                          ? const CircleAvatar(
+                      ? widget.user?.avatar == null || widget.user!.avatar!.isEmpty
+                          ?  CircleAvatar(
                               radius: 70,
-                              backgroundColor: AppColors.accent,
+                              backgroundColor: widget.user?.property?['color'],
                               child: Center(
                                 child: Text(
-                                  'V',
-                                  style: TextStyle(fontSize: 50),
+                                  widget.user?.property?['symbol'] ?? '',
+                                  style: const TextStyle(fontSize: 50),
                                 ),
                               ),
                             )
@@ -78,7 +79,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
                               child: ClipRRect(
                                   borderRadius: BorderRadius.circular(70),
                                   child: Image.network(
-                                    widget.imageFromProfile!,
+                                    widget.user!.avatar!,
                                     fit: BoxFit.cover,
                                   )),
                             )

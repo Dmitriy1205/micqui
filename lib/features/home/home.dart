@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:micqui/core/constants/colors.dart';
+import 'package:micqui/core/constants/strings.dart';
 import 'package:micqui/features/home/bloc/home_bloc.dart';
 import 'package:micqui/features/profile/profile.dart';
 
@@ -45,7 +46,8 @@ class Home extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Text(
-                          'Hello, ${state.user?.firstName == null || state.user!.firstName!.isEmpty ? 'No Name' : state.user!.firstName!.substring(0, state.user?.firstName?.indexOf(' '))}',
+
+                          '${AppText.hello} ${state.user?.firstName}',
                           style: AppTheme.themeData.textTheme.headlineMedium,
                           overflow: TextOverflow.ellipsis,
                         ),
@@ -64,13 +66,13 @@ class Home extends StatelessWidget {
                             height: 80,
                             child: state.user?.avatar == null ||
                                     state.user!.avatar!.isEmpty
-                                ? const CircleAvatar(
+                                ?  CircleAvatar(
                                     radius: 40,
-                                    backgroundColor: AppColors.accent,
+                                    backgroundColor: state.user?.property?['color'] ,
                                     child: Center(
                                       child: Text(
-                                        'V',
-                                        style: TextStyle(fontSize: 25),
+                                        state.user?.property?['symbol'] ?? '',
+                                        style: const TextStyle(fontSize: 25),
                                       ),
                                     ),
                                   )

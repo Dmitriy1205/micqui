@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:micqui/core/constants/colors.dart';
 
 import '../../../core/constants/exceptions.dart';
+import '../../../core/utils/utils.dart';
 import '../../../data/models/user/user_model.dart';
 import '../../../data/repositories/firestore_repository.dart';
 import '../../auth/bloc/auth_bloc.dart';
@@ -20,7 +22,8 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   late UserModel userModel;
   late StreamSubscription _subscription;
 
-  HomeBloc({required this.firestore, required this.authBloc}) : super(const HomeState.initial()) {
+  HomeBloc({required this.firestore, required this.authBloc})
+      : super(const HomeState.initial()) {
     on<HomeEvent>(_mapBlocToState);
     _subscription = authBloc.stream.listen((state) {
       state.maybeMap(
@@ -45,13 +48,24 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       final user = await firestore.getProfile(event.userId);
       final currentUser = authBloc.state.user;
 
+      String? separatedFirstName = separateFirstName(currentUser!.displayName);
+
+
+      String firstName = user.firstName != null || user.firstName?.isNotEmpty == true
+          ? user.firstName!
+          : separatedFirstName ?? 'No Name';
+
+
+      String firstSymbol = firstName[0].toUpperCase();
+
       userModel = UserModel(
-        id: currentUser!.uid,
-        firstName: user.firstName ?? currentUser.displayName ?? '',
-        // email: user.email ?? currentUser.email,
+        id: currentUser.uid,
+        firstName: firstName,
         avatar: user.avatar ?? currentUser.photoURL ?? '',
-        // dateOfBirth: user.dateOfBirth ?? '--',
-        // country: user.country ?? 'Ukraine',
+        property: {
+          'symbol': firstSymbol,
+          'color': AppColors.colors[firstSymbol],
+        },
       );
 
       emit(HomeState.initialized(user: userModel));

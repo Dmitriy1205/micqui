@@ -21,7 +21,7 @@ class App extends StatelessWidget {
             unauthenticated: (_) =>
                 navigatorKey.currentState?.pushAndRemoveUntil(
                     MaterialPageRoute(
-                      builder: (context) => SignInScreen(),
+                      builder: (context) => const SignInScreen(),
                     ),
                     (route) => false),
             authenticated: (_) => navigatorKey.currentState?.pushAndRemoveUntil(
@@ -36,7 +36,7 @@ class App extends StatelessWidget {
           navigatorKey: navigatorKey,
           theme: AppTheme.themeData,
           debugShowCheckedModeBanner: false,
-          home: SignInScreen(),
+          home: const SignInScreen(),
         ),
       ),
     );

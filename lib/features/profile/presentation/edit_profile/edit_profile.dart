@@ -19,7 +19,7 @@ import '../../../../data/models/user/user_model.dart';
 class EditProfile extends StatefulWidget {
   final UserModel? user;
 
-  EditProfile({
+  const EditProfile({
     Key? key,
     this.user,
   }) : super(key: key);
@@ -45,7 +45,7 @@ class _EditProfileState extends State<EditProfile> {
 
   @override
   void initState() {
-    _nameController.text = widget.user!.firstName!;
+    _nameController.text = widget.user!.fullName!;
     _dateController.text = widget.user!.dateOfBirth!;
     selectedCountry = widget.user!.country!;
     super.initState();
@@ -162,6 +162,8 @@ class _EditProfileState extends State<EditProfile> {
                                         return;
                                       }
                                       _formKey.currentState!.save();
+
+
                                       _bloc.add(EditProfileEvent.updateFields(
                                         file: state.image,
                                         image: widget.user?.avatar ?? '',
@@ -193,7 +195,7 @@ class _EditProfileState extends State<EditProfile> {
                                       EditProfileEvent.getImage(image: file));
                                 },
                                 avatar: const SizedBox(),
-                                imageFromProfile: widget.user?.avatar,
+                                user: widget.user,
                               ),
                             ),
                             Flexible(
@@ -205,10 +207,7 @@ class _EditProfileState extends State<EditProfile> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      widget.user?.firstName == null ||
-                                              widget.user!.firstName!.isEmpty
-                                          ? AppText.emptyName
-                                          : widget.user!.firstName!,
+                                      widget.user!.firstName!,
                                       style: AppTheme
                                           .themeData.textTheme.headlineMedium,
                                     ),

@@ -140,13 +140,13 @@ class Profile extends StatelessWidget {
                             width: 138,
                             child: state.user?.avatar == null ||
                                     state.user!.avatar!.isEmpty
-                                ? const CircleAvatar(
+                                ? CircleAvatar(
                                     radius: 70,
-                                    backgroundColor: AppColors.accent,
+                                    backgroundColor: state.user?.property?['color'],
                                     child: Center(
                                       child: Text(
-                                        'V',
-                                        style: TextStyle(fontSize: 50),
+                                        state.user?.property?['symbol'] ?? '',
+                                        style: const TextStyle(fontSize: 50),
                                       ),
                                     ),
                                   )
@@ -162,7 +162,7 @@ class Profile extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 15),
                           child: Text(
-                            state.user?.firstName == null || state.user!.firstName!.isEmpty ? AppText.emptyName :state.user!.firstName! ,
+                            state.user?.firstName ?? '',
                             style: AppTheme.themeData.textTheme.headlineMedium,
                           ),
                         ),

@@ -5,6 +5,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:micqui/core/constants/exceptions.dart';
 import 'package:micqui/data/models/user/user_model.dart';
 
+import '../../../../core/constants/colors.dart';
+import '../../../../core/utils/utils.dart';
 import '../../../../data/repositories/firestore_repository.dart';
 import '../../../auth/bloc/auth_bloc.dart';
 
@@ -49,13 +51,31 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       final user = await firestore.getProfile(event.userId);
       final currentUser = authBloc.state.user;
 
+      String? separatedFirstName = separateFirstName(currentUser!.displayName);
+      String? separatedLastName = separateLastName(currentUser.displayName);
+      String firstName =
+          user.firstName != null || user.firstName?.isNotEmpty == true
+              ? user.firstName!
+              : separatedFirstName ?? 'No Name';
+      String lastName =
+          user.lastName != null || user.lastName?.isNotEmpty == true
+              ? user.lastName!
+              : separatedLastName ?? '';
+
+      String firstSymbol = firstName[0].toUpperCase();
+
       userModel = UserModel(
-        id: currentUser!.uid,
-        firstName: user.firstName ?? currentUser.displayName ?? '',
+        id: currentUser.uid,
+        firstName: firstName,
+        lastName: lastName,
         email: user.email ?? currentUser.email,
         avatar: user.avatar ?? currentUser.photoURL ?? '',
         dateOfBirth: user.dateOfBirth ?? '--',
         country: user.country ?? 'Ukraine',
+        property: {
+          'symbol': firstSymbol,
+          'color': AppColors.colors[firstSymbol],
+        },
       );
 
       emit(ProfileState.initialized(user: userModel));
