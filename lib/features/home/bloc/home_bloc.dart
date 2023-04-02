@@ -48,19 +48,18 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
       final user = await firestore.getProfile(event.userId);
       final currentUser = authBloc.state.user;
 
-      String? separatedFirstName = separateFirstName(currentUser!.displayName);
+      String? separatedNickName = separateNickName(currentUser!.email);
 
+      String nickName =
+          user.nickName != null || user.nickName?.isNotEmpty == true
+              ? user.nickName!
+              : separatedNickName!;
 
-      String firstName = user.firstName != null || user.firstName?.isNotEmpty == true
-          ? user.firstName!
-          : separatedFirstName ?? 'No Name';
-
-
-      String firstSymbol = firstName[0].toUpperCase();
+      String firstSymbol = nickName[0].toUpperCase();
 
       userModel = UserModel(
         id: currentUser.uid,
-        firstName: firstName,
+        nickName: nickName,
         avatar: user.avatar ?? currentUser.photoURL ?? '',
         property: {
           'symbol': firstSymbol,

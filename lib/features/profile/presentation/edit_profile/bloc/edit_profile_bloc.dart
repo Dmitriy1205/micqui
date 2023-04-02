@@ -47,11 +47,12 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
       } else {
         imageUrl = event.image;
       }
-      final nameParts = event.name.split(' ');
+      final nameParts = event.fullName.split(' ');
       final firstName = nameParts[0];
       final lastName = nameParts.length > 1 ? nameParts[1] : '';
 
       await firestore.setProfile(id, {'avatar': imageUrl});
+      await firestore.setProfile(id, {'nickName': event.nickName});
       await firestore.setProfile(id, {'firstName': firstName});
       await firestore.setProfile(id, {'lastName': lastName});
       await firestore.setProfile(id, {'country': event.country});

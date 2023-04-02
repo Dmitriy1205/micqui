@@ -32,7 +32,7 @@ class _EditProfileState extends State<EditProfile> {
   final EditProfileBloc _bloc = sl<EditProfileBloc>();
 
   final _formKey = GlobalKey<FormState>();
-
+  final _nickNameController = TextEditingController();
   final _nameController = TextEditingController();
 
   final _dateController = TextEditingController();
@@ -42,12 +42,15 @@ class _EditProfileState extends State<EditProfile> {
   final List<String> countries = ['Ukraine', 'Spain', 'Singapore', 'Brazil'];
 
   late String? selectedCountry;
+  late FocusNode _focusNode;
 
   @override
   void initState() {
     _nameController.text = widget.user!.fullName!;
     _dateController.text = widget.user!.dateOfBirth!;
+    _nickNameController.text = widget.user!.nickName!;
     selectedCountry = widget.user!.country!;
+    _focusNode = FocusNode();
     super.initState();
   }
 
@@ -55,6 +58,8 @@ class _EditProfileState extends State<EditProfile> {
   void dispose() {
     _nameController.dispose();
     _dateController.dispose();
+    _nickNameController.dispose();
+    _focusNode.dispose();
     super.dispose();
   }
 
@@ -158,18 +163,18 @@ class _EditProfileState extends State<EditProfile> {
                                     splashColor: Colors.transparent,
                                     borderRadius: BorderRadius.circular(20),
                                     onTap: () {
-                                      if (!_formKey.currentState!.validate()) {
-                                        return;
-                                      }
-                                      _formKey.currentState!.save();
-
+                                      // if (!_formKey.currentState!.validate()) {
+                                      //   return;
+                                      // }
+                                      // _formKey.currentState!.save();
 
                                       _bloc.add(EditProfileEvent.updateFields(
                                         file: state.image,
                                         image: widget.user?.avatar ?? '',
-                                        name: _nameController.text,
+                                        fullName: _nameController.text,
                                         country: selectedCountry!,
                                         dateOfBirth: _dateController.text,
+                                        nickName: _nickNameController.text,
                                       ));
                                     },
                                     child: const SizedBox(
@@ -198,28 +203,36 @@ class _EditProfileState extends State<EditProfile> {
                                 user: widget.user,
                               ),
                             ),
-                            Flexible(
-                              flex: 3,
-                              child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(vertical: 15),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Text(
-                                      widget.user!.firstName!,
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 15, horizontal: 80),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Flexible(
+                                    // width: 90,
+                                    child: EditableText(
+                                      textAlign: TextAlign.center,
+                                      controller: _nickNameController,
                                       style: AppTheme
-                                          .themeData.textTheme.headlineMedium,
+                                          .themeData.textTheme.headlineMedium!,
+                                      cursorColor: AppColors.background,
+                                      backgroundCursorColor: Colors.grey,
+                                      selectionControls:
+                                          MaterialTextSelectionControls(),
+                                      keyboardType: TextInputType.text,
+                                      maxLines: 1,
+                                      focusNode: _focusNode,
                                     ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    const FaIcon(
-                                      FontAwesomeIcons.pen,
-                                      color: AppColors.background,
-                                    ),
-                                  ],
-                                ),
+                                  ),
+                                  const SizedBox(
+                                    width: 10,
+                                  ),
+                                  const FaIcon(
+                                    FontAwesomeIcons.pen,
+                                    color: AppColors.background,
+                                  ),
+                                ],
                               ),
                             ),
                             Text(
@@ -283,17 +296,18 @@ class _EditProfileState extends State<EditProfile> {
                                               .themeData.textTheme.labelSmall!
                                               .copyWith(fontSize: 14),
                                           decoration: const InputDecoration(
+                                            prefix:SizedBox(width: 6,),
                                             contentPadding:
-                                                EdgeInsets.symmetric(
-                                                    vertical: 10,
-                                                    horizontal: 10),
+                                                EdgeInsets.only(
+                                                    bottom: 5,
+                                                    left: 5),
                                           ),
-                                          validator: (value) {
-                                            if (value!.isEmpty) {
-                                              return ' Field cant be empty';
-                                            }
-                                            return null;
-                                          },
+                                          // validator: (value) {
+                                          //   if (value!.isEmpty) {
+                                          //     return ' Field cant be empty';
+                                          //   }
+                                          //   return null;
+                                          // },
                                         ),
                                       ),
                                       const SizedBox(
@@ -312,12 +326,15 @@ class _EditProfileState extends State<EditProfile> {
                                       SizedBox(
                                         height: 40,
                                         child: DropdownButtonFormField<String>(
+                                          style: AppTheme
+                                              .themeData.textTheme.labelSmall!
+                                              .copyWith(fontSize: 14),
                                           value: selectedCountry,
                                           iconSize: 15,
                                           decoration: const InputDecoration(
                                             contentPadding:
                                                 EdgeInsets.symmetric(
-                                                    horizontal: 15,
+                                                    horizontal: 14,
                                                     vertical: 5),
                                           ),
                                           icon: const FaIcon(
@@ -329,11 +346,9 @@ class _EditProfileState extends State<EditProfile> {
                                                   value: country,
                                                   child: Text(
                                                     country,
-                                                    style: const TextStyle(
-                                                        color: AppColors.text,
-                                                        fontWeight:
-                                                            FontWeight.w400,
-                                                        fontSize: 12),
+                                                    style: AppTheme.themeData
+                                                        .textTheme.labelSmall!
+                                                        .copyWith(fontSize: 14),
                                                   ),
                                                 ),
                                               )
@@ -346,14 +361,14 @@ class _EditProfileState extends State<EditProfile> {
                                       const SizedBox(
                                         height: 16,
                                       ),
-                                      const Padding(
-                                        padding: EdgeInsets.only(bottom: 5.0),
+                                      Padding(
+                                        padding:
+                                            const EdgeInsets.only(bottom: 5.0),
                                         child: Text(
                                           AppText.dateOfBirth,
-                                          style: TextStyle(
-                                              color: AppColors.text,
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 12),
+                                          style: AppTheme
+                                              .themeData.textTheme.labelSmall!
+                                              .copyWith(fontSize: 14),
                                         ),
                                       ),
                                       SizedBox(

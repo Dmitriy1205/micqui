@@ -19,24 +19,24 @@ mixin _$EditProfileEvent {
   Object? get image => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(File? file, String image, String name,
-            String dateOfBirth, String country)
+    required TResult Function(File? file, String image, String nickName,
+            String fullName, String dateOfBirth, String country)
         updateFields,
     required TResult Function(File? image) getImage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(File? file, String image, String name, String dateOfBirth,
-            String country)?
+    TResult? Function(File? file, String image, String nickName,
+            String fullName, String dateOfBirth, String country)?
         updateFields,
     TResult? Function(File? image)? getImage,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(File? file, String image, String name, String dateOfBirth,
-            String country)?
+    TResult Function(File? file, String image, String nickName, String fullName,
+            String dateOfBirth, String country)?
         updateFields,
     TResult Function(File? image)? getImage,
     required TResult orElse(),
@@ -90,7 +90,8 @@ abstract class _$$_UpdateFieldsCopyWith<$Res> {
   $Res call(
       {File? file,
       String image,
-      String name,
+      String nickName,
+      String fullName,
       String dateOfBirth,
       String country});
 }
@@ -108,7 +109,8 @@ class __$$_UpdateFieldsCopyWithImpl<$Res>
   $Res call({
     Object? file = freezed,
     Object? image = null,
-    Object? name = null,
+    Object? nickName = null,
+    Object? fullName = null,
     Object? dateOfBirth = null,
     Object? country = null,
   }) {
@@ -121,9 +123,13 @@ class __$$_UpdateFieldsCopyWithImpl<$Res>
           ? _value.image
           : image // ignore: cast_nullable_to_non_nullable
               as String,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
+      nickName: null == nickName
+          ? _value.nickName
+          : nickName // ignore: cast_nullable_to_non_nullable
+              as String,
+      fullName: null == fullName
+          ? _value.fullName
+          : fullName // ignore: cast_nullable_to_non_nullable
               as String,
       dateOfBirth: null == dateOfBirth
           ? _value.dateOfBirth
@@ -143,7 +149,8 @@ class _$_UpdateFields implements _UpdateFields {
   const _$_UpdateFields(
       {this.file,
       required this.image,
-      required this.name,
+      required this.nickName,
+      required this.fullName,
       required this.dateOfBirth,
       required this.country});
 
@@ -152,7 +159,9 @@ class _$_UpdateFields implements _UpdateFields {
   @override
   final String image;
   @override
-  final String name;
+  final String nickName;
+  @override
+  final String fullName;
   @override
   final String dateOfBirth;
   @override
@@ -160,7 +169,7 @@ class _$_UpdateFields implements _UpdateFields {
 
   @override
   String toString() {
-    return 'EditProfileEvent.updateFields(file: $file, image: $image, name: $name, dateOfBirth: $dateOfBirth, country: $country)';
+    return 'EditProfileEvent.updateFields(file: $file, image: $image, nickName: $nickName, fullName: $fullName, dateOfBirth: $dateOfBirth, country: $country)';
   }
 
   @override
@@ -170,15 +179,18 @@ class _$_UpdateFields implements _UpdateFields {
             other is _$_UpdateFields &&
             (identical(other.file, file) || other.file == file) &&
             (identical(other.image, image) || other.image == image) &&
-            (identical(other.name, name) || other.name == name) &&
+            (identical(other.nickName, nickName) ||
+                other.nickName == nickName) &&
+            (identical(other.fullName, fullName) ||
+                other.fullName == fullName) &&
             (identical(other.dateOfBirth, dateOfBirth) ||
                 other.dateOfBirth == dateOfBirth) &&
             (identical(other.country, country) || other.country == country));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, file, image, name, dateOfBirth, country);
+  int get hashCode => Object.hash(
+      runtimeType, file, image, nickName, fullName, dateOfBirth, country);
 
   @JsonKey(ignore: true)
   @override
@@ -189,36 +201,38 @@ class _$_UpdateFields implements _UpdateFields {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(File? file, String image, String name,
-            String dateOfBirth, String country)
+    required TResult Function(File? file, String image, String nickName,
+            String fullName, String dateOfBirth, String country)
         updateFields,
     required TResult Function(File? image) getImage,
   }) {
-    return updateFields(file, image, name, dateOfBirth, country);
+    return updateFields(file, image, nickName, fullName, dateOfBirth, country);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(File? file, String image, String name, String dateOfBirth,
-            String country)?
+    TResult? Function(File? file, String image, String nickName,
+            String fullName, String dateOfBirth, String country)?
         updateFields,
     TResult? Function(File? image)? getImage,
   }) {
-    return updateFields?.call(file, image, name, dateOfBirth, country);
+    return updateFields?.call(
+        file, image, nickName, fullName, dateOfBirth, country);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(File? file, String image, String name, String dateOfBirth,
-            String country)?
+    TResult Function(File? file, String image, String nickName, String fullName,
+            String dateOfBirth, String country)?
         updateFields,
     TResult Function(File? image)? getImage,
     required TResult orElse(),
   }) {
     if (updateFields != null) {
-      return updateFields(file, image, name, dateOfBirth, country);
+      return updateFields(
+          file, image, nickName, fullName, dateOfBirth, country);
     }
     return orElse();
   }
@@ -259,14 +273,16 @@ abstract class _UpdateFields implements EditProfileEvent {
   const factory _UpdateFields(
       {final File? file,
       required final String image,
-      required final String name,
+      required final String nickName,
+      required final String fullName,
       required final String dateOfBirth,
       required final String country}) = _$_UpdateFields;
 
   File? get file;
   @override
   String get image;
-  String get name;
+  String get nickName;
+  String get fullName;
   String get dateOfBirth;
   String get country;
   @JsonKey(ignore: true)
@@ -338,8 +354,8 @@ class _$_GetImage implements _GetImage {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(File? file, String image, String name,
-            String dateOfBirth, String country)
+    required TResult Function(File? file, String image, String nickName,
+            String fullName, String dateOfBirth, String country)
         updateFields,
     required TResult Function(File? image) getImage,
   }) {
@@ -349,8 +365,8 @@ class _$_GetImage implements _GetImage {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(File? file, String image, String name, String dateOfBirth,
-            String country)?
+    TResult? Function(File? file, String image, String nickName,
+            String fullName, String dateOfBirth, String country)?
         updateFields,
     TResult? Function(File? image)? getImage,
   }) {
@@ -360,8 +376,8 @@ class _$_GetImage implements _GetImage {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(File? file, String image, String name, String dateOfBirth,
-            String country)?
+    TResult Function(File? file, String image, String nickName, String fullName,
+            String dateOfBirth, String country)?
         updateFields,
     TResult Function(File? image)? getImage,
     required TResult orElse(),

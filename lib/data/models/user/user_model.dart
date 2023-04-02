@@ -12,6 +12,7 @@ class UserModel with _$UserModel {
 
   const factory UserModel({
     String? id,
+    String? nickName,
     String? firstName,
     String? lastName,
     String? avatar,

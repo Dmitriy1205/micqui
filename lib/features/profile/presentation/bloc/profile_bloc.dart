@@ -51,23 +51,19 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       final user = await firestore.getProfile(event.userId);
       final currentUser = authBloc.state.user;
 
-      String? separatedFirstName = separateFirstName(currentUser!.displayName);
-      String? separatedLastName = separateLastName(currentUser.displayName);
-      String firstName =
-          user.firstName != null || user.firstName?.isNotEmpty == true
-              ? user.firstName!
-              : separatedFirstName ?? 'No Name';
-      String lastName =
-          user.lastName != null || user.lastName?.isNotEmpty == true
-              ? user.lastName!
-              : separatedLastName ?? '';
+      String? separatedNickName = separateNickName(currentUser!.email);
+      String nickName =
+          user.nickName != null || user.nickName?.isNotEmpty == true
+              ? user.nickName!
+              : separatedNickName!;
 
-      String firstSymbol = firstName[0].toUpperCase();
+      String firstSymbol = nickName[0].toUpperCase();
 
       userModel = UserModel(
         id: currentUser.uid,
-        firstName: firstName,
-        lastName: lastName,
+        nickName: nickName,
+        firstName: user.firstName ?? '',
+        lastName: user.lastName ?? '',
         email: user.email ?? currentUser.email,
         avatar: user.avatar ?? currentUser.photoURL ?? '',
         dateOfBirth: user.dateOfBirth ?? '--',

@@ -162,7 +162,7 @@ class Profile extends StatelessWidget {
                         Padding(
                           padding: const EdgeInsets.symmetric(vertical: 15),
                           child: Text(
-                            state.user?.firstName ?? '',
+                            state.user?.nickName ?? '',
                             style: AppTheme.themeData.textTheme.headlineMedium,
                           ),
                         ),

@@ -21,6 +21,7 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$UserModel {
   String? get id => throw _privateConstructorUsedError;
+  String? get nickName => throw _privateConstructorUsedError;
   String? get firstName => throw _privateConstructorUsedError;
   String? get lastName => throw _privateConstructorUsedError;
   String? get avatar => throw _privateConstructorUsedError;
@@ -42,6 +43,7 @@ abstract class $UserModelCopyWith<$Res> {
   @useResult
   $Res call(
       {String? id,
+      String? nickName,
       String? firstName,
       String? lastName,
       String? avatar,
@@ -65,6 +67,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
   @override
   $Res call({
     Object? id = freezed,
+    Object? nickName = freezed,
     Object? firstName = freezed,
     Object? lastName = freezed,
     Object? avatar = freezed,
@@ -77,6 +80,10 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      nickName: freezed == nickName
+          ? _value.nickName
+          : nickName // ignore: cast_nullable_to_non_nullable
               as String?,
       firstName: freezed == firstName
           ? _value.firstName
@@ -119,6 +126,7 @@ abstract class _$$_UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
   @useResult
   $Res call(
       {String? id,
+      String? nickName,
       String? firstName,
       String? lastName,
       String? avatar,
@@ -140,6 +148,7 @@ class __$$_UserModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = freezed,
+    Object? nickName = freezed,
     Object? firstName = freezed,
     Object? lastName = freezed,
     Object? avatar = freezed,
@@ -152,6 +161,10 @@ class __$$_UserModelCopyWithImpl<$Res>
       id: freezed == id
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
+              as String?,
+      nickName: freezed == nickName
+          ? _value.nickName
+          : nickName // ignore: cast_nullable_to_non_nullable
               as String?,
       firstName: freezed == firstName
           ? _value.firstName
@@ -190,6 +203,7 @@ class __$$_UserModelCopyWithImpl<$Res>
 class _$_UserModel extends _UserModel {
   const _$_UserModel(
       {this.id,
+      this.nickName,
       this.firstName,
       this.lastName,
       this.avatar,
@@ -205,6 +219,8 @@ class _$_UserModel extends _UserModel {
 
   @override
   final String? id;
+  @override
+  final String? nickName;
   @override
   final String? firstName;
   @override
@@ -229,7 +245,7 @@ class _$_UserModel extends _UserModel {
 
   @override
   String toString() {
-    return 'UserModel(id: $id, firstName: $firstName, lastName: $lastName, avatar: $avatar, email: $email, country: $country, dateOfBirth: $dateOfBirth, property: $property)';
+    return 'UserModel(id: $id, nickName: $nickName, firstName: $firstName, lastName: $lastName, avatar: $avatar, email: $email, country: $country, dateOfBirth: $dateOfBirth, property: $property)';
   }
 
   @override
@@ -238,6 +254,8 @@ class _$_UserModel extends _UserModel {
         (other.runtimeType == runtimeType &&
             other is _$_UserModel &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.nickName, nickName) ||
+                other.nickName == nickName) &&
             (identical(other.firstName, firstName) ||
                 other.firstName == firstName) &&
             (identical(other.lastName, lastName) ||
@@ -255,6 +273,7 @@ class _$_UserModel extends _UserModel {
   int get hashCode => Object.hash(
       runtimeType,
       id,
+      nickName,
       firstName,
       lastName,
       avatar,
@@ -280,6 +299,7 @@ class _$_UserModel extends _UserModel {
 abstract class _UserModel extends UserModel {
   const factory _UserModel(
       {final String? id,
+      final String? nickName,
       final String? firstName,
       final String? lastName,
       final String? avatar,
@@ -294,6 +314,8 @@ abstract class _UserModel extends UserModel {
 
   @override
   String? get id;
+  @override
+  String? get nickName;
   @override
   String? get firstName;
   @override

@@ -15,94 +15,96 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: BlocConsumer<HomeBloc, HomeState>(
-        bloc: _bloc,
-        listener: (context, state) {
-          state.maybeMap(
-              error: (e) => ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(
-                      backgroundColor: AppColors.accent,
-                      duration: const Duration(seconds: 5),
-                      content: Text(
-                        e.error,
-                        textAlign: TextAlign.center,
+    return SafeArea(
+      child: Scaffold(
+        body: BlocConsumer<HomeBloc, HomeState>(
+          bloc: _bloc,
+          listener: (context, state) {
+            state.maybeMap(
+                error: (e) => ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(
+                        backgroundColor: AppColors.accent,
+                        duration: const Duration(seconds: 5),
+                        content: Text(
+                          e.error,
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ),
+                orElse: () {});
+          },
+          builder: (context, state) {
+            return state.maybeMap(
+              loading: (_) => const LoadingIndicator(),
+              orElse: () => Column(
+                children: [
+                  Container(
+                    height: 87,
+                    color: AppColors.text,
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 25),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            '${AppText.hello} ${state.user?.nickName}',
+                            style: AppTheme.themeData.textTheme.headlineMedium,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => Profile(),
+                                ),
+                              ).then((value) => _bloc.add(HomeEvent.fetchData(
+                                  userId: state.user!.id!)));
+                            },
+                            child: SizedBox(
+                              width: 48,
+                              height: 48,
+                              child: state.user?.avatar == null ||
+                                      state.user!.avatar!.isEmpty
+                                  ? CircleAvatar(
+                                      radius: 40,
+                                      backgroundColor:
+                                          state.user?.property?['color'],
+                                      child: Center(
+                                        child: Text(
+                                          state.user?.property?['symbol'] ?? '',
+                                          style: const TextStyle(fontSize: 25),
+                                        ),
+                                      ),
+                                    )
+                                  : ClipRRect(
+                                      borderRadius: BorderRadius.circular(40),
+                                      child: Image.network(
+                                        state.user!.avatar!,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   ),
-              orElse: () {});
-        },
-        builder: (context, state) {
-          return state.maybeMap(
-            loading: (_) => const LoadingIndicator(),
-            orElse: () => Column(
-              children: [
-                Container(
-                  height: 127,
-                  color: AppColors.text,
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 25),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-
-                          '${AppText.hello} ${state.user?.firstName}',
-                          style: AppTheme.themeData.textTheme.headlineMedium,
-                          overflow: TextOverflow.ellipsis,
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) => Profile(),
-                              ),
-                            ).then((value) => _bloc.add(
-                                HomeEvent.fetchData(userId: state.user!.id!)));
-                          },
-                          child: SizedBox(
-                            width: 80,
-                            height: 80,
-                            child: state.user?.avatar == null ||
-                                    state.user!.avatar!.isEmpty
-                                ?  CircleAvatar(
-                                    radius: 40,
-                                    backgroundColor: state.user?.property?['color'] ,
-                                    child: Center(
-                                      child: Text(
-                                        state.user?.property?['symbol'] ?? '',
-                                        style: const TextStyle(fontSize: 25),
-                                      ),
-                                    ),
-                                  )
-                                : ClipRRect(
-                                    borderRadius: BorderRadius.circular(40),
-                                    child: Image.network(
-                                      state.user!.avatar!,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                          ),
-                        ),
-                      ],
+                  const Spacer(),
+                  Center(
+                    child: Text(
+                      'Home'.toUpperCase(),
+                      style: AppTheme.themeData.textTheme.headlineMedium!
+                          .copyWith(color: AppColors.text),
                     ),
                   ),
-                ),
-                const Spacer(),
-                Center(
-                  child: Text(
-                    'Home'.toUpperCase(),
-                    style: AppTheme.themeData.textTheme.headlineMedium!
-                        .copyWith(color: AppColors.text),
-                  ),
-                ),
-                const Spacer(),
-                const SizedBox(),
-              ],
-            ),
-          );
-        },
+                  const Spacer(),
+                  const SizedBox(),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }
