@@ -15,8 +15,9 @@ import '../../core/services/service_locator.dart';
 import '../../core/themes/theme.dart';
 
 class Profile extends StatelessWidget {
-  Profile({Key? key}) : super(key: key);
-  final ProfileBloc _bloc = sl<ProfileBloc>();
+  const Profile({Key? key}) : super(key: key);
+
+  // final ProfileBloc _bloc = sl<ProfileBloc>();
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +40,6 @@ class Profile extends StatelessWidget {
             orElse: () {},
           );
         },
-        bloc: _bloc,
         builder: (context, state) {
           return state.maybeMap(
             loading: (_) => const LoadingIndicator(),
@@ -111,13 +111,13 @@ class Profile extends StatelessWidget {
                                 borderRadius: BorderRadius.circular(20),
                                 onTap: () {
                                   Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                          builder: (_) => EditProfile(
-                                                user: state.user,
-                                              ))).then((value) => _bloc.add(
-                                      ProfileEvent.fetchData(
-                                          userId: state.user!.id!)));
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (_) => EditProfile(
+                                        // user: state.user,
+                                      ),
+                                    ),
+                                  );
                                 },
                                 child: const SizedBox(
                                   width: 40,
@@ -142,7 +142,8 @@ class Profile extends StatelessWidget {
                                     state.user!.avatar!.isEmpty
                                 ? CircleAvatar(
                                     radius: 70,
-                                    backgroundColor: state.user?.property?['color'],
+                                    backgroundColor:
+                                        state.user?.property?['color'],
                                     child: Center(
                                       child: Text(
                                         state.user?.property?['symbol'] ?? '',
@@ -201,6 +202,30 @@ class Profile extends StatelessWidget {
                                       fontWeight: FontWeight.w400,
                                       fontSize: 12),
                                 ),
+                                state.user?.firstName == null ||
+                                        state.user!.firstName!.isEmpty
+                                    ? const SizedBox()
+                                    : Column(
+                                        children: [
+                                          const SizedBox(
+                                            height: 16,
+                                          ),
+                                          const Text(
+                                            AppText.fullName,
+                                            style: TextStyle(
+                                                color: AppColors.text,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize: 12),
+                                          ),
+                                          Text(
+                                            state.user!.fullName!,
+                                            style: const TextStyle(
+                                                color: AppColors.text,
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 12),
+                                          ),
+                                        ],
+                                      ),
                                 const SizedBox(
                                   height: 16,
                                 ),

@@ -9,8 +9,14 @@ import '../../core/services/service_locator.dart';
 import '../../core/themes/theme.dart';
 import '../../core/widgets/loading_indicator.dart';
 
-class Home extends StatelessWidget {
-  Home({Key? key}) : super(key: key);
+class Home extends StatefulWidget {
+  const Home({Key? key}) : super(key: key);
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   final HomeBloc _bloc = sl<HomeBloc>();
 
   @override
@@ -56,10 +62,9 @@ class Home extends StatelessWidget {
                               Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                  builder: (context) => Profile(),
+                                  builder: (context) => const Profile(),
                                 ),
-                              ).then((value) => _bloc.add(HomeEvent.fetchData(
-                                  userId: state.user!.id!)));
+                              );
                             },
                             child: SizedBox(
                               width: 48,

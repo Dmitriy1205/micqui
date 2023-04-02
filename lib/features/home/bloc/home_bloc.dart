@@ -9,6 +9,7 @@ import '../../../core/utils/utils.dart';
 import '../../../data/models/user/user_model.dart';
 import '../../../data/repositories/firestore_repository.dart';
 import '../../auth/bloc/auth_bloc.dart';
+import '../../profile/presentation/bloc/profile_bloc.dart';
 
 part 'home_event.dart';
 
@@ -18,18 +19,17 @@ part 'home_bloc.freezed.dart';
 
 class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final FirestoreRepository firestore;
-  final AuthBloc authBloc;
   late UserModel userModel;
+  late ProfileBloc profileBloc;
   late StreamSubscription _subscription;
 
-  HomeBloc({required this.firestore, required this.authBloc})
+  HomeBloc({required this.firestore, required this.profileBloc})
       : super(const HomeState.initial()) {
     on<HomeEvent>(_mapBlocToState);
-    _subscription = authBloc.stream.listen((state) {
+    _subscription = profileBloc.stream.listen((state) {
       state.maybeMap(
-        authenticated: (state) async =>
-            add(HomeEvent.fetchData(userId: authBloc.state.user!.uid)),
-        unauthenticated: (state) async => add(const HomeEvent.reset()),
+        initialized: (state) =>
+            add(HomeEvent.fetchData(user: profileBloc.state.user!)),
         orElse: () {},
       );
     });
@@ -43,31 +43,34 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   }
 
   Future<void> _fetchData(_FetchData event, Emitter<HomeState> emit) async {
-    emit(const HomeState.loading());
     try {
-      final user = await firestore.getProfile(event.userId);
-      final currentUser = authBloc.state.user;
+      if (event.user == null) {
+        emit(const HomeState.loading());
+      }
 
-      String? separatedNickName = separateNickName(currentUser!.email);
+      // final user = await firestore.getProfile(event.userId);
+      // final currentUser = authBloc.state.user;
+      //
+      // String? separatedNickName = separateNickName(currentUser!.email);
+      //
+      // String nickName =
+      //     user.nickName != null || user.nickName?.isNotEmpty == true
+      //         ? user.nickName!
+      //         : separatedNickName!;
+      //
+      // String firstSymbol = nickName[0].toUpperCase();
+      //
+      // userModel = UserModel(
+      //   id: currentUser.uid,
+      //   nickName: nickName,
+      //   avatar: user.avatar ?? currentUser.photoURL ?? '',
+      //   property: {
+      //     'symbol': firstSymbol,
+      //     'color': AppColors.colors[firstSymbol],
+      //   },
+      // );
 
-      String nickName =
-          user.nickName != null || user.nickName?.isNotEmpty == true
-              ? user.nickName!
-              : separatedNickName!;
-
-      String firstSymbol = nickName[0].toUpperCase();
-
-      userModel = UserModel(
-        id: currentUser.uid,
-        nickName: nickName,
-        avatar: user.avatar ?? currentUser.photoURL ?? '',
-        property: {
-          'symbol': firstSymbol,
-          'color': AppColors.colors[firstSymbol],
-        },
-      );
-
-      emit(HomeState.initialized(user: userModel));
+      emit(HomeState.initialized(user: event.user!));
     } on BadRequestException catch (e) {
       emit(HomeState.error(error: e.message));
     }

@@ -18,19 +18,19 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$HomeEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String userId) fetchData,
+    required TResult Function(UserModel? user) fetchData,
     required TResult Function() reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String userId)? fetchData,
+    TResult? Function(UserModel? user)? fetchData,
     TResult? Function()? reset,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String userId)? fetchData,
+    TResult Function(UserModel? user)? fetchData,
     TResult Function()? reset,
     required TResult orElse(),
   }) =>
@@ -79,7 +79,9 @@ abstract class _$$_FetchDataCopyWith<$Res> {
           _$_FetchData value, $Res Function(_$_FetchData) then) =
       __$$_FetchDataCopyWithImpl<$Res>;
   @useResult
-  $Res call({String userId});
+  $Res call({UserModel? user});
+
+  $UserModelCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -93,28 +95,40 @@ class __$$_FetchDataCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userId = null,
+    Object? user = freezed,
   }) {
     return _then(_$_FetchData(
-      userId: null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
-              as String,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserModel?,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserModelCopyWith<$Res>? get user {
+    if (_value.user == null) {
+      return null;
+    }
+
+    return $UserModelCopyWith<$Res>(_value.user!, (value) {
+      return _then(_value.copyWith(user: value));
+    });
   }
 }
 
 /// @nodoc
 
 class _$_FetchData implements _FetchData {
-  const _$_FetchData({required this.userId});
+  const _$_FetchData({required this.user});
 
   @override
-  final String userId;
+  final UserModel? user;
 
   @override
   String toString() {
-    return 'HomeEvent.fetchData(userId: $userId)';
+    return 'HomeEvent.fetchData(user: $user)';
   }
 
   @override
@@ -122,11 +136,11 @@ class _$_FetchData implements _FetchData {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_FetchData &&
-            (identical(other.userId, userId) || other.userId == userId));
+            (identical(other.user, user) || other.user == user));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, userId);
+  int get hashCode => Object.hash(runtimeType, user);
 
   @JsonKey(ignore: true)
   @override
@@ -137,30 +151,30 @@ class _$_FetchData implements _FetchData {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String userId) fetchData,
+    required TResult Function(UserModel? user) fetchData,
     required TResult Function() reset,
   }) {
-    return fetchData(userId);
+    return fetchData(user);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String userId)? fetchData,
+    TResult? Function(UserModel? user)? fetchData,
     TResult? Function()? reset,
   }) {
-    return fetchData?.call(userId);
+    return fetchData?.call(user);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String userId)? fetchData,
+    TResult Function(UserModel? user)? fetchData,
     TResult Function()? reset,
     required TResult orElse(),
   }) {
     if (fetchData != null) {
-      return fetchData(userId);
+      return fetchData(user);
     }
     return orElse();
   }
@@ -198,9 +212,9 @@ class _$_FetchData implements _FetchData {
 }
 
 abstract class _FetchData implements HomeEvent {
-  const factory _FetchData({required final String userId}) = _$_FetchData;
+  const factory _FetchData({required final UserModel? user}) = _$_FetchData;
 
-  String get userId;
+  UserModel? get user;
   @JsonKey(ignore: true)
   _$$_FetchDataCopyWith<_$_FetchData> get copyWith =>
       throw _privateConstructorUsedError;
@@ -242,7 +256,7 @@ class _$_Reset implements _Reset {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String userId) fetchData,
+    required TResult Function(UserModel? user) fetchData,
     required TResult Function() reset,
   }) {
     return reset();
@@ -251,7 +265,7 @@ class _$_Reset implements _Reset {
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String userId)? fetchData,
+    TResult? Function(UserModel? user)? fetchData,
     TResult? Function()? reset,
   }) {
     return reset?.call();
@@ -260,7 +274,7 @@ class _$_Reset implements _Reset {
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String userId)? fetchData,
+    TResult Function(UserModel? user)? fetchData,
     TResult Function()? reset,
     required TResult orElse(),
   }) {

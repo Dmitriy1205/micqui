@@ -2,7 +2,6 @@ part of 'edit_profile_bloc.dart';
 
 @freezed
 class EditProfileState with _$EditProfileState {
-
   File? get image =>
       maybeMap(initImage: (state) => state.image, orElse: () => null);
 

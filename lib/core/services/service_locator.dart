@@ -37,7 +37,7 @@ Future<void> init() async {
   sl.registerFactory(() => AppleSigninBloc(auth: sl()));
 
   sl.registerFactory(() => ProfileBloc(firestore: sl(), authBloc: sl()));
-  sl.registerFactory(() => HomeBloc(firestore: sl(), authBloc: sl()));
+  sl.registerFactory(() => HomeBloc(firestore: sl(), profileBloc: sl()));
   sl.registerFactory(
-      () => EditProfileBloc(firestore: sl(), storage: sl(), authBloc: sl()));
+      () => EditProfileBloc(firestore: sl(), storage: sl(), profileBloc: sl()));
 }

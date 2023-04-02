@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:micqui/features/auth/bloc/auth_bloc.dart';
 
 import '../core/services/service_locator.dart';
+import '../features/profile/presentation/bloc/profile_bloc.dart';
 
 class Providers extends StatelessWidget {
   final Widget child;
@@ -17,6 +18,11 @@ class Providers extends StatelessWidget {
           create: (context) => sl<AuthBloc>(),
           lazy: false,
         ),
+        BlocProvider(
+          create: (context) => sl<ProfileBloc>(),
+          lazy: false,
+        ),
+
       ],
       child: child,
     );

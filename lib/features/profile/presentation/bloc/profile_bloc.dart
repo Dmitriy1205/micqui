@@ -59,11 +59,12 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
       String firstSymbol = nickName[0].toUpperCase();
 
+
       userModel = UserModel(
         id: currentUser.uid,
         nickName: nickName,
-        firstName: user.firstName ?? '',
-        lastName: user.lastName ?? '',
+        firstName: user.firstName,
+        lastName: user.lastName,
         email: user.email ?? currentUser.email,
         avatar: user.avatar ?? currentUser.photoURL ?? '',
         dateOfBirth: user.dateOfBirth ?? '--',

@@ -6,7 +6,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import '../../../../../core/constants/exceptions.dart';
 import '../../../../../data/repositories/firestore_repository.dart';
 import '../../../../../data/repositories/storage_repository.dart';
-import '../../../../auth/bloc/auth_bloc.dart';
+import '../../bloc/profile_bloc.dart';
 
 part 'edit_profile_event.dart';
 
@@ -17,12 +17,12 @@ part 'edit_profile_bloc.freezed.dart';
 class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
   final FirestoreRepository firestore;
   final StorageRepository storage;
-  final AuthBloc authBloc;
+  final ProfileBloc profileBloc;
 
   EditProfileBloc({
     required this.firestore,
     required this.storage,
-    required this.authBloc,
+    required this.profileBloc,
   }) : super(const EditProfileState.initial()) {
     on<EditProfileEvent>(_mapBlocToState);
   }
@@ -39,7 +39,7 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
       _UpdateFields event, Emitter<EditProfileState> emit) async {
     emit(const EditProfileState.loading());
     try {
-      var id = authBloc.state.user!.uid;
+      var id = profileBloc.state.user!.id!;
       String imageUrl;
       if (event.file != null) {
         String pic = await storage.upload(event.file, 'avatars/$id/$id.png');
@@ -57,6 +57,8 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
       await firestore.setProfile(id, {'lastName': lastName});
       await firestore.setProfile(id, {'country': event.country});
       await firestore.setProfile(id, {'dateOfBirth': event.dateOfBirth});
+
+      profileBloc.add(ProfileEvent.fetchData(userId: id));
       emit(const EditProfileState.success());
     } on BadRequestException catch (e) {
       emit(EditProfileState.error(error: e.message));

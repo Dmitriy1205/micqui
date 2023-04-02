@@ -15,13 +15,14 @@ import 'package:date_format/date_format.dart';
 
 import '../../../../core/widgets/loading_indicator.dart';
 import '../../../../data/models/user/user_model.dart';
+import '../bloc/profile_bloc.dart';
 
 class EditProfile extends StatefulWidget {
-  final UserModel? user;
+  // final UserModel? user;
 
   const EditProfile({
     Key? key,
-    this.user,
+
   }) : super(key: key);
 
   @override
@@ -43,13 +44,15 @@ class _EditProfileState extends State<EditProfile> {
 
   late String? selectedCountry;
   late FocusNode _focusNode;
+  late UserModel user;
 
   @override
   void initState() {
-    _nameController.text = widget.user!.fullName!;
-    _dateController.text = widget.user!.dateOfBirth!;
-    _nickNameController.text = widget.user!.nickName!;
-    selectedCountry = widget.user!.country!;
+    user = BlocProvider.of<ProfileBloc>(context).state.user!;
+    _nameController.text = user.fullName ?? '';
+    _dateController.text = user.dateOfBirth!;
+    _nickNameController.text = user.nickName!;
+    selectedCountry = user.country!;
     _focusNode = FocusNode();
     super.initState();
   }
@@ -170,7 +173,7 @@ class _EditProfileState extends State<EditProfile> {
 
                                       _bloc.add(EditProfileEvent.updateFields(
                                         file: state.image,
-                                        image: widget.user?.avatar ?? '',
+                                        image: user.avatar ?? '',
                                         fullName: _nameController.text,
                                         country: selectedCountry!,
                                         dateOfBirth: _dateController.text,
@@ -200,7 +203,7 @@ class _EditProfileState extends State<EditProfile> {
                                       EditProfileEvent.getImage(image: file));
                                 },
                                 avatar: const SizedBox(),
-                                user: widget.user,
+                                user: user,
                               ),
                             ),
                             Padding(
@@ -236,7 +239,7 @@ class _EditProfileState extends State<EditProfile> {
                               ),
                             ),
                             Text(
-                              widget.user?.email ?? AppText.emptyEmail,
+                              user.email ?? AppText.emptyEmail,
                               style: const TextStyle(
                                   color: AppColors.background,
                                   fontWeight: FontWeight.w400,
@@ -296,11 +299,11 @@ class _EditProfileState extends State<EditProfile> {
                                               .themeData.textTheme.labelSmall!
                                               .copyWith(fontSize: 14),
                                           decoration: const InputDecoration(
-                                            prefix:SizedBox(width: 6,),
-                                            contentPadding:
-                                                EdgeInsets.only(
-                                                    bottom: 5,
-                                                    left: 5),
+                                            prefix: SizedBox(
+                                              width: 6,
+                                            ),
+                                            contentPadding: EdgeInsets.only(
+                                                bottom: 5, left: 5),
                                           ),
                                           // validator: (value) {
                                           //   if (value!.isEmpty) {
