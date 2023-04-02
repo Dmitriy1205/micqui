@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -9,12 +11,13 @@ import 'package:micqui/features/profile/presentation/edit_profile/widgets/date_p
 import 'package:micqui/features/profile/presentation/edit_profile/widgets/image_picker/profile_Image_picker.dart';
 
 import '../../../../core/constants/strings.dart';
-import '../../../../core/services/service_locator.dart';
 import '../../../../core/themes/theme.dart';
 import 'package:date_format/date_format.dart';
 
 import '../../../../core/widgets/loading_indicator.dart';
 import '../../../../data/models/user/user_model.dart';
+import '../../../../data/repositories/firestore_repository.dart';
+import '../../../../data/repositories/storage_repository.dart';
 import '../bloc/profile_bloc.dart';
 
 class EditProfile extends StatefulWidget {
@@ -22,7 +25,6 @@ class EditProfile extends StatefulWidget {
 
   const EditProfile({
     Key? key,
-
   }) : super(key: key);
 
   @override
@@ -30,7 +32,10 @@ class EditProfile extends StatefulWidget {
 }
 
 class _EditProfileState extends State<EditProfile> {
-  final EditProfileBloc _bloc = sl<EditProfileBloc>();
+  late final EditProfileBloc _bloc = EditProfileBloc(
+      firestore: FirestoreRepository(firestore: FirebaseFirestore.instance),
+      storage: StorageRepository(storage: FirebaseStorage.instance),
+      profileBloc: context.read<ProfileBloc>());
 
   final _formKey = GlobalKey<FormState>();
   final _nickNameController = TextEditingController();
@@ -49,7 +54,7 @@ class _EditProfileState extends State<EditProfile> {
   @override
   void initState() {
     user = BlocProvider.of<ProfileBloc>(context).state.user!;
-    _nameController.text = user.fullName ?? '';
+    _nameController.text = user.fullName!.trim() ?? '';
     _dateController.text = user.dateOfBirth!;
     _nickNameController.text = user.nickName!;
     selectedCountry = user.country!;
@@ -74,9 +79,7 @@ class _EditProfileState extends State<EditProfile> {
         bloc: _bloc,
         listener: (context, state) {
           state.maybeMap(
-              success: (_) {
-                return Navigator.pop(context);
-              },
+              success: (_) => Navigator.pop(context),
               error: (e) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(

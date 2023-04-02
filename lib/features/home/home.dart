@@ -2,12 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:micqui/core/constants/colors.dart';
 import 'package:micqui/core/constants/strings.dart';
-import 'package:micqui/features/home/bloc/home_bloc.dart';
 import 'package:micqui/features/profile/profile.dart';
 
-import '../../core/services/service_locator.dart';
 import '../../core/themes/theme.dart';
 import '../../core/widgets/loading_indicator.dart';
+import '../profile/presentation/bloc/profile_bloc.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -17,14 +16,11 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
-  final HomeBloc _bloc = sl<HomeBloc>();
-
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        body: BlocConsumer<HomeBloc, HomeState>(
-          bloc: _bloc,
+        body: BlocConsumer<ProfileBloc, ProfileState>(
           listener: (context, state) {
             state.maybeMap(
                 error: (e) => ScaffoldMessenger.of(context).showSnackBar(

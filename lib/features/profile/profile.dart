@@ -113,9 +113,7 @@ class Profile extends StatelessWidget {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (_) => EditProfile(
-                                        // user: state.user,
-                                      ),
+                                      builder: (_) => EditProfile(),
                                     ),
                                   );
                                 },
@@ -206,6 +204,7 @@ class Profile extends StatelessWidget {
                                         state.user!.firstName!.isEmpty
                                     ? const SizedBox()
                                     : Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                         children: [
                                           const SizedBox(
                                             height: 16,

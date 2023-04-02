@@ -12,7 +12,6 @@ import '../../features/auth/data/repository/auth_repository.dart';
 import '../../features/auth/presentation/forgot_password/bloc/forgot_password_bloc.dart';
 import '../../features/auth/presentation/signin/bloc/signin_bloc.dart';
 import '../../features/auth/presentation/signin/widgets/apple_signin_button/bloc/apple_signin_bloc.dart';
-import '../../features/home/bloc/home_bloc.dart';
 import '../../features/profile/presentation/bloc/profile_bloc.dart';
 import '../../features/profile/presentation/edit_profile/bloc/edit_profile_bloc.dart';
 
@@ -37,7 +36,7 @@ Future<void> init() async {
   sl.registerFactory(() => AppleSigninBloc(auth: sl()));
 
   sl.registerFactory(() => ProfileBloc(firestore: sl(), authBloc: sl()));
-  sl.registerFactory(() => HomeBloc(firestore: sl(), profileBloc: sl()));
+
   sl.registerFactory(
       () => EditProfileBloc(firestore: sl(), storage: sl(), profileBloc: sl()));
 }
