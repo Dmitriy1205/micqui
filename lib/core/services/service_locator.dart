@@ -29,7 +29,7 @@ Future<void> init() async {
 
   //Blocs
   sl.registerFactory(() => AuthBloc(authRepository: sl()));
-  sl.registerFactory(() => SignupBloc(auth: sl()));
+  sl.registerFactory(() => SignupBloc(auth: sl(), authBloc: sl()));
   sl.registerFactory(() => SigninBloc(auth: sl()));
   sl.registerFactory(() => ForgotPasswordBloc(auth: sl()));
   sl.registerFactory(() => GoogleSigninBloc(auth: sl()));

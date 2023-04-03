@@ -26,5 +26,7 @@ class AppText{
   static const String emptyEmail = 'Email is Empty';
   static const String hello = 'Hello,';
 
+  static const List<String> countries = ['Ukraine', 'Spain', 'Singapore', 'Brazil'];
+
 
 }

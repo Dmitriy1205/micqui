@@ -1,40 +1,41 @@
 import 'dart:math';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:micqui/core/constants/colors.dart';
-import 'package:micqui/features/profile/presentation/edit_profile/bloc/edit_profile_bloc.dart';
+import 'package:micqui/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:micqui/features/profile/presentation/edit_profile/widgets/date_picker.dart';
 import 'package:micqui/features/profile/presentation/edit_profile/widgets/image_picker/profile_Image_picker.dart';
-
 import '../../../../core/constants/strings.dart';
 import '../../../../core/themes/theme.dart';
 import 'package:date_format/date_format.dart';
-
 import '../../../../core/widgets/loading_indicator.dart';
 import '../../../../data/models/user/user_model.dart';
 import '../../../../data/repositories/firestore_repository.dart';
 import '../../../../data/repositories/storage_repository.dart';
-import '../bloc/profile_bloc.dart';
+import '../auth/bloc/auth_bloc.dart';
+import '../home/home.dart';
+import 'bloc/create_profile_bloc.dart';
 
-class EditProfile extends StatefulWidget {
-  const EditProfile({
+class CreateProfile extends StatefulWidget {
+  const CreateProfile({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<EditProfile> createState() => _EditProfileState();
+  State<CreateProfile> createState() => _CreateProfileState();
 }
 
-class _EditProfileState extends State<EditProfile> {
-  late final EditProfileBloc _bloc = EditProfileBloc(
-      firestore: FirestoreRepository(firestore: FirebaseFirestore.instance),
-      storage: StorageRepository(storage: FirebaseStorage.instance),
-      profileBloc: context.read<ProfileBloc>());
-
+class _CreateProfileState extends State<CreateProfile> {
+  late final CreateProfileBloc _bloc = CreateProfileBloc(
+    firestore: FirestoreRepository(firestore: FirebaseFirestore.instance),
+    storage: StorageRepository(storage: FirebaseStorage.instance),
+    authBloc: context.read<AuthBloc>(),
+  );
+  final GlobalKey<ScaffoldMessengerState> _scaffoldMessengerKey =
+      GlobalKey<ScaffoldMessengerState>();
   final _formKey = GlobalKey<FormState>();
   final _nickNameController = TextEditingController();
   final _nameController = TextEditingController();
@@ -45,16 +46,12 @@ class _EditProfileState extends State<EditProfile> {
 
   late String? selectedCountry;
   late FocusNode _focusNode;
-  late UserModel user;
+
+  // late UserModel user;
 
   @override
   void initState() {
-    user = BlocProvider.of<ProfileBloc>(context).state.user!;
-    _nameController.text = user.fullName!.trim() ?? '';
-    _dateController.text = user.dateOfBirth!;
-    _nickNameController.text = user.nickName!;
-    selectedCountry = user.country!;
-    _focusNode = FocusNode();
+    // user = BlocProvider.of<ProfileBloc>(context).state.user!;
     super.initState();
   }
 
@@ -71,11 +68,16 @@ class _EditProfileState extends State<EditProfile> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.text,
-      body: BlocConsumer<EditProfileBloc, EditProfileState>(
+      body: BlocConsumer<CreateProfileBloc, CreateProfileState>(
         bloc: _bloc,
         listener: (context, state) {
           state.maybeMap(
-              success: (_) => Navigator.pop(context),
+              success: (_) => Navigator.pushReplacement(
+                    context,
+                    MaterialPageRoute(
+                      builder: (_) => const Home(),
+                    ),
+                  ),
               error: (e) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
@@ -142,37 +144,20 @@ class _EditProfileState extends State<EditProfile> {
                             Container(
                               color: Colors.transparent,
                               child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
-                                  InkWell(
-                                    borderRadius: BorderRadius.circular(20),
-                                    onTap: () {
-                                      Navigator.pop(context);
-                                    },
-                                    child: Ink(
-                                      width: 40,
-                                      height: 40,
-                                      child: const Center(
-                                        child: FaIcon(
-                                          FontAwesomeIcons.arrowLeft,
-                                          color: AppColors.background,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
                                   InkWell(
                                     splashColor: Colors.transparent,
                                     borderRadius: BorderRadius.circular(20),
                                     onTap: () {
-                                      // if (!_formKey.currentState!.validate()) {
-                                      //   return;
-                                      // }
-                                      // _formKey.currentState!.save();
+                                      if (!_formKey.currentState!.validate()) {
+                                        return;
+                                      }
+                                      _formKey.currentState!.save();
 
-                                      _bloc.add(EditProfileEvent.updateFields(
+                                      _bloc.add(CreateProfileEvent.createFields(
                                         file: state.image,
-                                        image: user.avatar ?? '',
+                                        image: '',
                                         fullName: _nameController.text,
                                         country: selectedCountry!,
                                         dateOfBirth: _dateController.text,
@@ -199,50 +184,11 @@ class _EditProfileState extends State<EditProfile> {
                               child: ProfileImagePicker(
                                 userImage: (file) {
                                   _bloc.add(
-                                      EditProfileEvent.getImage(image: file));
+                                      CreateProfileEvent.getImage(image: file));
                                 },
                                 avatar: const SizedBox(),
-                                user: user,
+                                user: UserModel(),
                               ),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  vertical: 15, horizontal: 80),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Flexible(
-                                    // width: 90,
-                                    child: EditableText(
-                                      textAlign: TextAlign.center,
-                                      controller: _nickNameController,
-                                      style: AppTheme
-                                          .themeData.textTheme.headlineMedium!,
-                                      cursorColor: AppColors.background,
-                                      backgroundCursorColor: Colors.grey,
-                                      selectionControls:
-                                          MaterialTextSelectionControls(),
-                                      keyboardType: TextInputType.text,
-                                      maxLines: 1,
-                                      focusNode: _focusNode,
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  const FaIcon(
-                                    FontAwesomeIcons.pen,
-                                    color: AppColors.background,
-                                  ),
-                                ],
-                              ),
-                            ),
-                            Text(
-                              user.email ?? AppText.emptyEmail,
-                              style: const TextStyle(
-                                  color: AppColors.background,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 14),
                             ),
                             const Flexible(
                               child: SizedBox(
@@ -290,8 +236,7 @@ class _EditProfileState extends State<EditProfile> {
                                               fontSize: 12),
                                         ),
                                       ),
-                                      SizedBox(
-                                        height: 40,
+                                      Material(
                                         child: TextFormField(
                                           controller: _nameController,
                                           style: AppTheme
@@ -302,14 +247,14 @@ class _EditProfileState extends State<EditProfile> {
                                               width: 6,
                                             ),
                                             contentPadding: EdgeInsets.only(
-                                                bottom: 5, left: 5),
+                                                bottom: 1, left: 5),
                                           ),
-                                          // validator: (value) {
-                                          //   if (value!.isEmpty) {
-                                          //     return ' Field cant be empty';
-                                          //   }
-                                          //   return null;
-                                          // },
+                                          validator: (value) {
+                                            if (value!.isEmpty) {
+                                              return 'Field cant be empty';
+                                            }
+                                            return null;
+                                          },
                                         ),
                                       ),
                                       const SizedBox(
@@ -325,55 +270,42 @@ class _EditProfileState extends State<EditProfile> {
                                               fontSize: 12),
                                         ),
                                       ),
-                                      SizedBox(
-                                        height: 40,
-                                        child: DropdownButtonFormField<String>(
-                                          style: AppTheme
-                                              .themeData.textTheme.labelSmall!
-                                              .copyWith(fontSize: 14),
-                                          // value: selectedCountry,
-                                          iconSize: 15,
-                                          decoration: const InputDecoration(
+                                      DropdownButtonFormField<String>(
+                                        style: AppTheme
+                                            .themeData.textTheme.labelSmall!
+                                            .copyWith(fontSize: 14),
+                                        // value: selectedCountry,
+                                        iconSize: 15,
+                                        decoration: const InputDecoration(
                                             contentPadding:
                                                 EdgeInsets.symmetric(
                                                     horizontal: 14,
                                                     vertical: 5),
-                                          ),
-                                          icon: const FaIcon(
-                                              FontAwesomeIcons.chevronDown),
-                                          items: AppText.countries
-                                              .map(
-                                                (country) =>
-                                                    // country == 'Countries'
-                                                    //     ? DropdownMenuItem<String>(
-                                                    //         value: country,
-                                                    //         enabled: false,
-                                                    //         child: Text(
-                                                    //           country,
-                                                    //           style: AppTheme
-                                                    //               .themeData
-                                                    //               .textTheme
-                                                    //               .labelSmall!
-                                                    //               .copyWith(
-                                                    //                   fontSize: 14)!.copyWith(color: AppColors.lightGrey),
-                                                    //         ),
-                                                    //       )
-                                                    //     :
-                                                    DropdownMenuItem<String>(
-                                                  value: country,
-                                                  child: Text(
-                                                    country,
-                                                    style: AppTheme.themeData
-                                                        .textTheme.labelSmall!
-                                                        .copyWith(fontSize: 14),
-                                                  ),
+                                            border: OutlineInputBorder()),
+                                        icon: const FaIcon(
+                                            FontAwesomeIcons.chevronDown),
+                                        items: AppText.countries
+                                            .map(
+                                              (country) =>
+                                                  DropdownMenuItem<String>(
+                                                value: country,
+                                                child: Text(
+                                                  country,
+                                                  style: AppTheme.themeData
+                                                      .textTheme.labelSmall!
+                                                      .copyWith(fontSize: 14),
                                                 ),
-                                              )
-                                              .toList(),
-                                          onChanged: (country) {
-                                            selectedCountry = country;
-                                          },
-                                        ),
+                                              ),
+                                            )
+                                            .toList(),
+                                        onChanged: (country) {
+                                          selectedCountry = country;
+                                        },
+                                        validator: (value) {
+                                          if (value == null) {
+                                            return 'Field cant be empty';
+                                          }
+                                        },
                                       ),
                                       const SizedBox(
                                         height: 16,
@@ -388,42 +320,44 @@ class _EditProfileState extends State<EditProfile> {
                                               .copyWith(fontSize: 14),
                                         ),
                                       ),
-                                      SizedBox(
-                                        height: 40,
-                                        child: TextFormField(
-                                          controller: _dateController,
-                                          style: AppTheme
-                                              .themeData.textTheme.labelSmall!
-                                              .copyWith(fontSize: 14),
-                                          decoration: const InputDecoration(
-                                            contentPadding:
-                                                EdgeInsets.symmetric(
-                                                    horizontal: 15,
-                                                    vertical: 5),
-                                            suffixIcon: Padding(
-                                              padding: EdgeInsets.all(8.0),
-                                              child: FaIcon(FontAwesomeIcons
-                                                  .calendarDays),
-                                            ),
+                                      TextFormField(
+                                        controller: _dateController,
+                                        style: AppTheme
+                                            .themeData.textTheme.labelSmall!
+                                            .copyWith(fontSize: 14),
+                                        decoration: const InputDecoration(
+                                          contentPadding:
+                                              EdgeInsets.symmetric(
+                                                  horizontal: 15,
+                                                  vertical: 5),
+                                          suffixIcon: Padding(
+                                            padding: EdgeInsets.all(8.0),
+                                            child: FaIcon(FontAwesomeIcons
+                                                .calendarDays),
                                           ),
-                                          onTap: () async {
-                                            DateTime? date = DateTime(1900);
-
-                                            FocusScope.of(context)
-                                                .requestFocus(FocusNode());
-                                            date = await Picker()
-                                                .birthDatePicker(context);
-                                            age = DateTime.now().year -
-                                                date!.year;
-
-                                            _dateController.text = formatDate(
-                                                date, [dd, '.', mm, '.', yyyy]);
-                                          },
-                                          onSaved: (value) {
-                                            _dateController.text =
-                                                value!.trim();
-                                          },
                                         ),
+                                        onTap: () async {
+                                          DateTime? date = DateTime(1900);
+
+                                          FocusScope.of(context)
+                                              .requestFocus(FocusNode());
+                                          date = await Picker()
+                                              .birthDatePicker(context);
+                                          age = DateTime.now().year -
+                                              date!.year;
+
+                                          _dateController.text = formatDate(
+                                              date, [dd, '.', mm, '.', yyyy]);
+                                        },
+                                        onSaved: (value) {
+                                          _dateController.text =
+                                              value!.trim();
+                                        },
+                                        validator: (value) {
+                                          if (value == '') {
+                                            return 'Field cant be empty';
+                                          }
+                                        },
                                       ),
                                     ],
                                   ),

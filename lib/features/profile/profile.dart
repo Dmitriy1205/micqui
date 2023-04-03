@@ -236,9 +236,9 @@ class Profile extends StatelessWidget {
                                       fontSize: 12),
                                 ),
                                 Text(
-                                  state.user?.country ?? '--',
+                                  state.user!.country!,
                                   style: const TextStyle(
-                                      color: AppColors.text,
+                                      color:AppColors.text,
                                       fontWeight: FontWeight.w400,
                                       fontSize: 12),
                                 ),

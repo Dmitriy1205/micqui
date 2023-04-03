@@ -63,12 +63,12 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       userModel = UserModel(
         id: currentUser.uid,
         nickName: nickName,
-        firstName: user.firstName,
-        lastName: user.lastName,
+        firstName: user.firstName ?? '',
+        lastName: user.lastName ?? '',
         email: user.email ?? currentUser.email,
         avatar: user.avatar ?? currentUser.photoURL ?? '',
         dateOfBirth: user.dateOfBirth ?? '--',
-        country: user.country ?? 'Ukraine',
+        country: user.country ?? '--',
         property: {
           'symbol': firstSymbol,
           'color': AppColors.colors[firstSymbol],

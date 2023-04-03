@@ -24,6 +24,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
   final SignupBloc _bloc = sl<SignupBloc>();
 
+
   final TextEditingController emailController = TextEditingController();
 
   final TextEditingController passwordController = TextEditingController();
@@ -43,6 +44,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         bloc: _bloc,
         listener: (context, state) {
           state.maybeMap(
+
               error: (e) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(

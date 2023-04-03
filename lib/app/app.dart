@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:micqui/app/providers.dart';
+import 'package:micqui/core/extensions/firebase.dart';
 import 'package:micqui/core/themes/theme.dart';
 import 'package:micqui/features/auth/presentation/signin/view/signin_screen.dart';
 import 'package:micqui/features/home/home.dart';
 
 import '../features/auth/bloc/auth_bloc.dart';
+import '../features/create_profile/create_profile_screen.dart';
 
 class App extends StatelessWidget {
   App({super.key});
@@ -18,17 +20,28 @@ class App extends StatelessWidget {
       child: BlocListener<AuthBloc, AuthState>(
         listener: (context, state) {
           state.maybeMap(
+
             unauthenticated: (_) =>
                 navigatorKey.currentState?.pushAndRemoveUntil(
                     MaterialPageRoute(
                       builder: (context) => const SignInScreen(),
                     ),
                     (route) => false),
-            authenticated: (_) => navigatorKey.currentState?.pushAndRemoveUntil(
-                MaterialPageRoute(
-                  builder: (context) =>  Home(),
-                ),
-                (route) => false),
+            authenticated: (s) {
+              if (s.isFirstSignIn) {
+                navigatorKey.currentState?.pushAndRemoveUntil(
+                    MaterialPageRoute(
+                      builder: (context) => const CreateProfile(),
+                    ),
+                    (route) => false);
+              } else {
+                navigatorKey.currentState?.pushAndRemoveUntil(
+                    MaterialPageRoute(
+                      builder: (context) => const Home(),
+                    ),
+                    (route) => false);
+              }
+            },
             orElse: () {},
           );
         },
