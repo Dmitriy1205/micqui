@@ -29,14 +29,14 @@ Future<void> init() async {
   sl.registerLazySingleton(() => StorageRepository(storage: storage));
 
   //Blocs
-  sl.registerFactory(() => AuthBloc(authRepository: sl()));
+  sl.registerLazySingleton(() => AuthBloc(authRepository: sl()));
   sl.registerFactory(() => SignupBloc(auth: sl(), authBloc: sl()));
   sl.registerFactory(() => SigninBloc(auth: sl()));
   sl.registerFactory(() => ForgotPasswordBloc(auth: sl()));
   sl.registerFactory(() => GoogleSigninBloc(auth: sl()));
   sl.registerFactory(() => AppleSigninBloc(auth: sl()));
-  sl.registerFactory(() => CreateProfileBloc(firestore: sl(), storage: sl(), authBloc: sl()));
-  sl.registerFactory(() => ProfileBloc(firestore: sl(), authBloc: sl(), createProfileBloc: sl()));
+  sl.registerLazySingleton(() => CreateProfileBloc(firestore: sl(), storage: sl(), authBloc: sl()));
+  sl.registerLazySingleton(() => ProfileBloc(firestore: sl(), authBloc: sl(), createProfileBloc: sl()));
 
   sl.registerFactory(
       () => EditProfileBloc(firestore: sl(), storage: sl(), profileBloc: sl()));

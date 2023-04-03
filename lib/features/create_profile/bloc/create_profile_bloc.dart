@@ -34,7 +34,7 @@ class CreateProfileBloc extends Bloc<CreateProfileEvent, CreateProfileState> {
             add(CreateProfileEvent.checkIfUserCreatedProfile(id: state.user.uid));
           },
           unauthenticated: (_){
-            add(CreateProfileEvent.reset());
+            add(const CreateProfileEvent.reset());
           },
           orElse: (){});
     });
@@ -43,9 +43,9 @@ class CreateProfileBloc extends Bloc<CreateProfileEvent, CreateProfileState> {
   Future<void> _checkIfUserCreatedProfile(_CheckIfUserCreatedProfile event, Emitter<CreateProfileState> emit) async{
     final profile = await firestore.getProfile(event.id);
     if(profile.isInitialized){
-      emit(CreateProfileState.success());
+      emit(const CreateProfileState.success());
     }else{
-      emit(CreateProfileState.profileNotCreated());
+      emit(const CreateProfileState.profileNotCreated());
     }
   }
 
