@@ -41,6 +41,9 @@ class Profile extends StatelessWidget {
           );
         },
         builder: (context, state) {
+          if(state.user == null){
+            return Container();
+          }
           return state.maybeMap(
             loading: (_) => const LoadingIndicator(),
             orElse: () => ClipRRect(

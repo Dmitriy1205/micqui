@@ -11,5 +11,9 @@ class CreateProfileEvent with _$CreateProfileEvent {
     required String country,
   }) = _CreateFields;
 
+  const factory CreateProfileEvent.checkIfUserCreatedProfile({required String id}) = _CheckIfUserCreatedProfile;
+
   const factory CreateProfileEvent.getImage({File? image}) = _GetImage;
+
+  const factory CreateProfileEvent.reset() = _Reset;
 }

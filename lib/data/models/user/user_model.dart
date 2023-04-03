@@ -10,6 +10,8 @@ class UserModel with _$UserModel {
 
   String? get fullName => "$firstName  $lastName";
 
+  bool get isInitialized => firstName != null && lastName != null && country != null && dateOfBirth != null;
+
   const factory UserModel({
     String? id,
     String? nickName,

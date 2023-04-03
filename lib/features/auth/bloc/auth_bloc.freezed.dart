@@ -20,21 +20,18 @@ mixin _$AuthEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() logout,
     required TResult Function(User? user) initUser,
-    required TResult Function(bool isFirstSignIn) firstSignIn,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? logout,
     TResult? Function(User? user)? initUser,
-    TResult? Function(bool isFirstSignIn)? firstSignIn,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? logout,
     TResult Function(User? user)? initUser,
-    TResult Function(bool isFirstSignIn)? firstSignIn,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -42,21 +39,18 @@ mixin _$AuthEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_LogoutEvent value) logout,
     required TResult Function(_InitUserEvent value) initUser,
-    required TResult Function(_FirstSignInEvent value) firstSignIn,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LogoutEvent value)? logout,
     TResult? Function(_InitUserEvent value)? initUser,
-    TResult? Function(_FirstSignInEvent value)? firstSignIn,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LogoutEvent value)? logout,
     TResult Function(_InitUserEvent value)? initUser,
-    TResult Function(_FirstSignInEvent value)? firstSignIn,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -119,7 +113,6 @@ class _$_LogoutEvent implements _LogoutEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() logout,
     required TResult Function(User? user) initUser,
-    required TResult Function(bool isFirstSignIn) firstSignIn,
   }) {
     return logout();
   }
@@ -129,7 +122,6 @@ class _$_LogoutEvent implements _LogoutEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? logout,
     TResult? Function(User? user)? initUser,
-    TResult? Function(bool isFirstSignIn)? firstSignIn,
   }) {
     return logout?.call();
   }
@@ -139,7 +131,6 @@ class _$_LogoutEvent implements _LogoutEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? logout,
     TResult Function(User? user)? initUser,
-    TResult Function(bool isFirstSignIn)? firstSignIn,
     required TResult orElse(),
   }) {
     if (logout != null) {
@@ -153,7 +144,6 @@ class _$_LogoutEvent implements _LogoutEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_LogoutEvent value) logout,
     required TResult Function(_InitUserEvent value) initUser,
-    required TResult Function(_FirstSignInEvent value) firstSignIn,
   }) {
     return logout(this);
   }
@@ -163,7 +153,6 @@ class _$_LogoutEvent implements _LogoutEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LogoutEvent value)? logout,
     TResult? Function(_InitUserEvent value)? initUser,
-    TResult? Function(_FirstSignInEvent value)? firstSignIn,
   }) {
     return logout?.call(this);
   }
@@ -173,7 +162,6 @@ class _$_LogoutEvent implements _LogoutEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LogoutEvent value)? logout,
     TResult Function(_InitUserEvent value)? initUser,
-    TResult Function(_FirstSignInEvent value)? firstSignIn,
     required TResult orElse(),
   }) {
     if (logout != null) {
@@ -253,7 +241,6 @@ class _$_InitUserEvent implements _InitUserEvent {
   TResult when<TResult extends Object?>({
     required TResult Function() logout,
     required TResult Function(User? user) initUser,
-    required TResult Function(bool isFirstSignIn) firstSignIn,
   }) {
     return initUser(user);
   }
@@ -263,7 +250,6 @@ class _$_InitUserEvent implements _InitUserEvent {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? logout,
     TResult? Function(User? user)? initUser,
-    TResult? Function(bool isFirstSignIn)? firstSignIn,
   }) {
     return initUser?.call(user);
   }
@@ -273,7 +259,6 @@ class _$_InitUserEvent implements _InitUserEvent {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? logout,
     TResult Function(User? user)? initUser,
-    TResult Function(bool isFirstSignIn)? firstSignIn,
     required TResult orElse(),
   }) {
     if (initUser != null) {
@@ -287,7 +272,6 @@ class _$_InitUserEvent implements _InitUserEvent {
   TResult map<TResult extends Object?>({
     required TResult Function(_LogoutEvent value) logout,
     required TResult Function(_InitUserEvent value) initUser,
-    required TResult Function(_FirstSignInEvent value) firstSignIn,
   }) {
     return initUser(this);
   }
@@ -297,7 +281,6 @@ class _$_InitUserEvent implements _InitUserEvent {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_LogoutEvent value)? logout,
     TResult? Function(_InitUserEvent value)? initUser,
-    TResult? Function(_FirstSignInEvent value)? firstSignIn,
   }) {
     return initUser?.call(this);
   }
@@ -307,7 +290,6 @@ class _$_InitUserEvent implements _InitUserEvent {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_LogoutEvent value)? logout,
     TResult Function(_InitUserEvent value)? initUser,
-    TResult Function(_FirstSignInEvent value)? firstSignIn,
     required TResult orElse(),
   }) {
     if (initUser != null) {
@@ -327,153 +309,11 @@ abstract class _InitUserEvent implements AuthEvent {
 }
 
 /// @nodoc
-abstract class _$$_FirstSignInEventCopyWith<$Res> {
-  factory _$$_FirstSignInEventCopyWith(
-          _$_FirstSignInEvent value, $Res Function(_$_FirstSignInEvent) then) =
-      __$$_FirstSignInEventCopyWithImpl<$Res>;
-  @useResult
-  $Res call({bool isFirstSignIn});
-}
-
-/// @nodoc
-class __$$_FirstSignInEventCopyWithImpl<$Res>
-    extends _$AuthEventCopyWithImpl<$Res, _$_FirstSignInEvent>
-    implements _$$_FirstSignInEventCopyWith<$Res> {
-  __$$_FirstSignInEventCopyWithImpl(
-      _$_FirstSignInEvent _value, $Res Function(_$_FirstSignInEvent) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? isFirstSignIn = null,
-  }) {
-    return _then(_$_FirstSignInEvent(
-      isFirstSignIn: null == isFirstSignIn
-          ? _value.isFirstSignIn
-          : isFirstSignIn // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_FirstSignInEvent implements _FirstSignInEvent {
-  const _$_FirstSignInEvent({required this.isFirstSignIn});
-
-  @override
-  final bool isFirstSignIn;
-
-  @override
-  String toString() {
-    return 'AuthEvent.firstSignIn(isFirstSignIn: $isFirstSignIn)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_FirstSignInEvent &&
-            (identical(other.isFirstSignIn, isFirstSignIn) ||
-                other.isFirstSignIn == isFirstSignIn));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, isFirstSignIn);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_FirstSignInEventCopyWith<_$_FirstSignInEvent> get copyWith =>
-      __$$_FirstSignInEventCopyWithImpl<_$_FirstSignInEvent>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() logout,
-    required TResult Function(User? user) initUser,
-    required TResult Function(bool isFirstSignIn) firstSignIn,
-  }) {
-    return firstSignIn(isFirstSignIn);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? logout,
-    TResult? Function(User? user)? initUser,
-    TResult? Function(bool isFirstSignIn)? firstSignIn,
-  }) {
-    return firstSignIn?.call(isFirstSignIn);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? logout,
-    TResult Function(User? user)? initUser,
-    TResult Function(bool isFirstSignIn)? firstSignIn,
-    required TResult orElse(),
-  }) {
-    if (firstSignIn != null) {
-      return firstSignIn(isFirstSignIn);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_LogoutEvent value) logout,
-    required TResult Function(_InitUserEvent value) initUser,
-    required TResult Function(_FirstSignInEvent value) firstSignIn,
-  }) {
-    return firstSignIn(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_LogoutEvent value)? logout,
-    TResult? Function(_InitUserEvent value)? initUser,
-    TResult? Function(_FirstSignInEvent value)? firstSignIn,
-  }) {
-    return firstSignIn?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_LogoutEvent value)? logout,
-    TResult Function(_InitUserEvent value)? initUser,
-    TResult Function(_FirstSignInEvent value)? firstSignIn,
-    required TResult orElse(),
-  }) {
-    if (firstSignIn != null) {
-      return firstSignIn(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _FirstSignInEvent implements AuthEvent {
-  const factory _FirstSignInEvent({required final bool isFirstSignIn}) =
-      _$_FirstSignInEvent;
-
-  bool get isFirstSignIn;
-  @JsonKey(ignore: true)
-  _$$_FirstSignInEventCopyWith<_$_FirstSignInEvent> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
 mixin _$AuthState {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() unauthenticated,
-    required TResult Function(bool isFirstSignIn) firstSignIn,
     required TResult Function(User user) authenticated,
     required TResult Function() undefined,
   }) =>
@@ -482,7 +322,6 @@ mixin _$AuthState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? unauthenticated,
-    TResult? Function(bool isFirstSignIn)? firstSignIn,
     TResult? Function(User user)? authenticated,
     TResult? Function()? undefined,
   }) =>
@@ -491,7 +330,6 @@ mixin _$AuthState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? unauthenticated,
-    TResult Function(bool isFirstSignIn)? firstSignIn,
     TResult Function(User user)? authenticated,
     TResult Function()? undefined,
     required TResult orElse(),
@@ -501,7 +339,6 @@ mixin _$AuthState {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_UnauthenticaredState value) unauthenticated,
-    required TResult Function(_FirstSignIn value) firstSignIn,
     required TResult Function(_AuthenticatedState value) authenticated,
     required TResult Function(_UndefinedState value) undefined,
   }) =>
@@ -510,7 +347,6 @@ mixin _$AuthState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_UnauthenticaredState value)? unauthenticated,
-    TResult? Function(_FirstSignIn value)? firstSignIn,
     TResult? Function(_AuthenticatedState value)? authenticated,
     TResult? Function(_UndefinedState value)? undefined,
   }) =>
@@ -519,7 +355,6 @@ mixin _$AuthState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_UnauthenticaredState value)? unauthenticated,
-    TResult Function(_FirstSignIn value)? firstSignIn,
     TResult Function(_AuthenticatedState value)? authenticated,
     TResult Function(_UndefinedState value)? undefined,
     required TResult orElse(),
@@ -583,7 +418,6 @@ class _$_Initial extends _Initial {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() unauthenticated,
-    required TResult Function(bool isFirstSignIn) firstSignIn,
     required TResult Function(User user) authenticated,
     required TResult Function() undefined,
   }) {
@@ -595,7 +429,6 @@ class _$_Initial extends _Initial {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? unauthenticated,
-    TResult? Function(bool isFirstSignIn)? firstSignIn,
     TResult? Function(User user)? authenticated,
     TResult? Function()? undefined,
   }) {
@@ -607,7 +440,6 @@ class _$_Initial extends _Initial {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? unauthenticated,
-    TResult Function(bool isFirstSignIn)? firstSignIn,
     TResult Function(User user)? authenticated,
     TResult Function()? undefined,
     required TResult orElse(),
@@ -623,7 +455,6 @@ class _$_Initial extends _Initial {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_UnauthenticaredState value) unauthenticated,
-    required TResult Function(_FirstSignIn value) firstSignIn,
     required TResult Function(_AuthenticatedState value) authenticated,
     required TResult Function(_UndefinedState value) undefined,
   }) {
@@ -635,7 +466,6 @@ class _$_Initial extends _Initial {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_UnauthenticaredState value)? unauthenticated,
-    TResult? Function(_FirstSignIn value)? firstSignIn,
     TResult? Function(_AuthenticatedState value)? authenticated,
     TResult? Function(_UndefinedState value)? undefined,
   }) {
@@ -647,7 +477,6 @@ class _$_Initial extends _Initial {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_UnauthenticaredState value)? unauthenticated,
-    TResult Function(_FirstSignIn value)? firstSignIn,
     TResult Function(_AuthenticatedState value)? authenticated,
     TResult Function(_UndefinedState value)? undefined,
     required TResult orElse(),
@@ -704,7 +533,6 @@ class _$_UnauthenticaredState extends _UnauthenticaredState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() unauthenticated,
-    required TResult Function(bool isFirstSignIn) firstSignIn,
     required TResult Function(User user) authenticated,
     required TResult Function() undefined,
   }) {
@@ -716,7 +544,6 @@ class _$_UnauthenticaredState extends _UnauthenticaredState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? unauthenticated,
-    TResult? Function(bool isFirstSignIn)? firstSignIn,
     TResult? Function(User user)? authenticated,
     TResult? Function()? undefined,
   }) {
@@ -728,7 +555,6 @@ class _$_UnauthenticaredState extends _UnauthenticaredState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? unauthenticated,
-    TResult Function(bool isFirstSignIn)? firstSignIn,
     TResult Function(User user)? authenticated,
     TResult Function()? undefined,
     required TResult orElse(),
@@ -744,7 +570,6 @@ class _$_UnauthenticaredState extends _UnauthenticaredState {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_UnauthenticaredState value) unauthenticated,
-    required TResult Function(_FirstSignIn value) firstSignIn,
     required TResult Function(_AuthenticatedState value) authenticated,
     required TResult Function(_UndefinedState value) undefined,
   }) {
@@ -756,7 +581,6 @@ class _$_UnauthenticaredState extends _UnauthenticaredState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_UnauthenticaredState value)? unauthenticated,
-    TResult? Function(_FirstSignIn value)? firstSignIn,
     TResult? Function(_AuthenticatedState value)? authenticated,
     TResult? Function(_UndefinedState value)? undefined,
   }) {
@@ -768,7 +592,6 @@ class _$_UnauthenticaredState extends _UnauthenticaredState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_UnauthenticaredState value)? unauthenticated,
-    TResult Function(_FirstSignIn value)? firstSignIn,
     TResult Function(_AuthenticatedState value)? authenticated,
     TResult Function(_UndefinedState value)? undefined,
     required TResult orElse(),
@@ -783,160 +606,6 @@ class _$_UnauthenticaredState extends _UnauthenticaredState {
 abstract class _UnauthenticaredState extends AuthState {
   const factory _UnauthenticaredState() = _$_UnauthenticaredState;
   const _UnauthenticaredState._() : super._();
-}
-
-/// @nodoc
-abstract class _$$_FirstSignInCopyWith<$Res> {
-  factory _$$_FirstSignInCopyWith(
-          _$_FirstSignIn value, $Res Function(_$_FirstSignIn) then) =
-      __$$_FirstSignInCopyWithImpl<$Res>;
-  @useResult
-  $Res call({bool isFirstSignIn});
-}
-
-/// @nodoc
-class __$$_FirstSignInCopyWithImpl<$Res>
-    extends _$AuthStateCopyWithImpl<$Res, _$_FirstSignIn>
-    implements _$$_FirstSignInCopyWith<$Res> {
-  __$$_FirstSignInCopyWithImpl(
-      _$_FirstSignIn _value, $Res Function(_$_FirstSignIn) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? isFirstSignIn = null,
-  }) {
-    return _then(_$_FirstSignIn(
-      isFirstSignIn: null == isFirstSignIn
-          ? _value.isFirstSignIn
-          : isFirstSignIn // ignore: cast_nullable_to_non_nullable
-              as bool,
-    ));
-  }
-}
-
-/// @nodoc
-
-class _$_FirstSignIn extends _FirstSignIn {
-  const _$_FirstSignIn({required this.isFirstSignIn}) : super._();
-
-  @override
-  final bool isFirstSignIn;
-
-  @override
-  String toString() {
-    return 'AuthState.firstSignIn(isFirstSignIn: $isFirstSignIn)';
-  }
-
-  @override
-  bool operator ==(dynamic other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$_FirstSignIn &&
-            (identical(other.isFirstSignIn, isFirstSignIn) ||
-                other.isFirstSignIn == isFirstSignIn));
-  }
-
-  @override
-  int get hashCode => Object.hash(runtimeType, isFirstSignIn);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$_FirstSignInCopyWith<_$_FirstSignIn> get copyWith =>
-      __$$_FirstSignInCopyWithImpl<_$_FirstSignIn>(this, _$identity);
-
-  @override
-  @optionalTypeArgs
-  TResult when<TResult extends Object?>({
-    required TResult Function() initial,
-    required TResult Function() unauthenticated,
-    required TResult Function(bool isFirstSignIn) firstSignIn,
-    required TResult Function(User user) authenticated,
-    required TResult Function() undefined,
-  }) {
-    return firstSignIn(isFirstSignIn);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function()? initial,
-    TResult? Function()? unauthenticated,
-    TResult? Function(bool isFirstSignIn)? firstSignIn,
-    TResult? Function(User user)? authenticated,
-    TResult? Function()? undefined,
-  }) {
-    return firstSignIn?.call(isFirstSignIn);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeWhen<TResult extends Object?>({
-    TResult Function()? initial,
-    TResult Function()? unauthenticated,
-    TResult Function(bool isFirstSignIn)? firstSignIn,
-    TResult Function(User user)? authenticated,
-    TResult Function()? undefined,
-    required TResult orElse(),
-  }) {
-    if (firstSignIn != null) {
-      return firstSignIn(isFirstSignIn);
-    }
-    return orElse();
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult map<TResult extends Object?>({
-    required TResult Function(_Initial value) initial,
-    required TResult Function(_UnauthenticaredState value) unauthenticated,
-    required TResult Function(_FirstSignIn value) firstSignIn,
-    required TResult Function(_AuthenticatedState value) authenticated,
-    required TResult Function(_UndefinedState value) undefined,
-  }) {
-    return firstSignIn(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult? mapOrNull<TResult extends Object?>({
-    TResult? Function(_Initial value)? initial,
-    TResult? Function(_UnauthenticaredState value)? unauthenticated,
-    TResult? Function(_FirstSignIn value)? firstSignIn,
-    TResult? Function(_AuthenticatedState value)? authenticated,
-    TResult? Function(_UndefinedState value)? undefined,
-  }) {
-    return firstSignIn?.call(this);
-  }
-
-  @override
-  @optionalTypeArgs
-  TResult maybeMap<TResult extends Object?>({
-    TResult Function(_Initial value)? initial,
-    TResult Function(_UnauthenticaredState value)? unauthenticated,
-    TResult Function(_FirstSignIn value)? firstSignIn,
-    TResult Function(_AuthenticatedState value)? authenticated,
-    TResult Function(_UndefinedState value)? undefined,
-    required TResult orElse(),
-  }) {
-    if (firstSignIn != null) {
-      return firstSignIn(this);
-    }
-    return orElse();
-  }
-}
-
-abstract class _FirstSignIn extends AuthState {
-  const factory _FirstSignIn({required final bool isFirstSignIn}) =
-      _$_FirstSignIn;
-  const _FirstSignIn._() : super._();
-
-  bool get isFirstSignIn;
-  @JsonKey(ignore: true)
-  _$$_FirstSignInCopyWith<_$_FirstSignIn> get copyWith =>
-      throw _privateConstructorUsedError;
 }
 
 /// @nodoc
@@ -1006,7 +675,6 @@ class _$_AuthenticatedState extends _AuthenticatedState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() unauthenticated,
-    required TResult Function(bool isFirstSignIn) firstSignIn,
     required TResult Function(User user) authenticated,
     required TResult Function() undefined,
   }) {
@@ -1018,7 +686,6 @@ class _$_AuthenticatedState extends _AuthenticatedState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? unauthenticated,
-    TResult? Function(bool isFirstSignIn)? firstSignIn,
     TResult? Function(User user)? authenticated,
     TResult? Function()? undefined,
   }) {
@@ -1030,7 +697,6 @@ class _$_AuthenticatedState extends _AuthenticatedState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? unauthenticated,
-    TResult Function(bool isFirstSignIn)? firstSignIn,
     TResult Function(User user)? authenticated,
     TResult Function()? undefined,
     required TResult orElse(),
@@ -1046,7 +712,6 @@ class _$_AuthenticatedState extends _AuthenticatedState {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_UnauthenticaredState value) unauthenticated,
-    required TResult Function(_FirstSignIn value) firstSignIn,
     required TResult Function(_AuthenticatedState value) authenticated,
     required TResult Function(_UndefinedState value) undefined,
   }) {
@@ -1058,7 +723,6 @@ class _$_AuthenticatedState extends _AuthenticatedState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_UnauthenticaredState value)? unauthenticated,
-    TResult? Function(_FirstSignIn value)? firstSignIn,
     TResult? Function(_AuthenticatedState value)? authenticated,
     TResult? Function(_UndefinedState value)? undefined,
   }) {
@@ -1070,7 +734,6 @@ class _$_AuthenticatedState extends _AuthenticatedState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_UnauthenticaredState value)? unauthenticated,
-    TResult Function(_FirstSignIn value)? firstSignIn,
     TResult Function(_AuthenticatedState value)? authenticated,
     TResult Function(_UndefinedState value)? undefined,
     required TResult orElse(),
@@ -1133,7 +796,6 @@ class _$_UndefinedState extends _UndefinedState {
   TResult when<TResult extends Object?>({
     required TResult Function() initial,
     required TResult Function() unauthenticated,
-    required TResult Function(bool isFirstSignIn) firstSignIn,
     required TResult Function(User user) authenticated,
     required TResult Function() undefined,
   }) {
@@ -1145,7 +807,6 @@ class _$_UndefinedState extends _UndefinedState {
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function()? initial,
     TResult? Function()? unauthenticated,
-    TResult? Function(bool isFirstSignIn)? firstSignIn,
     TResult? Function(User user)? authenticated,
     TResult? Function()? undefined,
   }) {
@@ -1157,7 +818,6 @@ class _$_UndefinedState extends _UndefinedState {
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? unauthenticated,
-    TResult Function(bool isFirstSignIn)? firstSignIn,
     TResult Function(User user)? authenticated,
     TResult Function()? undefined,
     required TResult orElse(),
@@ -1173,7 +833,6 @@ class _$_UndefinedState extends _UndefinedState {
   TResult map<TResult extends Object?>({
     required TResult Function(_Initial value) initial,
     required TResult Function(_UnauthenticaredState value) unauthenticated,
-    required TResult Function(_FirstSignIn value) firstSignIn,
     required TResult Function(_AuthenticatedState value) authenticated,
     required TResult Function(_UndefinedState value) undefined,
   }) {
@@ -1185,7 +844,6 @@ class _$_UndefinedState extends _UndefinedState {
   TResult? mapOrNull<TResult extends Object?>({
     TResult? Function(_Initial value)? initial,
     TResult? Function(_UnauthenticaredState value)? unauthenticated,
-    TResult? Function(_FirstSignIn value)? firstSignIn,
     TResult? Function(_AuthenticatedState value)? authenticated,
     TResult? Function(_UndefinedState value)? undefined,
   }) {
@@ -1197,7 +855,6 @@ class _$_UndefinedState extends _UndefinedState {
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_Initial value)? initial,
     TResult Function(_UnauthenticaredState value)? unauthenticated,
-    TResult Function(_FirstSignIn value)? firstSignIn,
     TResult Function(_AuthenticatedState value)? authenticated,
     TResult Function(_UndefinedState value)? undefined,
     required TResult orElse(),

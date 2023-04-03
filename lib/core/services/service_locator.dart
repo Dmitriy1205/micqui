@@ -6,6 +6,7 @@ import 'package:micqui/data/repositories/storage_repository.dart';
 import 'package:micqui/features/auth/bloc/auth_bloc.dart';
 import 'package:micqui/features/auth/presentation/signin/widgets/google_signin_button/bloc/google_signin_bloc.dart';
 import 'package:micqui/features/auth/presentation/signup/bloc/signup_bloc.dart';
+import 'package:micqui/features/create_profile/bloc/create_profile_bloc.dart';
 
 import '../../data/repositories/firestore_repository.dart';
 import '../../features/auth/data/repository/auth_repository.dart';
@@ -34,8 +35,8 @@ Future<void> init() async {
   sl.registerFactory(() => ForgotPasswordBloc(auth: sl()));
   sl.registerFactory(() => GoogleSigninBloc(auth: sl()));
   sl.registerFactory(() => AppleSigninBloc(auth: sl()));
-
-  sl.registerFactory(() => ProfileBloc(firestore: sl(), authBloc: sl()));
+  sl.registerFactory(() => CreateProfileBloc(firestore: sl(), storage: sl(), authBloc: sl()));
+  sl.registerFactory(() => ProfileBloc(firestore: sl(), authBloc: sl(), createProfileBloc: sl()));
 
   sl.registerFactory(
       () => EditProfileBloc(firestore: sl(), storage: sl(), profileBloc: sl()));

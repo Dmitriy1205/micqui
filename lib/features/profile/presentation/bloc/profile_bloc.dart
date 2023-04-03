@@ -1,9 +1,11 @@
 import 'dart:async';
+import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:micqui/core/constants/exceptions.dart';
 import 'package:micqui/data/models/user/user_model.dart';
+import 'package:micqui/features/create_profile/bloc/create_profile_bloc.dart';
 
 import '../../../../core/constants/colors.dart';
 import '../../../../core/utils/utils.dart';
@@ -19,21 +21,31 @@ part 'profile_bloc.freezed.dart';
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   final FirestoreRepository firestore;
   final AuthBloc authBloc;
+  final CreateProfileBloc createProfileBloc;
   late UserModel userModel;
-  late StreamSubscription _subscription;
+
+  late StreamSubscription _createProfileSubscription;
+  late StreamSubscription _authSubscription;
 
   ProfileBloc({
     required this.firestore,
     required this.authBloc,
+    required this.createProfileBloc
   }) : super(const ProfileState.initial()) {
     on<ProfileEvent>(_mapBlocToState);
-    _subscription = authBloc.stream.listen((state) {
+    _createProfileSubscription = createProfileBloc.stream.listen((state) {
       state.maybeMap(
-        authenticated: (state) async =>
+        success: (state) async =>
             add(ProfileEvent.fetchData(userId: authBloc.state.user!.uid)),
-        unauthenticated: (state) async => add(const ProfileEvent.reset()),
         orElse: () {},
       );
+    });
+    _authSubscription = authBloc.stream.listen((state) {
+      state.maybeMap(
+          unauthenticated: (_){
+            add(ProfileEvent.reset());
+          },
+          orElse: (){});
     });
   }
 
@@ -53,9 +65,11 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
       String? separatedNickName = separateNickName(currentUser!.email);
       String nickName =
-          user.nickName != null || user.nickName?.isNotEmpty == true
+          user.nickName == null || user.nickName!.trim().isNotEmpty
               ? user.nickName!
               : separatedNickName!;
+
+      log("nickname:" + nickName);
 
       String firstSymbol = nickName[0].toUpperCase();
 
@@ -87,7 +101,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
 
   @override
   Future<void> close() {
-    _subscription.cancel();
+    _createProfileSubscription.cancel();
+    _authSubscription.cancel();
     return super.close();
   }
 }

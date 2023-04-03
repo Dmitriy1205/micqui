@@ -29,11 +29,6 @@ class CreateProfile extends StatefulWidget {
 }
 
 class _CreateProfileState extends State<CreateProfile> {
-  late final CreateProfileBloc _bloc = CreateProfileBloc(
-    firestore: FirestoreRepository(firestore: FirebaseFirestore.instance),
-    storage: StorageRepository(storage: FirebaseStorage.instance),
-    authBloc: context.read<AuthBloc>(),
-  );
   final GlobalKey<ScaffoldMessengerState> _scaffoldMessengerKey =
       GlobalKey<ScaffoldMessengerState>();
   final _formKey = GlobalKey<FormState>();
@@ -45,7 +40,7 @@ class _CreateProfileState extends State<CreateProfile> {
   late int age;
 
   late String? selectedCountry;
-  late FocusNode _focusNode;
+  late FocusNode _focusNode = FocusNode();
 
   // late UserModel user;
 
@@ -69,7 +64,6 @@ class _CreateProfileState extends State<CreateProfile> {
     return Scaffold(
       backgroundColor: AppColors.text,
       body: BlocConsumer<CreateProfileBloc, CreateProfileState>(
-        bloc: _bloc,
         listener: (context, state) {
           state.maybeMap(
               success: (_) => Navigator.pushReplacement(
@@ -155,7 +149,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                       }
                                       _formKey.currentState!.save();
 
-                                      _bloc.add(CreateProfileEvent.createFields(
+                                      context.read<CreateProfileBloc>().add(CreateProfileEvent.createFields(
                                         file: state.image,
                                         image: '',
                                         fullName: _nameController.text,
@@ -183,7 +177,7 @@ class _CreateProfileState extends State<CreateProfile> {
                               width: 138,
                               child: ProfileImagePicker(
                                 userImage: (file) {
-                                  _bloc.add(
+                                  context.read<CreateProfileBloc>().add(
                                       CreateProfileEvent.getImage(image: file));
                                 },
                                 avatar: const SizedBox(),
