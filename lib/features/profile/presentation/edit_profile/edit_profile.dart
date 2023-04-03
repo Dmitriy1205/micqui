@@ -165,10 +165,10 @@ class _EditProfileState extends State<EditProfile> {
                                     splashColor: Colors.transparent,
                                     borderRadius: BorderRadius.circular(20),
                                     onTap: () {
-                                      // if (!_formKey.currentState!.validate()) {
-                                      //   return;
-                                      // }
-                                      // _formKey.currentState!.save();
+                                      if (!_formKey.currentState!.validate()) {
+                                        return;
+                                      }
+                                      _formKey.currentState!.save();
 
                                       _bloc.add(EditProfileEvent.updateFields(
                                         file: state.image,
@@ -290,27 +290,29 @@ class _EditProfileState extends State<EditProfile> {
                                               fontSize: 12),
                                         ),
                                       ),
-                                      SizedBox(
-                                        height: 40,
-                                        child: TextFormField(
-                                          controller: _nameController,
-                                          style: AppTheme
-                                              .themeData.textTheme.labelSmall!
-                                              .copyWith(fontSize: 14),
-                                          decoration: const InputDecoration(
-                                            prefix: SizedBox(
-                                              width: 6,
-                                            ),
-                                            contentPadding: EdgeInsets.only(
-                                                bottom: 5, left: 5),
+                                      TextFormField(
+                                        autovalidateMode:
+                                            AutovalidateMode.onUserInteraction,
+                                        controller: _nameController,
+                                        style: AppTheme
+                                            .themeData.textTheme.labelSmall!
+                                            .copyWith(fontSize: 14),
+                                        decoration: const InputDecoration(
+                                          isDense: true,
+                                          prefix: SizedBox(
+                                            width: 6,
                                           ),
-                                          // validator: (value) {
-                                          //   if (value!.isEmpty) {
-                                          //     return ' Field cant be empty';
-                                          //   }
-                                          //   return null;
-                                          // },
+                                          contentPadding: EdgeInsets.symmetric(
+                                            vertical: 7,
+                                            horizontal: 5,
+                                          ),
                                         ),
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return AppText.fieldIsRequired;
+                                          }
+                                          return null;
+                                        },
                                       ),
                                       const SizedBox(
                                         height: 16,
@@ -325,56 +327,50 @@ class _EditProfileState extends State<EditProfile> {
                                               fontSize: 12),
                                         ),
                                       ),
-                                      SizedBox(
-                                        height: 40,
-                                        child: DropdownButtonFormField<String>(
-                                          style: AppTheme
-                                              .themeData.textTheme.labelSmall!
-                                              .copyWith(fontSize: 14),
-                                          value: selectedCountry,
-                                          // value: selectedCountry,
-                                          iconSize: 15,
-                                          decoration: const InputDecoration(
+                                      DropdownButtonFormField<String>(
+                                        autovalidateMode:
+                                            AutovalidateMode.onUserInteraction,
+                                        style: AppTheme
+                                            .themeData.textTheme.labelSmall!
+                                            .copyWith(fontSize: 14),
+                                        value: selectedCountry,
+                                        iconSize: 15,
+                                        decoration: const InputDecoration(
+                                            isDense: true,
+                                            prefix: SizedBox(
+                                              width: 6,
+                                            ),
                                             contentPadding:
                                                 EdgeInsets.symmetric(
-                                                    horizontal: 14,
-                                                    vertical: 5),
-                                          ),
-                                          icon: const FaIcon(
+                                                    horizontal: 5, vertical: 7),
+                                            border: OutlineInputBorder()),
+                                        icon: const Padding(
+                                          padding: EdgeInsets.only(right: 8.0),
+                                          child: FaIcon(
                                               FontAwesomeIcons.chevronDown),
-                                          items: AppText.countries
-                                              .map(
-                                                (country) =>
-                                                    // country == 'Countries'
-                                                    //     ? DropdownMenuItem<String>(
-                                                    //         value: country,
-                                                    //         enabled: false,
-                                                    //         child: Text(
-                                                    //           country,
-                                                    //           style: AppTheme
-                                                    //               .themeData
-                                                    //               .textTheme
-                                                    //               .labelSmall!
-                                                    //               .copyWith(
-                                                    //                   fontSize: 14)!.copyWith(color: AppColors.lightGrey),
-                                                    //         ),
-                                                    //       )
-                                                    //     :
-                                                    DropdownMenuItem<String>(
-                                                  value: country,
-                                                  child: Text(
-                                                    country,
-                                                    style: AppTheme.themeData
-                                                        .textTheme.labelSmall!
-                                                        .copyWith(fontSize: 14),
-                                                  ),
-                                                ),
-                                              )
-                                              .toList(),
-                                          onChanged: (country) {
-                                            selectedCountry = country;
-                                          },
                                         ),
+                                        items: AppText.countries
+                                            .map(
+                                              (country) =>
+                                                  DropdownMenuItem<String>(
+                                                value: country,
+                                                child: Text(
+                                                  country,
+                                                  style: AppTheme.themeData
+                                                      .textTheme.labelSmall!
+                                                      .copyWith(fontSize: 14),
+                                                ),
+                                              ),
+                                            )
+                                            .toList(),
+                                        onChanged: (country) {
+                                          selectedCountry = country;
+                                        },
+                                        validator: (value) {
+                                          if (value == null) {
+                                            return AppText.fieldIsRequired;
+                                          }
+                                        },
                                       ),
                                       const SizedBox(
                                         height: 16,
@@ -389,23 +385,31 @@ class _EditProfileState extends State<EditProfile> {
                                               .copyWith(fontSize: 14),
                                         ),
                                       ),
-                                      SizedBox(
-                                        height: 40,
-                                        child: TextFormField(
+                                      TextFormField(
                                           controller: _dateController,
+                                          autovalidateMode: AutovalidateMode
+                                              .onUserInteraction,
                                           style: AppTheme
                                               .themeData.textTheme.labelSmall!
                                               .copyWith(fontSize: 14),
                                           decoration: const InputDecoration(
+                                            isDense: true,
+                                            prefix: SizedBox(
+                                              width: 6,
+                                            ),
                                             contentPadding:
                                                 EdgeInsets.symmetric(
-                                                    horizontal: 15,
-                                                    vertical: 5),
+                                                    horizontal: 5, vertical: 7),
                                             suffixIcon: Padding(
-                                              padding: EdgeInsets.all(8.0),
-                                              child: FaIcon(FontAwesomeIcons
-                                                  .calendarDays),
+                                              padding: EdgeInsets.only(
+                                                  right: 12, bottom: 3),
+                                              child: FaIcon(
+                                                FontAwesomeIcons.calendarDays,
+                                                size: 20,
+                                              ),
                                             ),
+                                            suffixIconConstraints:
+                                                BoxConstraints(maxHeight: 45),
                                           ),
                                           onTap: () async {
                                             DateTime? date = DateTime(1900);
@@ -424,8 +428,11 @@ class _EditProfileState extends State<EditProfile> {
                                             _dateController.text =
                                                 value!.trim();
                                           },
-                                        ),
-                                      ),
+                                          validator: (value) {
+                                            if (value == '') {
+                                              return AppText.fieldIsRequired;
+                                            }
+                                          }),
                                     ],
                                   ),
                                 ),

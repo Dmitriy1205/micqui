@@ -1,11 +1,9 @@
 import 'dart:math';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:micqui/core/constants/colors.dart';
-import 'package:micqui/features/profile/presentation/bloc/profile_bloc.dart';
+import 'package:micqui/features/auth/bloc/auth_bloc.dart';
 import 'package:micqui/features/profile/presentation/edit_profile/widgets/date_picker.dart';
 import 'package:micqui/features/profile/presentation/edit_profile/widgets/image_picker/profile_Image_picker.dart';
 import '../../../../core/constants/strings.dart';
@@ -13,9 +11,7 @@ import '../../../../core/themes/theme.dart';
 import 'package:date_format/date_format.dart';
 import '../../../../core/widgets/loading_indicator.dart';
 import '../../../../data/models/user/user_model.dart';
-import '../../../../data/repositories/firestore_repository.dart';
-import '../../../../data/repositories/storage_repository.dart';
-import '../auth/bloc/auth_bloc.dart';
+import '../../core/utils/utils.dart';
 import '../home/home.dart';
 import 'bloc/create_profile_bloc.dart';
 
@@ -29,8 +25,6 @@ class CreateProfile extends StatefulWidget {
 }
 
 class _CreateProfileState extends State<CreateProfile> {
-  final GlobalKey<ScaffoldMessengerState> _scaffoldMessengerKey =
-      GlobalKey<ScaffoldMessengerState>();
   final _formKey = GlobalKey<FormState>();
   final _nickNameController = TextEditingController();
   final _nameController = TextEditingController();
@@ -42,14 +36,6 @@ class _CreateProfileState extends State<CreateProfile> {
   late String? selectedCountry;
   late FocusNode _focusNode = FocusNode();
 
-  // late UserModel user;
-
-  @override
-  void initState() {
-    // user = BlocProvider.of<ProfileBloc>(context).state.user!;
-    super.initState();
-  }
-
   @override
   void dispose() {
     _nameController.dispose();
@@ -57,6 +43,17 @@ class _CreateProfileState extends State<CreateProfile> {
     _nickNameController.dispose();
     _focusNode.dispose();
     super.dispose();
+  }
+
+  Map<String, dynamic> property() {
+    final email = context.read<AuthBloc>().state.user!.email;
+    String? separatedNickName = separateNickName(email);
+
+    String firstSymbol = separatedNickName![0].toUpperCase();
+    return {
+      'color': AppColors.colors[firstSymbol],
+      'symbol': firstSymbol,
+    };
   }
 
   @override
@@ -149,14 +146,16 @@ class _CreateProfileState extends State<CreateProfile> {
                                       }
                                       _formKey.currentState!.save();
 
-                                      context.read<CreateProfileBloc>().add(CreateProfileEvent.createFields(
-                                        file: state.image,
-                                        image: '',
-                                        fullName: _nameController.text,
-                                        country: selectedCountry!,
-                                        dateOfBirth: _dateController.text,
-                                        nickName: _nickNameController.text,
-                                      ));
+                                      context
+                                          .read<CreateProfileBloc>()
+                                          .add(CreateProfileEvent.createFields(
+                                            file: state.image,
+                                            image: '',
+                                            fullName: _nameController.text,
+                                            country: selectedCountry!,
+                                            dateOfBirth: _dateController.text,
+                                            nickName: _nickNameController.text,
+                                          ));
                                     },
                                     child: const SizedBox(
                                       width: 40,
@@ -181,7 +180,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                       CreateProfileEvent.getImage(image: file));
                                 },
                                 avatar: const SizedBox(),
-                                user: UserModel(),
+                                user: UserModel(property: property()),
                               ),
                             ),
                             const Flexible(
@@ -230,26 +229,29 @@ class _CreateProfileState extends State<CreateProfile> {
                                               fontSize: 12),
                                         ),
                                       ),
-                                      Material(
-                                        child: TextFormField(
-                                          controller: _nameController,
-                                          style: AppTheme
-                                              .themeData.textTheme.labelSmall!
-                                              .copyWith(fontSize: 14),
-                                          decoration: const InputDecoration(
-                                            prefix: SizedBox(
-                                              width: 6,
-                                            ),
-                                            contentPadding: EdgeInsets.only(
-                                                bottom: 1, left: 5),
+                                      TextFormField(
+                                        autovalidateMode:
+                                            AutovalidateMode.onUserInteraction,
+                                        controller: _nameController,
+                                        style: AppTheme
+                                            .themeData.textTheme.labelSmall!
+                                            .copyWith(fontSize: 14),
+                                        decoration: const InputDecoration(
+                                          isDense: true,
+                                          prefix: SizedBox(
+                                            width: 6,
                                           ),
-                                          validator: (value) {
-                                            if (value!.isEmpty) {
-                                              return 'Field cant be empty';
-                                            }
-                                            return null;
-                                          },
+                                          contentPadding: EdgeInsets.symmetric(
+                                            vertical: 7,
+                                            horizontal: 5,
+                                          ),
                                         ),
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return AppText.fieldIsRequired;
+                                          }
+                                          return null;
+                                        },
                                       ),
                                       const SizedBox(
                                         height: 16,
@@ -265,19 +267,28 @@ class _CreateProfileState extends State<CreateProfile> {
                                         ),
                                       ),
                                       DropdownButtonFormField<String>(
+                                        autovalidateMode:
+                                            AutovalidateMode.onUserInteraction,
                                         style: AppTheme
                                             .themeData.textTheme.labelSmall!
                                             .copyWith(fontSize: 14),
                                         // value: selectedCountry,
                                         iconSize: 15,
                                         decoration: const InputDecoration(
+                                            isDense: true,
+                                            prefix: SizedBox(
+                                              width: 6,
+                                            ),
                                             contentPadding:
                                                 EdgeInsets.symmetric(
-                                                    horizontal: 14,
-                                                    vertical: 5),
+                                                    horizontal: 5, vertical: 7),
                                             border: OutlineInputBorder()),
-                                        icon: const FaIcon(
-                                            FontAwesomeIcons.chevronDown),
+                                        icon: const Padding(
+                                          padding: EdgeInsets.only(right: 8.0),
+                                          child: FaIcon(
+                                              FontAwesomeIcons.chevronDown),
+                                        ),
+
                                         items: AppText.countries
                                             .map(
                                               (country) =>
@@ -297,7 +308,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                         },
                                         validator: (value) {
                                           if (value == null) {
-                                            return 'Field cant be empty';
+                                            return AppText.fieldIsRequired;
                                           }
                                         },
                                       ),
@@ -316,19 +327,28 @@ class _CreateProfileState extends State<CreateProfile> {
                                       ),
                                       TextFormField(
                                         controller: _dateController,
+                                        autovalidateMode:
+                                            AutovalidateMode.onUserInteraction,
                                         style: AppTheme
                                             .themeData.textTheme.labelSmall!
                                             .copyWith(fontSize: 14),
                                         decoration: const InputDecoration(
-                                          contentPadding:
-                                              EdgeInsets.symmetric(
-                                                  horizontal: 15,
-                                                  vertical: 5),
-                                          suffixIcon: Padding(
-                                            padding: EdgeInsets.all(8.0),
-                                            child: FaIcon(FontAwesomeIcons
-                                                .calendarDays),
+                                          isDense: true,
+                                          prefix: SizedBox(
+                                            width: 6,
                                           ),
+                                          contentPadding: EdgeInsets.symmetric(
+                                              horizontal: 5, vertical: 7),
+                                          suffixIcon: Padding(
+                                            padding: EdgeInsets.only(
+                                                right: 12, bottom: 3),
+                                            child: FaIcon(
+                                              FontAwesomeIcons.calendarDays,
+                                              size: 20,
+                                            ),
+                                          ),
+                                          suffixIconConstraints:
+                                              BoxConstraints(maxHeight: 45),
                                         ),
                                         onTap: () async {
                                           DateTime? date = DateTime(1900);
@@ -337,19 +357,18 @@ class _CreateProfileState extends State<CreateProfile> {
                                               .requestFocus(FocusNode());
                                           date = await Picker()
                                               .birthDatePicker(context);
-                                          age = DateTime.now().year -
-                                              date!.year;
+                                          age =
+                                              DateTime.now().year - date!.year;
 
                                           _dateController.text = formatDate(
                                               date, [dd, '.', mm, '.', yyyy]);
                                         },
                                         onSaved: (value) {
-                                          _dateController.text =
-                                              value!.trim();
+                                          _dateController.text = value!.trim();
                                         },
                                         validator: (value) {
                                           if (value == '') {
-                                            return 'Field cant be empty';
+                                            return AppText.fieldIsRequired;
                                           }
                                         },
                                       ),

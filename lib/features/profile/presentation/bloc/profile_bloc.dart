@@ -27,25 +27,25 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   late StreamSubscription _createProfileSubscription;
   late StreamSubscription _authSubscription;
 
-  ProfileBloc({
-    required this.firestore,
-    required this.authBloc,
-    required this.createProfileBloc
-  }) : super(const ProfileState.initial()) {
+  ProfileBloc(
+      {required this.firestore,
+      required this.authBloc,
+      required this.createProfileBloc})
+      : super(const ProfileState.initial()) {
     on<ProfileEvent>(_mapBlocToState);
     _createProfileSubscription = createProfileBloc.stream.listen((state) {
       state.maybeMap(
-        success: (state) async =>
+        success: (state) =>
             add(ProfileEvent.fetchData(userId: authBloc.state.user!.uid)),
         orElse: () {},
       );
     });
     _authSubscription = authBloc.stream.listen((state) {
       state.maybeMap(
-          unauthenticated: (_){
-            add(ProfileEvent.reset());
+          unauthenticated: (_) {
+            add(const ProfileEvent.reset());
           },
-          orElse: (){});
+          orElse: () {});
     });
   }
 
@@ -72,7 +72,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       log("nickname:" + nickName);
 
       String firstSymbol = nickName[0].toUpperCase();
-
 
       userModel = UserModel(
         id: currentUser.uid,
