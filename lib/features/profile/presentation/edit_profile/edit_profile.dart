@@ -331,6 +331,7 @@ class _EditProfileState extends State<EditProfile> {
                                           style: AppTheme
                                               .themeData.textTheme.labelSmall!
                                               .copyWith(fontSize: 14),
+                                          value: selectedCountry,
                                           // value: selectedCountry,
                                           iconSize: 15,
                                           decoration: const InputDecoration(

@@ -7,6 +7,8 @@ class CreateProfileState with _$CreateProfileState {
 
   const factory CreateProfileState.initial() = _Initial;
 
+  const factory CreateProfileState.profileNotCreated() = _ProfileNotCreated;
+
   const factory CreateProfileState.initImage({required File? image}) =
       _InitImage;
 

@@ -7,17 +7,9 @@ class AuthState with _$AuthState {
   User? get user =>
       maybeMap(authenticated: (state) => state.user, orElse: () => null);
 
-  bool get isFirstSignIn => maybeMap(
-        firstSignIn: (state) => state.isFirstSignIn,
-        orElse: () => true,
-      );
-
   const factory AuthState.initial() = _Initial;
 
   const factory AuthState.unauthenticated() = _UnauthenticaredState;
-
-  const factory AuthState.firstSignIn({required bool isFirstSignIn}) =
-      _FirstSignIn;
 
   const factory AuthState.authenticated({required User user}) =
       _AuthenticatedState;
