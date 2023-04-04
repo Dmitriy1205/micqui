@@ -343,7 +343,7 @@ class _CreateProfileState extends State<CreateProfile> {
                               ),
                             ),
                             const Spacer(
-                              flex: 2,
+                              flex: 3,
                             ),
                             AppElevatedButton(
                                 text: AppText.createProfile.toUpperCase(),
