@@ -29,6 +29,9 @@ class AppText {
   static const String emptyEmail = 'Email is Empty';
   static const String hello = 'Hello,';
 
+  static const String saveEdits = 'Save Edits';
+  static const String createProfile = 'Create Profile';
+
 
 
   static const String userPic = 'assets/images/user.png';

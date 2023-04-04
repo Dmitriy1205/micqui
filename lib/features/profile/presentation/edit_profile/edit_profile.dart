@@ -14,6 +14,7 @@ import '../../../../core/constants/strings.dart';
 import '../../../../core/themes/theme.dart';
 import 'package:date_format/date_format.dart';
 
+import '../../../../core/widgets/app_elevated_button.dart';
 import '../../../../core/widgets/loading_indicator.dart';
 import '../../../../data/models/user/user_model.dart';
 import '../../../../data/repositories/firestore_repository.dart';
@@ -161,35 +162,35 @@ class _EditProfileState extends State<EditProfile> {
                                       ),
                                     ),
                                   ),
-                                  InkWell(
-                                    splashColor: Colors.transparent,
-                                    borderRadius: BorderRadius.circular(20),
-                                    onTap: () {
-                                      if (!_formKey.currentState!.validate()) {
-                                        return;
-                                      }
-                                      _formKey.currentState!.save();
-
-                                      _bloc.add(EditProfileEvent.updateFields(
-                                        file: state.image,
-                                        image: user.avatar ?? '',
-                                        fullName: _nameController.text,
-                                        country: selectedCountry!,
-                                        dateOfBirth: _dateController.text,
-                                        nickName: _nickNameController.text,
-                                      ));
-                                    },
-                                    child: const SizedBox(
-                                      width: 40,
-                                      height: 40,
-                                      child: Center(
-                                        child: FaIcon(
-                                          FontAwesomeIcons.check,
-                                          color: AppColors.lightGreen,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                                  // InkWell(
+                                  //   splashColor: Colors.transparent,
+                                  //   borderRadius: BorderRadius.circular(20),
+                                  //   onTap: () {
+                                  //     if (!_formKey.currentState!.validate()) {
+                                  //       return;
+                                  //     }
+                                  //     _formKey.currentState!.save();
+                                  //
+                                  //     _bloc.add(EditProfileEvent.updateFields(
+                                  //       file: state.image,
+                                  //       image: user.avatar ?? '',
+                                  //       fullName: _nameController.text,
+                                  //       country: selectedCountry!,
+                                  //       dateOfBirth: _dateController.text,
+                                  //       nickName: _nickNameController.text,
+                                  //     ));
+                                  //   },
+                                  //   child: const SizedBox(
+                                  //     width: 40,
+                                  //     height: 40,
+                                  //     child: Center(
+                                  //       child: FaIcon(
+                                  //         FontAwesomeIcons.check,
+                                  //         color: AppColors.lightGreen,
+                                  //       ),
+                                  //     ),
+                                  //   ),
+                                  // ),
                                 ],
                               ),
                             ),
@@ -422,7 +423,7 @@ class _EditProfileState extends State<EditProfile> {
                                                 date!.year;
 
                                             _dateController.text = formatDate(
-                                                date, [dd, '.', mm, '.', yyyy]);
+                                                date, [mm, '.', dd, '.', yyyy]);
                                           },
                                           onSaved: (value) {
                                             _dateController.text =
@@ -438,7 +439,26 @@ class _EditProfileState extends State<EditProfile> {
                                 ),
                               ),
                             ),
-                            const Spacer(),
+                            const Spacer(flex: 2,),
+                            AppElevatedButton(
+                                text: AppText.saveEdits.toUpperCase(),
+                                onPressed: () {
+                                  if (!_formKey.currentState!.validate()) {
+                                    return;
+                                  }
+                                  _formKey.currentState!.save();
+
+                                  _bloc.add(
+                                    EditProfileEvent.updateFields(
+                                      file: state.image,
+                                      image: user.avatar ?? '',
+                                      fullName: _nameController.text,
+                                      country: selectedCountry!,
+                                      dateOfBirth: _dateController.text,
+                                      nickName: _nickNameController.text,
+                                    ),
+                                  );
+                                }),
                           ],
                         ),
                       ),

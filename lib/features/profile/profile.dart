@@ -11,7 +11,6 @@ import 'package:micqui/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:micqui/features/profile/presentation/edit_profile/edit_profile.dart';
 
 import '../../core/constants/strings.dart';
-import '../../core/services/service_locator.dart';
 import '../../core/themes/theme.dart';
 
 class Profile extends StatelessWidget {
@@ -41,7 +40,7 @@ class Profile extends StatelessWidget {
           );
         },
         builder: (context, state) {
-          if(state.user == null){
+          if (state.user == null) {
             return Container();
           }
           return state.maybeMap(
@@ -207,7 +206,8 @@ class Profile extends StatelessWidget {
                                         state.user!.firstName!.isEmpty
                                     ? const SizedBox()
                                     : Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
                                         children: [
                                           const SizedBox(
                                             height: 16,
@@ -241,7 +241,7 @@ class Profile extends StatelessWidget {
                                 Text(
                                   state.user!.country!,
                                   style: const TextStyle(
-                                      color:AppColors.text,
+                                      color: AppColors.text,
                                       fontWeight: FontWeight.w400,
                                       fontSize: 12),
                                 ),

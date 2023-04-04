@@ -12,6 +12,7 @@ import 'package:date_format/date_format.dart';
 import '../../../../core/widgets/loading_indicator.dart';
 import '../../../../data/models/user/user_model.dart';
 import '../../core/utils/utils.dart';
+import '../../core/widgets/app_elevated_button.dart';
 import '../home/home.dart';
 import 'bloc/create_profile_bloc.dart';
 
@@ -132,44 +133,8 @@ class _CreateProfileState extends State<CreateProfile> {
                             horizontal: 25, vertical: 36),
                         child: Column(
                           children: [
-                            Container(
-                              color: Colors.transparent,
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  InkWell(
-                                    splashColor: Colors.transparent,
-                                    borderRadius: BorderRadius.circular(20),
-                                    onTap: () {
-                                      if (!_formKey.currentState!.validate()) {
-                                        return;
-                                      }
-                                      _formKey.currentState!.save();
-
-                                      context
-                                          .read<CreateProfileBloc>()
-                                          .add(CreateProfileEvent.createFields(
-                                            file: state.image,
-                                            image: '',
-                                            fullName: _nameController.text,
-                                            country: selectedCountry!,
-                                            dateOfBirth: _dateController.text,
-                                            nickName: _nickNameController.text,
-                                          ));
-                                    },
-                                    child: const SizedBox(
-                                      width: 40,
-                                      height: 40,
-                                      child: Center(
-                                        child: FaIcon(
-                                          FontAwesomeIcons.check,
-                                          color: AppColors.lightGreen,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
+                            const SizedBox(
+                              height: 40,
                             ),
                             SizedBox(
                               height: 138,
@@ -361,7 +326,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                               DateTime.now().year - date!.year;
 
                                           _dateController.text = formatDate(
-                                              date, [dd, '.', mm, '.', yyyy]);
+                                              date, [mm, '.', dd, '.', yyyy]);
                                         },
                                         onSaved: (value) {
                                           _dateController.text = value!.trim();
@@ -377,7 +342,28 @@ class _CreateProfileState extends State<CreateProfile> {
                                 ),
                               ),
                             ),
-                            const Spacer(),
+                            const Spacer(
+                              flex: 2,
+                            ),
+                            AppElevatedButton(
+                                text: AppText.createProfile.toUpperCase(),
+                                onPressed: () {
+                                  if (!_formKey.currentState!.validate()) {
+                                    return;
+                                  }
+                                  _formKey.currentState!.save();
+
+                                  context
+                                      .read<CreateProfileBloc>()
+                                      .add(CreateProfileEvent.createFields(
+                                        file: state.image,
+                                        image: '',
+                                        fullName: _nameController.text,
+                                        country: selectedCountry!,
+                                        dateOfBirth: _dateController.text,
+                                        nickName: _nickNameController.text,
+                                      ));
+                                }),
                           ],
                         ),
                       ),
