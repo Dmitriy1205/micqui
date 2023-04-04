@@ -200,7 +200,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
 
   Future imageFromGallery(context, {required Function(File?) getImage}) async {
     final ImagePicker picker = ImagePicker();
-    final pickedFile = await picker.pickImage(
+    final XFile? pickedFile = await picker.pickImage(
       source: ImageSource.gallery,
       maxWidth: 480,
       maxHeight: 640,
@@ -216,7 +216,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> {
 
   Future imageFromCamera(context, {required Function(File?) getPhoto}) async {
     final ImagePicker picker = ImagePicker();
-    final pickedFile = await picker.pickImage(
+    final XFile? pickedFile = await picker.pickImage(
       source: ImageSource.camera,
       maxWidth: 480,
       maxHeight: 640,

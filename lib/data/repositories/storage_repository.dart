@@ -11,7 +11,13 @@ class StorageRepository {
 
   Future<String> upload(File? source, String destination) async {
     try {
-      UploadTask task = storage.ref(destination).putFile(source!);
+      final metadata = SettableMetadata(
+        contentType: 'image/jpeg',
+        customMetadata: {'picked-file-path': source!.path},
+      );
+      UploadTask task = storage
+          .ref(destination)
+          .putData(await source.readAsBytes(), metadata);
       await task;
       return await task.snapshot.ref.getDownloadURL();
     } on FirebaseException catch (e) {
