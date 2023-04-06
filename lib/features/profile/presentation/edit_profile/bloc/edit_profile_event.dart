@@ -7,7 +7,8 @@ class EditProfileEvent with _$EditProfileEvent {
     required String image,
     required String nickName,
     required String fullName,
-    required String dateOfBirth,
+    required String companyName,
+    required String role,
     required String country,
   }) = _UpdateFields;
 

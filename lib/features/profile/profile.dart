@@ -87,52 +87,7 @@ class Profile extends StatelessWidget {
                         horizontal: 25, vertical: 36),
                     child: Column(
                       children: [
-                        Container(
-                          color: Colors.transparent,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              InkWell(
-                                borderRadius: BorderRadius.circular(20),
-                                onTap: () {
-                                  Navigator.pop(context);
-                                },
-                                child: Ink(
-                                  width: 40,
-                                  height: 40,
-                                  child: const Center(
-                                    child: FaIcon(
-                                      FontAwesomeIcons.arrowLeft,
-                                      color: AppColors.background,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              InkWell(
-                                splashColor: Colors.transparent,
-                                borderRadius: BorderRadius.circular(20),
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (_) => EditProfile(),
-                                    ),
-                                  );
-                                },
-                                child: const SizedBox(
-                                  width: 40,
-                                  height: 40,
-                                  child: Center(
-                                    child: FaIcon(
-                                      FontAwesomeIcons.userPen,
-                                      color: AppColors.background,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
+                        SizedBox(height: 64,),
                         Align(
                           alignment: Alignment.center,
                           child: SizedBox(
@@ -174,9 +129,7 @@ class Profile extends StatelessWidget {
                               fontWeight: FontWeight.w400,
                               fontSize: 14),
                         ),
-                        const SizedBox(
-                          height: 83,
-                        ),
+                        Spacer(),
                         Container(
                           width: MediaQuery.of(context).size.width,
                           decoration: BoxDecoration(
@@ -198,6 +151,40 @@ class Profile extends StatelessWidget {
                                 const Text(
                                   AppText.surveyOrganizers,
                                   style: TextStyle(
+                                      color: AppColors.text,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12),
+                                ),
+                                const SizedBox(
+                                  height: 16,
+                                ),
+                                const Text(
+                                  AppText.companyName,
+                                  style: TextStyle(
+                                      color: AppColors.text,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12),
+                                ),
+                                Text(
+                                  state.user?.companyName ?? '--',
+                                  style: const TextStyle(
+                                      color: AppColors.text,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 12),
+                                ),
+                                const SizedBox(
+                                  height: 16,
+                                ),
+                                const Text(
+                                  AppText.role,
+                                  style: TextStyle(
+                                      color: AppColors.text,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 12),
+                                ),
+                                Text(
+                                  state.user?.role ?? '--',
+                                  style: const TextStyle(
                                       color: AppColors.text,
                                       fontWeight: FontWeight.w400,
                                       fontSize: 12),
@@ -245,23 +232,6 @@ class Profile extends StatelessWidget {
                                       fontWeight: FontWeight.w400,
                                       fontSize: 12),
                                 ),
-                                const SizedBox(
-                                  height: 16,
-                                ),
-                                const Text(
-                                  AppText.dateOfBirth,
-                                  style: TextStyle(
-                                      color: AppColors.text,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 12),
-                                ),
-                                Text(
-                                  state.user?.dateOfBirth ?? '--',
-                                  style: const TextStyle(
-                                      color: AppColors.text,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 12),
-                                ),
                               ],
                             ),
                           ),
@@ -275,6 +245,57 @@ class Profile extends StatelessWidget {
                                   .add(const AuthEvent.logout());
                             }),
                       ],
+                    ),
+                  ),
+                  SafeArea(
+                    child: Container(
+                      margin: EdgeInsets.only(right: 25),
+                      child: Align(
+                        alignment: Alignment.topRight,
+                        child: InkWell(
+                          splashColor: Colors.transparent,
+                          borderRadius: BorderRadius.circular(20),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (_) => EditProfile(),
+                              ),
+                            );
+                          },
+                          child: const SizedBox(
+                            width: 40,
+                            height: 40,
+                            child: Center(
+                              child: FaIcon(
+                                FontAwesomeIcons.userPen,
+                                color: AppColors.background,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ),
+                  SafeArea(
+                    child: Container(
+                      margin: EdgeInsets.only(left: 25),
+                      child: InkWell(
+                        borderRadius: BorderRadius.circular(20),
+                        onTap: () {
+                          Navigator.pop(context);
+                        },
+                        child: Ink(
+                          width: 40,
+                          height: 40,
+                          child: const Center(
+                            child: FaIcon(
+                              FontAwesomeIcons.arrowLeft,
+                              color: AppColors.background,
+                            ),
+                          ),
+                        ),
+                      ),
                     ),
                   ),
                 ],

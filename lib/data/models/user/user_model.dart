@@ -10,7 +10,7 @@ class UserModel with _$UserModel {
 
   String? get fullName => "$firstName  $lastName";
 
-  bool get isInitialized => firstName != null && lastName != null && country != null && dateOfBirth != null;
+  bool get isInitialized => firstName != null && lastName != null && country != null && role != null && companyName != null;
 
   const factory UserModel({
     String? id,
@@ -20,7 +20,8 @@ class UserModel with _$UserModel {
     String? avatar,
     String? email,
     String? country,
-    String? dateOfBirth,
+    String? role,
+    String? companyName,
     Map<String, dynamic>? property,
   }) = _UserModel;
 

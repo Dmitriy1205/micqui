@@ -51,12 +51,15 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
       final firstName = nameParts[0];
       final lastName = nameParts.length > 1 ? nameParts[1] : '';
 
-      await firestore.setProfile(id, {'avatar': imageUrl});
-      await firestore.setProfile(id, {'nickName': event.nickName});
-      await firestore.setProfile(id, {'firstName': firstName});
-      await firestore.setProfile(id, {'lastName': lastName});
-      await firestore.setProfile(id, {'country': event.country});
-      await firestore.setProfile(id, {'dateOfBirth': event.dateOfBirth});
+      await firestore.setProfile(id, {
+        'avatar': imageUrl,
+        'nickName': event.nickName,
+        'firstName': firstName,
+        'lastName': lastName,
+        'country': event.country,
+        'role': event.role,
+        'companyName': event.companyName
+      });
 
       profileBloc.add(ProfileEvent.fetchData(userId: id));
       emit(const EditProfileState.success());

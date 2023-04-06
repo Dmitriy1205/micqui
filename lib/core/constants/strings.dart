@@ -21,7 +21,8 @@ class AppText {
   static const String surveyOrganizers =
       '*Survey organizers can see those details';
   static const String country = 'Country';
-  static const String dateOfBirth = 'Date of birth';
+  static const String role = 'Role';
+  static const String companyName = 'Company name';
   static const String fullName = 'Full name';
   static const String fieldIsRequired = 'Field is required';
 
@@ -35,6 +36,11 @@ class AppText {
 
 
   static const String userPic = 'assets/images/user.png';
+
+  static const List<String> roles = [
+    'Employee',
+    'Manager'
+  ];
 
   static const List<String> countries = [
     "United States",

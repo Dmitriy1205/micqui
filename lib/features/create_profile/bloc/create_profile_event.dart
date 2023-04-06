@@ -7,7 +7,8 @@ class CreateProfileEvent with _$CreateProfileEvent {
     required String image,
     required String nickName,
     required String fullName,
-    required String dateOfBirth,
+    required String role,
+    required String companyName,
     required String country,
   }) = _CreateFields;
 

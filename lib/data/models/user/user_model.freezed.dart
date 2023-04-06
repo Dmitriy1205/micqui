@@ -27,7 +27,8 @@ mixin _$UserModel {
   String? get avatar => throw _privateConstructorUsedError;
   String? get email => throw _privateConstructorUsedError;
   String? get country => throw _privateConstructorUsedError;
-  String? get dateOfBirth => throw _privateConstructorUsedError;
+  String? get role => throw _privateConstructorUsedError;
+  String? get companyName => throw _privateConstructorUsedError;
   Map<String, dynamic>? get property => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -49,7 +50,8 @@ abstract class $UserModelCopyWith<$Res> {
       String? avatar,
       String? email,
       String? country,
-      String? dateOfBirth,
+      String? role,
+      String? companyName,
       Map<String, dynamic>? property});
 }
 
@@ -73,7 +75,8 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? avatar = freezed,
     Object? email = freezed,
     Object? country = freezed,
-    Object? dateOfBirth = freezed,
+    Object? role = freezed,
+    Object? companyName = freezed,
     Object? property = freezed,
   }) {
     return _then(_value.copyWith(
@@ -105,9 +108,13 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
           ? _value.country
           : country // ignore: cast_nullable_to_non_nullable
               as String?,
-      dateOfBirth: freezed == dateOfBirth
-          ? _value.dateOfBirth
-          : dateOfBirth // ignore: cast_nullable_to_non_nullable
+      role: freezed == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
+              as String?,
+      companyName: freezed == companyName
+          ? _value.companyName
+          : companyName // ignore: cast_nullable_to_non_nullable
               as String?,
       property: freezed == property
           ? _value.property
@@ -132,7 +139,8 @@ abstract class _$$_UserModelCopyWith<$Res> implements $UserModelCopyWith<$Res> {
       String? avatar,
       String? email,
       String? country,
-      String? dateOfBirth,
+      String? role,
+      String? companyName,
       Map<String, dynamic>? property});
 }
 
@@ -154,7 +162,8 @@ class __$$_UserModelCopyWithImpl<$Res>
     Object? avatar = freezed,
     Object? email = freezed,
     Object? country = freezed,
-    Object? dateOfBirth = freezed,
+    Object? role = freezed,
+    Object? companyName = freezed,
     Object? property = freezed,
   }) {
     return _then(_$_UserModel(
@@ -186,9 +195,13 @@ class __$$_UserModelCopyWithImpl<$Res>
           ? _value.country
           : country // ignore: cast_nullable_to_non_nullable
               as String?,
-      dateOfBirth: freezed == dateOfBirth
-          ? _value.dateOfBirth
-          : dateOfBirth // ignore: cast_nullable_to_non_nullable
+      role: freezed == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
+              as String?,
+      companyName: freezed == companyName
+          ? _value.companyName
+          : companyName // ignore: cast_nullable_to_non_nullable
               as String?,
       property: freezed == property
           ? _value._property
@@ -209,7 +222,8 @@ class _$_UserModel extends _UserModel {
       this.avatar,
       this.email,
       this.country,
-      this.dateOfBirth,
+      this.role,
+      this.companyName,
       final Map<String, dynamic>? property})
       : _property = property,
         super._();
@@ -232,7 +246,9 @@ class _$_UserModel extends _UserModel {
   @override
   final String? country;
   @override
-  final String? dateOfBirth;
+  final String? role;
+  @override
+  final String? companyName;
   final Map<String, dynamic>? _property;
   @override
   Map<String, dynamic>? get property {
@@ -245,7 +261,7 @@ class _$_UserModel extends _UserModel {
 
   @override
   String toString() {
-    return 'UserModel(id: $id, nickName: $nickName, firstName: $firstName, lastName: $lastName, avatar: $avatar, email: $email, country: $country, dateOfBirth: $dateOfBirth, property: $property)';
+    return 'UserModel(id: $id, nickName: $nickName, firstName: $firstName, lastName: $lastName, avatar: $avatar, email: $email, country: $country, role: $role, companyName: $companyName, property: $property)';
   }
 
   @override
@@ -263,8 +279,9 @@ class _$_UserModel extends _UserModel {
             (identical(other.avatar, avatar) || other.avatar == avatar) &&
             (identical(other.email, email) || other.email == email) &&
             (identical(other.country, country) || other.country == country) &&
-            (identical(other.dateOfBirth, dateOfBirth) ||
-                other.dateOfBirth == dateOfBirth) &&
+            (identical(other.role, role) || other.role == role) &&
+            (identical(other.companyName, companyName) ||
+                other.companyName == companyName) &&
             const DeepCollectionEquality().equals(other._property, _property));
   }
 
@@ -279,7 +296,8 @@ class _$_UserModel extends _UserModel {
       avatar,
       email,
       country,
-      dateOfBirth,
+      role,
+      companyName,
       const DeepCollectionEquality().hash(_property));
 
   @JsonKey(ignore: true)
@@ -305,7 +323,8 @@ abstract class _UserModel extends UserModel {
       final String? avatar,
       final String? email,
       final String? country,
-      final String? dateOfBirth,
+      final String? role,
+      final String? companyName,
       final Map<String, dynamic>? property}) = _$_UserModel;
   const _UserModel._() : super._();
 
@@ -327,7 +346,9 @@ abstract class _UserModel extends UserModel {
   @override
   String? get country;
   @override
-  String? get dateOfBirth;
+  String? get role;
+  @override
+  String? get companyName;
   @override
   Map<String, dynamic>? get property;
   @override
