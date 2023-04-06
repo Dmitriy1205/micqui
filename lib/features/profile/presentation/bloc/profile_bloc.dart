@@ -69,8 +69,6 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
               ? user.nickName!
               : separatedNickName!;
 
-      log("nickname:" + nickName);
-
       String firstSymbol = nickName[0].toUpperCase();
 
       userModel = UserModel(
@@ -80,7 +78,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
         lastName: user.lastName ?? '',
         email: user.email ?? currentUser.email,
         avatar: user.avatar ?? currentUser.photoURL ?? '',
-        dateOfBirth: user.dateOfBirth ?? '--',
+        companyName: user.companyName ?? '--',
+        role: user.role,
         country: user.country ?? '--',
         property: {
           'symbol': firstSymbol,

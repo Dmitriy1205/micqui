@@ -80,18 +80,7 @@ class CreateProfileBloc extends Bloc<CreateProfileEvent, CreateProfileState> {
       final firstName = nameParts[0];
       final lastName = nameParts.length > 1 ? nameParts[1] : '';
 
-      /*
-      * Poor performance
-      * Firestore is called 6 times
-      * await firestore.setProfile(id, {'avatar': imageUrl});
-      await firestore.setProfile(id, {'nickName': event.nickName});
-      await firestore.setProfile(id, {'firstName': firstName});
-      await firestore.setProfile(id, {'lastName': lastName});
-      await firestore.setProfile(id, {'country': event.country});
-      await firestore.setProfile(id, {'dateOfBirth': event.dateOfBirth});*/
-
-
-      await firestore.setProfile(id, {'avatar': imageUrl, 'nickName': event.nickName, 'firstName': firstName, 'lastName': lastName, 'country': event.country, 'dateOfBirth': event.dateOfBirth});
+      await firestore.setProfile(id, {'avatar': imageUrl, 'nickName': event.nickName, 'firstName': firstName, 'lastName': lastName, 'country': event.country, 'companyName': event.companyName, 'role': event.role});
       emit(const CreateProfileState.success());
     } on BadRequestException catch (e) {
       emit(CreateProfileState.error(error: e.message));

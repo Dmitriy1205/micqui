@@ -30,17 +30,18 @@ class _CreateProfileState extends State<CreateProfile> {
   final _nickNameController = TextEditingController();
   final _nameController = TextEditingController();
 
-  final _dateController = TextEditingController();
+  final _companyNameController = TextEditingController();
 
   late int age;
 
-  late String? selectedCountry;
+  String? selectedCountry;
+  String? selectedRole;
   late FocusNode _focusNode = FocusNode();
 
   @override
   void dispose() {
     _nameController.dispose();
-    _dateController.dispose();
+    _companyNameController.dispose();
     _nickNameController.dispose();
     _focusNode.dispose();
     super.dispose();
@@ -87,73 +88,69 @@ class _CreateProfileState extends State<CreateProfile> {
         builder: (context, state) {
           return state.maybeMap(
             loading: (_) => const LoadingIndicator(),
-            orElse: () => SingleChildScrollView(
-              child: SizedBox(
-                height: MediaQuery.of(context).size.height,
-                width: MediaQuery.of(context).size.width,
-                child: ClipRRect(
-                  child: Stack(
-                    children: [
-                      Positioned(
-                        top: 127,
-                        left: 0,
-                        child: Transform.rotate(
-                          alignment: Alignment.topLeft,
-                          angle: pi / 5,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              color: AppColors.lightGrey,
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            width: 97,
-                            height: 158,
+            orElse: () => ClipRRect(
+              child: Stack(
+                children: [
+                  Positioned(
+                    top: 127,
+                    left: 0,
+                    child: Transform.rotate(
+                      alignment: Alignment.topLeft,
+                      angle: pi / 5,
+                      child: Container(
+                        decoration: BoxDecoration(
+                          color: AppColors.lightGrey,
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        width: 97,
+                        height: 158,
+                      ),
+                    ),
+                  ),
+                  Positioned(
+                    right: 0,
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 8.0, right: 8),
+                      child: Transform.rotate(
+                        alignment: Alignment.topRight,
+                        angle: pi / -5,
+                        child: Container(
+                          decoration: BoxDecoration(
+                            color: AppColors.lightGrey,
+                            borderRadius: BorderRadius.circular(30),
                           ),
+                          width: 130,
+                          height: 244,
                         ),
                       ),
-                      Positioned(
-                        right: 0,
-                        child: Padding(
-                          padding: const EdgeInsets.only(top: 8.0, right: 8),
-                          child: Transform.rotate(
-                            alignment: Alignment.topRight,
-                            angle: pi / -5,
+                    ),
+                  ),
+                  SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 25, vertical: 36),
+                      child: Column(
+                        children: [
+                          const SizedBox(
+                            height: 40,
+                          ),
+                          SizedBox(
+                            height: 138,
+                            width: 138,
+                            child: ProfileImagePicker(
+                              userImage: (file) {
+                                context.read<CreateProfileBloc>().add(
+                                    CreateProfileEvent.getImage(image: file));
+                              },
+                              avatar: const SizedBox(),
+                              user: UserModel(property: property()),
+                            ),
+                          ),
+                          SizedBox(
+                            height: 48,
+                          ),
+                          IntrinsicHeight(
                             child: Container(
-                              decoration: BoxDecoration(
-                                color: AppColors.lightGrey,
-                                borderRadius: BorderRadius.circular(30),
-                              ),
-                              width: 130,
-                              height: 244,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 25, vertical: 36),
-                        child: Column(
-                          children: [
-                            const SizedBox(
-                              height: 40,
-                            ),
-                            SizedBox(
-                              height: 138,
-                              width: 138,
-                              child: ProfileImagePicker(
-                                userImage: (file) {
-                                  context.read<CreateProfileBloc>().add(
-                                      CreateProfileEvent.getImage(image: file));
-                                },
-                                avatar: const SizedBox(),
-                                user: UserModel(property: property()),
-                              ),
-                            ),
-                            const Flexible(
-                              child: SizedBox(
-                                height: 83,
-                              ),
-                            ),
-                            Container(
                               width: MediaQuery.of(context).size.width,
                               decoration: BoxDecoration(
                                 color: AppColors.background,
@@ -180,6 +177,102 @@ class _CreateProfileState extends State<CreateProfile> {
                                             color: AppColors.text,
                                             fontWeight: FontWeight.w400,
                                             fontSize: 12),
+                                      ),
+                                      const SizedBox(
+                                        height: 16,
+                                      ),
+                                      const Padding(
+                                        padding: EdgeInsets.only(bottom: 5.0),
+                                        child: Text(
+                                          AppText.companyName,
+                                          style: TextStyle(
+                                              color: AppColors.text,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 12),
+                                        ),
+                                      ),
+                                      TextFormField(
+                                        autovalidateMode:
+                                        AutovalidateMode.onUserInteraction,
+                                        controller: _companyNameController,
+                                        style: AppTheme
+                                            .themeData.textTheme.labelSmall!
+                                            .copyWith(fontSize: 14),
+                                        decoration: const InputDecoration(
+                                          isDense: true,
+                                          prefix: SizedBox(
+                                            width: 6,
+                                          ),
+                                          contentPadding: EdgeInsets.symmetric(
+                                            vertical: 7,
+                                            horizontal: 5,
+                                          ),
+                                        ),
+                                        validator: (value) {
+                                          if (value!.isEmpty) {
+                                            return AppText.fieldIsRequired;
+                                          }
+                                          return null;
+                                        },
+                                      ),
+                                      const SizedBox(
+                                        height: 16,
+                                      ),
+                                      const Padding(
+                                        padding: EdgeInsets.only(bottom: 5.0),
+                                        child: Text(
+                                          AppText.role,
+                                          style: TextStyle(
+                                              color: AppColors.text,
+                                              fontWeight: FontWeight.w500,
+                                              fontSize: 12),
+                                        ),
+                                      ),
+                                      DropdownButtonFormField<String>(
+                                        autovalidateMode:
+                                        AutovalidateMode.onUserInteraction,
+                                        style: AppTheme
+                                            .themeData.textTheme.labelSmall!
+                                            .copyWith(fontSize: 14),
+                                        value: selectedRole,
+                                        iconSize: 15,
+                                        decoration: const InputDecoration(
+                                            isDense: true,
+                                            prefix: SizedBox(
+                                              width: 6,
+                                            ),
+                                            contentPadding:
+                                            EdgeInsets.symmetric(
+                                                horizontal: 5, vertical: 7),
+                                            border: OutlineInputBorder()),
+                                        icon: const Padding(
+                                          padding: EdgeInsets.only(right: 8.0),
+                                          child: FaIcon(
+                                              FontAwesomeIcons.chevronDown),
+                                        ),
+
+                                        items: AppText.roles
+                                            .map(
+                                              (role) =>
+                                              DropdownMenuItem<String>(
+                                                value: role,
+                                                child: Text(
+                                                  role,
+                                                  style: AppTheme.themeData
+                                                      .textTheme.labelSmall!
+                                                      .copyWith(fontSize: 14),
+                                                ),
+                                              ),
+                                        )
+                                            .toList(),
+                                        onChanged: (role) {
+                                          selectedRole = role;
+                                        },
+                                        validator: (value) {
+                                          if (value == null) {
+                                            return AppText.fieldIsRequired;
+                                          }
+                                        },
                                       ),
                                       const SizedBox(
                                         height: 16,
@@ -237,7 +330,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                         style: AppTheme
                                             .themeData.textTheme.labelSmall!
                                             .copyWith(fontSize: 14),
-                                        // value: selectedCountry,
+                                        value: selectedCountry,
                                         iconSize: 15,
                                         decoration: const InputDecoration(
                                             isDense: true,
@@ -277,99 +370,41 @@ class _CreateProfileState extends State<CreateProfile> {
                                           }
                                         },
                                       ),
-                                      const SizedBox(
-                                        height: 16,
-                                      ),
-                                      Padding(
-                                        padding:
-                                            const EdgeInsets.only(bottom: 5.0),
-                                        child: Text(
-                                          AppText.dateOfBirth,
-                                          style: AppTheme
-                                              .themeData.textTheme.labelSmall!
-                                              .copyWith(fontSize: 14),
-                                        ),
-                                      ),
-                                      TextFormField(
-                                        controller: _dateController,
-                                        autovalidateMode:
-                                            AutovalidateMode.onUserInteraction,
-                                        style: AppTheme
-                                            .themeData.textTheme.labelSmall!
-                                            .copyWith(fontSize: 14),
-                                        decoration: const InputDecoration(
-                                          isDense: true,
-                                          prefix: SizedBox(
-                                            width: 6,
-                                          ),
-                                          contentPadding: EdgeInsets.symmetric(
-                                              horizontal: 5, vertical: 7),
-                                          suffixIcon: Padding(
-                                            padding: EdgeInsets.only(
-                                                right: 12, bottom: 3),
-                                            child: FaIcon(
-                                              FontAwesomeIcons.calendarDays,
-                                              size: 20,
-                                            ),
-                                          ),
-                                          suffixIconConstraints:
-                                              BoxConstraints(maxHeight: 45),
-                                        ),
-                                        onTap: () async {
-                                          DateTime? date = DateTime(1900);
-
-                                          FocusScope.of(context)
-                                              .requestFocus(FocusNode());
-                                          date = await Picker()
-                                              .birthDatePicker(context);
-                                          age =
-                                              DateTime.now().year - date!.year;
-
-                                          _dateController.text = formatDate(
-                                              date, [mm, '.', dd, '.', yyyy]);
-                                        },
-                                        onSaved: (value) {
-                                          _dateController.text = value!.trim();
-                                        },
-                                        validator: (value) {
-                                          if (value == '') {
-                                            return AppText.fieldIsRequired;
-                                          }
-                                        },
-                                      ),
                                     ],
                                   ),
                                 ),
                               ),
                             ),
-                            const Spacer(
-                              flex: 3,
-                            ),
-                            AppElevatedButton(
-                                text: AppText.createProfile.toUpperCase(),
-                                onPressed: () {
-                                  if (!_formKey.currentState!.validate()) {
-                                    return;
-                                  }
-                                  _formKey.currentState!.save();
+                          ),
+                          SizedBox(
+                            height: 48,
+                          ),
+                          AppElevatedButton(
+                              text: AppText.createProfile.toUpperCase(),
+                              onPressed: () {
+                                if (!_formKey.currentState!.validate()) {
+                                  return;
+                                }
+                                _formKey.currentState!.save();
 
-                                  context
-                                      .read<CreateProfileBloc>()
-                                      .add(CreateProfileEvent.createFields(
-                                        file: state.image,
-                                        image: '',
-                                        fullName: _nameController.text,
-                                        country: selectedCountry!,
-                                        dateOfBirth: _dateController.text,
-                                        nickName: _nickNameController.text,
-                                      ));
-                                }),
-                          ],
-                        ),
+                                context
+                                    .read<CreateProfileBloc>()
+                                    .add(CreateProfileEvent.createFields(
+                                      file: state.image,
+                                      image: '',
+                                      fullName: _nameController.text,
+                                      country: selectedCountry!,
+                                      companyName: _companyNameController.text,
+                                      role: selectedRole!,
+                                      nickName: _nickNameController.text,
+                                    ));
+                              }),
+                          const SizedBox(height: 32,),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
-                ),
+                ],
               ),
             ),
           );

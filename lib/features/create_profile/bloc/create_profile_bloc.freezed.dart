@@ -19,7 +19,7 @@ mixin _$CreateProfileEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(File? file, String image, String nickName,
-            String fullName, String dateOfBirth, String country)
+            String fullName, String role, String companyName, String country)
         createFields,
     required TResult Function(String id) checkIfUserCreatedProfile,
     required TResult Function(File? image) getImage,
@@ -29,7 +29,7 @@ mixin _$CreateProfileEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(File? file, String image, String nickName,
-            String fullName, String dateOfBirth, String country)?
+            String fullName, String role, String companyName, String country)?
         createFields,
     TResult? Function(String id)? checkIfUserCreatedProfile,
     TResult? Function(File? image)? getImage,
@@ -39,7 +39,7 @@ mixin _$CreateProfileEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(File? file, String image, String nickName, String fullName,
-            String dateOfBirth, String country)?
+            String role, String companyName, String country)?
         createFields,
     TResult Function(String id)? checkIfUserCreatedProfile,
     TResult Function(File? image)? getImage,
@@ -106,7 +106,8 @@ abstract class _$$_CreateFieldsCopyWith<$Res> {
       String image,
       String nickName,
       String fullName,
-      String dateOfBirth,
+      String role,
+      String companyName,
       String country});
 }
 
@@ -125,7 +126,8 @@ class __$$_CreateFieldsCopyWithImpl<$Res>
     Object? image = null,
     Object? nickName = null,
     Object? fullName = null,
-    Object? dateOfBirth = null,
+    Object? role = null,
+    Object? companyName = null,
     Object? country = null,
   }) {
     return _then(_$_CreateFields(
@@ -145,9 +147,13 @@ class __$$_CreateFieldsCopyWithImpl<$Res>
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
               as String,
-      dateOfBirth: null == dateOfBirth
-          ? _value.dateOfBirth
-          : dateOfBirth // ignore: cast_nullable_to_non_nullable
+      role: null == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
+              as String,
+      companyName: null == companyName
+          ? _value.companyName
+          : companyName // ignore: cast_nullable_to_non_nullable
               as String,
       country: null == country
           ? _value.country
@@ -165,7 +171,8 @@ class _$_CreateFields implements _CreateFields {
       required this.image,
       required this.nickName,
       required this.fullName,
-      required this.dateOfBirth,
+      required this.role,
+      required this.companyName,
       required this.country});
 
   @override
@@ -177,13 +184,15 @@ class _$_CreateFields implements _CreateFields {
   @override
   final String fullName;
   @override
-  final String dateOfBirth;
+  final String role;
+  @override
+  final String companyName;
   @override
   final String country;
 
   @override
   String toString() {
-    return 'CreateProfileEvent.createFields(file: $file, image: $image, nickName: $nickName, fullName: $fullName, dateOfBirth: $dateOfBirth, country: $country)';
+    return 'CreateProfileEvent.createFields(file: $file, image: $image, nickName: $nickName, fullName: $fullName, role: $role, companyName: $companyName, country: $country)';
   }
 
   @override
@@ -197,14 +206,15 @@ class _$_CreateFields implements _CreateFields {
                 other.nickName == nickName) &&
             (identical(other.fullName, fullName) ||
                 other.fullName == fullName) &&
-            (identical(other.dateOfBirth, dateOfBirth) ||
-                other.dateOfBirth == dateOfBirth) &&
+            (identical(other.role, role) || other.role == role) &&
+            (identical(other.companyName, companyName) ||
+                other.companyName == companyName) &&
             (identical(other.country, country) || other.country == country));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, file, image, nickName, fullName, dateOfBirth, country);
+      runtimeType, file, image, nickName, fullName, role, companyName, country);
 
   @JsonKey(ignore: true)
   @override
@@ -216,34 +226,35 @@ class _$_CreateFields implements _CreateFields {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(File? file, String image, String nickName,
-            String fullName, String dateOfBirth, String country)
+            String fullName, String role, String companyName, String country)
         createFields,
     required TResult Function(String id) checkIfUserCreatedProfile,
     required TResult Function(File? image) getImage,
     required TResult Function() reset,
   }) {
-    return createFields(file, image, nickName, fullName, dateOfBirth, country);
+    return createFields(
+        file, image, nickName, fullName, role, companyName, country);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(File? file, String image, String nickName,
-            String fullName, String dateOfBirth, String country)?
+            String fullName, String role, String companyName, String country)?
         createFields,
     TResult? Function(String id)? checkIfUserCreatedProfile,
     TResult? Function(File? image)? getImage,
     TResult? Function()? reset,
   }) {
     return createFields?.call(
-        file, image, nickName, fullName, dateOfBirth, country);
+        file, image, nickName, fullName, role, companyName, country);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(File? file, String image, String nickName, String fullName,
-            String dateOfBirth, String country)?
+            String role, String companyName, String country)?
         createFields,
     TResult Function(String id)? checkIfUserCreatedProfile,
     TResult Function(File? image)? getImage,
@@ -252,7 +263,7 @@ class _$_CreateFields implements _CreateFields {
   }) {
     if (createFields != null) {
       return createFields(
-          file, image, nickName, fullName, dateOfBirth, country);
+          file, image, nickName, fullName, role, companyName, country);
     }
     return orElse();
   }
@@ -304,14 +315,16 @@ abstract class _CreateFields implements CreateProfileEvent {
       required final String image,
       required final String nickName,
       required final String fullName,
-      required final String dateOfBirth,
+      required final String role,
+      required final String companyName,
       required final String country}) = _$_CreateFields;
 
   File? get file;
   String get image;
   String get nickName;
   String get fullName;
-  String get dateOfBirth;
+  String get role;
+  String get companyName;
   String get country;
   @JsonKey(ignore: true)
   _$$_CreateFieldsCopyWith<_$_CreateFields> get copyWith =>
@@ -386,7 +399,7 @@ class _$_CheckIfUserCreatedProfile implements _CheckIfUserCreatedProfile {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(File? file, String image, String nickName,
-            String fullName, String dateOfBirth, String country)
+            String fullName, String role, String companyName, String country)
         createFields,
     required TResult Function(String id) checkIfUserCreatedProfile,
     required TResult Function(File? image) getImage,
@@ -399,7 +412,7 @@ class _$_CheckIfUserCreatedProfile implements _CheckIfUserCreatedProfile {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(File? file, String image, String nickName,
-            String fullName, String dateOfBirth, String country)?
+            String fullName, String role, String companyName, String country)?
         createFields,
     TResult? Function(String id)? checkIfUserCreatedProfile,
     TResult? Function(File? image)? getImage,
@@ -412,7 +425,7 @@ class _$_CheckIfUserCreatedProfile implements _CheckIfUserCreatedProfile {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(File? file, String image, String nickName, String fullName,
-            String dateOfBirth, String country)?
+            String role, String companyName, String country)?
         createFields,
     TResult Function(String id)? checkIfUserCreatedProfile,
     TResult Function(File? image)? getImage,
@@ -541,7 +554,7 @@ class _$_GetImage implements _GetImage {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(File? file, String image, String nickName,
-            String fullName, String dateOfBirth, String country)
+            String fullName, String role, String companyName, String country)
         createFields,
     required TResult Function(String id) checkIfUserCreatedProfile,
     required TResult Function(File? image) getImage,
@@ -554,7 +567,7 @@ class _$_GetImage implements _GetImage {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(File? file, String image, String nickName,
-            String fullName, String dateOfBirth, String country)?
+            String fullName, String role, String companyName, String country)?
         createFields,
     TResult? Function(String id)? checkIfUserCreatedProfile,
     TResult? Function(File? image)? getImage,
@@ -567,7 +580,7 @@ class _$_GetImage implements _GetImage {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(File? file, String image, String nickName, String fullName,
-            String dateOfBirth, String country)?
+            String role, String companyName, String country)?
         createFields,
     TResult Function(String id)? checkIfUserCreatedProfile,
     TResult Function(File? image)? getImage,
@@ -667,7 +680,7 @@ class _$_Reset implements _Reset {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(File? file, String image, String nickName,
-            String fullName, String dateOfBirth, String country)
+            String fullName, String role, String companyName, String country)
         createFields,
     required TResult Function(String id) checkIfUserCreatedProfile,
     required TResult Function(File? image) getImage,
@@ -680,7 +693,7 @@ class _$_Reset implements _Reset {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(File? file, String image, String nickName,
-            String fullName, String dateOfBirth, String country)?
+            String fullName, String role, String companyName, String country)?
         createFields,
     TResult? Function(String id)? checkIfUserCreatedProfile,
     TResult? Function(File? image)? getImage,
@@ -693,7 +706,7 @@ class _$_Reset implements _Reset {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(File? file, String image, String nickName, String fullName,
-            String dateOfBirth, String country)?
+            String role, String companyName, String country)?
         createFields,
     TResult Function(String id)? checkIfUserCreatedProfile,
     TResult Function(File? image)? getImage,

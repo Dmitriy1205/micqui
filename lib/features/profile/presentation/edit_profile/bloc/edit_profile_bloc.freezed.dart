@@ -20,7 +20,7 @@ mixin _$EditProfileEvent {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(File? file, String image, String nickName,
-            String fullName, String dateOfBirth, String country)
+            String fullName, String companyName, String role, String country)
         updateFields,
     required TResult Function(File? image) getImage,
   }) =>
@@ -28,7 +28,7 @@ mixin _$EditProfileEvent {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(File? file, String image, String nickName,
-            String fullName, String dateOfBirth, String country)?
+            String fullName, String companyName, String role, String country)?
         updateFields,
     TResult? Function(File? image)? getImage,
   }) =>
@@ -36,7 +36,7 @@ mixin _$EditProfileEvent {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(File? file, String image, String nickName, String fullName,
-            String dateOfBirth, String country)?
+            String companyName, String role, String country)?
         updateFields,
     TResult Function(File? image)? getImage,
     required TResult orElse(),
@@ -92,7 +92,8 @@ abstract class _$$_UpdateFieldsCopyWith<$Res> {
       String image,
       String nickName,
       String fullName,
-      String dateOfBirth,
+      String companyName,
+      String role,
       String country});
 }
 
@@ -111,7 +112,8 @@ class __$$_UpdateFieldsCopyWithImpl<$Res>
     Object? image = null,
     Object? nickName = null,
     Object? fullName = null,
-    Object? dateOfBirth = null,
+    Object? companyName = null,
+    Object? role = null,
     Object? country = null,
   }) {
     return _then(_$_UpdateFields(
@@ -131,9 +133,13 @@ class __$$_UpdateFieldsCopyWithImpl<$Res>
           ? _value.fullName
           : fullName // ignore: cast_nullable_to_non_nullable
               as String,
-      dateOfBirth: null == dateOfBirth
-          ? _value.dateOfBirth
-          : dateOfBirth // ignore: cast_nullable_to_non_nullable
+      companyName: null == companyName
+          ? _value.companyName
+          : companyName // ignore: cast_nullable_to_non_nullable
+              as String,
+      role: null == role
+          ? _value.role
+          : role // ignore: cast_nullable_to_non_nullable
               as String,
       country: null == country
           ? _value.country
@@ -151,7 +157,8 @@ class _$_UpdateFields implements _UpdateFields {
       required this.image,
       required this.nickName,
       required this.fullName,
-      required this.dateOfBirth,
+      required this.companyName,
+      required this.role,
       required this.country});
 
   @override
@@ -163,13 +170,15 @@ class _$_UpdateFields implements _UpdateFields {
   @override
   final String fullName;
   @override
-  final String dateOfBirth;
+  final String companyName;
+  @override
+  final String role;
   @override
   final String country;
 
   @override
   String toString() {
-    return 'EditProfileEvent.updateFields(file: $file, image: $image, nickName: $nickName, fullName: $fullName, dateOfBirth: $dateOfBirth, country: $country)';
+    return 'EditProfileEvent.updateFields(file: $file, image: $image, nickName: $nickName, fullName: $fullName, companyName: $companyName, role: $role, country: $country)';
   }
 
   @override
@@ -183,14 +192,15 @@ class _$_UpdateFields implements _UpdateFields {
                 other.nickName == nickName) &&
             (identical(other.fullName, fullName) ||
                 other.fullName == fullName) &&
-            (identical(other.dateOfBirth, dateOfBirth) ||
-                other.dateOfBirth == dateOfBirth) &&
+            (identical(other.companyName, companyName) ||
+                other.companyName == companyName) &&
+            (identical(other.role, role) || other.role == role) &&
             (identical(other.country, country) || other.country == country));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, file, image, nickName, fullName, dateOfBirth, country);
+      runtimeType, file, image, nickName, fullName, companyName, role, country);
 
   @JsonKey(ignore: true)
   @override
@@ -202,37 +212,38 @@ class _$_UpdateFields implements _UpdateFields {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(File? file, String image, String nickName,
-            String fullName, String dateOfBirth, String country)
+            String fullName, String companyName, String role, String country)
         updateFields,
     required TResult Function(File? image) getImage,
   }) {
-    return updateFields(file, image, nickName, fullName, dateOfBirth, country);
+    return updateFields(
+        file, image, nickName, fullName, companyName, role, country);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(File? file, String image, String nickName,
-            String fullName, String dateOfBirth, String country)?
+            String fullName, String companyName, String role, String country)?
         updateFields,
     TResult? Function(File? image)? getImage,
   }) {
     return updateFields?.call(
-        file, image, nickName, fullName, dateOfBirth, country);
+        file, image, nickName, fullName, companyName, role, country);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(File? file, String image, String nickName, String fullName,
-            String dateOfBirth, String country)?
+            String companyName, String role, String country)?
         updateFields,
     TResult Function(File? image)? getImage,
     required TResult orElse(),
   }) {
     if (updateFields != null) {
       return updateFields(
-          file, image, nickName, fullName, dateOfBirth, country);
+          file, image, nickName, fullName, companyName, role, country);
     }
     return orElse();
   }
@@ -275,7 +286,8 @@ abstract class _UpdateFields implements EditProfileEvent {
       required final String image,
       required final String nickName,
       required final String fullName,
-      required final String dateOfBirth,
+      required final String companyName,
+      required final String role,
       required final String country}) = _$_UpdateFields;
 
   File? get file;
@@ -283,7 +295,8 @@ abstract class _UpdateFields implements EditProfileEvent {
   String get image;
   String get nickName;
   String get fullName;
-  String get dateOfBirth;
+  String get companyName;
+  String get role;
   String get country;
   @JsonKey(ignore: true)
   _$$_UpdateFieldsCopyWith<_$_UpdateFields> get copyWith =>
@@ -355,7 +368,7 @@ class _$_GetImage implements _GetImage {
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
     required TResult Function(File? file, String image, String nickName,
-            String fullName, String dateOfBirth, String country)
+            String fullName, String companyName, String role, String country)
         updateFields,
     required TResult Function(File? image) getImage,
   }) {
@@ -366,7 +379,7 @@ class _$_GetImage implements _GetImage {
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
     TResult? Function(File? file, String image, String nickName,
-            String fullName, String dateOfBirth, String country)?
+            String fullName, String companyName, String role, String country)?
         updateFields,
     TResult? Function(File? image)? getImage,
   }) {
@@ -377,7 +390,7 @@ class _$_GetImage implements _GetImage {
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function(File? file, String image, String nickName, String fullName,
-            String dateOfBirth, String country)?
+            String companyName, String role, String country)?
         updateFields,
     TResult Function(File? image)? getImage,
     required TResult orElse(),
