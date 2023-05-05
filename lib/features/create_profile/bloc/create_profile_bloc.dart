@@ -5,7 +5,7 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../core/constants/exceptions.dart';
-import '../../../data/repositories/firestore_repository.dart';
+import '../../../data/repositories/user_repository.dart';
 import '../../../data/repositories/storage_repository.dart';
 import '../../auth/bloc/auth_bloc.dart';
 
@@ -16,7 +16,7 @@ part 'create_profile_state.dart';
 part 'create_profile_bloc.freezed.dart';
 
 class CreateProfileBloc extends Bloc<CreateProfileEvent, CreateProfileState> {
-  final FirestoreRepository firestore;
+  final UserRepository firestore;
   final StorageRepository storage;
   final AuthBloc authBloc;
 
@@ -42,6 +42,7 @@ class CreateProfileBloc extends Bloc<CreateProfileEvent, CreateProfileState> {
 
   Future<void> _checkIfUserCreatedProfile(_CheckIfUserCreatedProfile event, Emitter<CreateProfileState> emit) async{
     final profile = await firestore.getProfile(event.id);
+
     if(profile.isInitialized){
       emit(const CreateProfileState.success());
     }else{

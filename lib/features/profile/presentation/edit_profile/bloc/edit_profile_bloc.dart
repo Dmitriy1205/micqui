@@ -4,7 +4,7 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../../core/constants/exceptions.dart';
-import '../../../../../data/repositories/firestore_repository.dart';
+import '../../../../../data/repositories/user_repository.dart';
 import '../../../../../data/repositories/storage_repository.dart';
 import '../../bloc/profile_bloc.dart';
 
@@ -15,7 +15,7 @@ part 'edit_profile_state.dart';
 part 'edit_profile_bloc.freezed.dart';
 
 class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
-  final FirestoreRepository firestore;
+  final UserRepository firestore;
   final StorageRepository storage;
   final ProfileBloc profileBloc;
 

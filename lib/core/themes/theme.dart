@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class AppTheme {
   static ThemeData themeData = ThemeData(
     // dividerColor: const Color(0xFFC7ED3A),
+    bottomSheetTheme: BottomSheetThemeData(surfaceTintColor: const Color(0xFFF2F2F2),),
     colorScheme: ThemeData().colorScheme.copyWith(
           primary: const Color(0xFFF2F2F2),
           background: const Color(0xFFF2F2F2),

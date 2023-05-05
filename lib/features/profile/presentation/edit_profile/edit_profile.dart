@@ -6,18 +6,17 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:micqui/core/constants/colors.dart';
+import 'package:micqui/data/providers/firestore_provider.dart';
 import 'package:micqui/features/profile/presentation/edit_profile/bloc/edit_profile_bloc.dart';
-import 'package:micqui/features/profile/presentation/edit_profile/widgets/date_picker.dart';
 import 'package:micqui/features/profile/presentation/edit_profile/widgets/image_picker/profile_Image_picker.dart';
 
 import '../../../../core/constants/strings.dart';
 import '../../../../core/themes/theme.dart';
-import 'package:date_format/date_format.dart';
 
 import '../../../../core/widgets/app_elevated_button.dart';
 import '../../../../core/widgets/loading_indicator.dart';
 import '../../../../data/models/user/user_model.dart';
-import '../../../../data/repositories/firestore_repository.dart';
+import '../../../../data/repositories/user_repository.dart';
 import '../../../../data/repositories/storage_repository.dart';
 import '../bloc/profile_bloc.dart';
 
@@ -32,7 +31,9 @@ class EditProfile extends StatefulWidget {
 
 class _EditProfileState extends State<EditProfile> {
   late final EditProfileBloc _bloc = EditProfileBloc(
-      firestore: FirestoreRepository(firestore: FirebaseFirestore.instance),
+      firestore: UserRepository(
+          firestore:
+              FirestoreDataProvider(firestore: FirebaseFirestore.instance)),
       storage: StorageRepository(storage: FirebaseStorage.instance),
       profileBloc: context.read<ProfileBloc>());
 
@@ -139,7 +140,9 @@ class _EditProfileState extends State<EditProfile> {
                           horizontal: 25, vertical: 36),
                       child: Column(
                         children: [
-                          SizedBox(height: 64,),
+                          SizedBox(
+                            height: 64,
+                          ),
                           SizedBox(
                             height: 138,
                             width: 138,
@@ -191,7 +194,7 @@ class _EditProfileState extends State<EditProfile> {
                                 fontWeight: FontWeight.w400,
                                 fontSize: 14),
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 48,
                           ),
                           Container(
@@ -205,8 +208,7 @@ class _EditProfileState extends State<EditProfile> {
                               child: Form(
                                 key: _formKey,
                                 child: Column(
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     const Text(
                                       AppText.additionalInfo,
@@ -237,7 +239,7 @@ class _EditProfileState extends State<EditProfile> {
                                     ),
                                     TextFormField(
                                       autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
+                                          AutovalidateMode.onUserInteraction,
                                       controller: _companyNameController,
                                       style: AppTheme
                                           .themeData.textTheme.labelSmall!
@@ -274,7 +276,7 @@ class _EditProfileState extends State<EditProfile> {
                                     ),
                                     DropdownButtonFormField<String>(
                                       autovalidateMode:
-                                      AutovalidateMode.onUserInteraction,
+                                          AutovalidateMode.onUserInteraction,
                                       style: AppTheme
                                           .themeData.textTheme.labelSmall!
                                           .copyWith(fontSize: 14),
@@ -285,8 +287,7 @@ class _EditProfileState extends State<EditProfile> {
                                           prefix: SizedBox(
                                             width: 6,
                                           ),
-                                          contentPadding:
-                                          EdgeInsets.symmetric(
+                                          contentPadding: EdgeInsets.symmetric(
                                               horizontal: 5, vertical: 7),
                                           border: OutlineInputBorder()),
                                       icon: const Padding(
@@ -296,8 +297,7 @@ class _EditProfileState extends State<EditProfile> {
                                       ),
                                       items: AppText.roles
                                           .map(
-                                            (role) =>
-                                            DropdownMenuItem<String>(
+                                            (role) => DropdownMenuItem<String>(
                                               value: role,
                                               child: Text(
                                                 role,
@@ -306,7 +306,7 @@ class _EditProfileState extends State<EditProfile> {
                                                     .copyWith(fontSize: 14),
                                               ),
                                             ),
-                                      )
+                                          )
                                           .toList(),
                                       onChanged: (role) {
                                         selectedRole = role;
@@ -380,9 +380,8 @@ class _EditProfileState extends State<EditProfile> {
                                           prefix: SizedBox(
                                             width: 6,
                                           ),
-                                          contentPadding:
-                                              EdgeInsets.symmetric(
-                                                  horizontal: 5, vertical: 7),
+                                          contentPadding: EdgeInsets.symmetric(
+                                              horizontal: 5, vertical: 7),
                                           border: OutlineInputBorder()),
                                       icon: const Padding(
                                         padding: EdgeInsets.only(right: 8.0),
@@ -417,7 +416,9 @@ class _EditProfileState extends State<EditProfile> {
                               ),
                             ),
                           ),
-                          const SizedBox(height: 48,),
+                          const SizedBox(
+                            height: 48,
+                          ),
                           AppElevatedButton(
                               text: AppText.saveEdits.toUpperCase(),
                               onPressed: () {
@@ -438,7 +439,9 @@ class _EditProfileState extends State<EditProfile> {
                                   ),
                                 );
                               }),
-                          const SizedBox(height: 32,),
+                          const SizedBox(
+                            height: 32,
+                          ),
                         ],
                       ),
                     ),

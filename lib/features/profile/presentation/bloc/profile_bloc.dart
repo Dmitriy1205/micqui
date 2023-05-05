@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
@@ -9,7 +8,7 @@ import 'package:micqui/features/create_profile/bloc/create_profile_bloc.dart';
 
 import '../../../../core/constants/colors.dart';
 import '../../../../core/utils/utils.dart';
-import '../../../../data/repositories/firestore_repository.dart';
+import '../../../../data/repositories/user_repository.dart';
 import '../../../auth/bloc/auth_bloc.dart';
 
 part 'profile_event.dart';
@@ -19,7 +18,7 @@ part 'profile_state.dart';
 part 'profile_bloc.freezed.dart';
 
 class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
-  final FirestoreRepository firestore;
+  final UserRepository firestore;
   final AuthBloc authBloc;
   final CreateProfileBloc createProfileBloc;
   late UserModel userModel;

@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:micqui/features/auth/bloc/auth_bloc.dart';
 import 'package:micqui/features/create_profile/bloc/create_profile_bloc.dart';
+import 'package:micqui/features/home/bloc/quiz_bloc/quiz_bloc.dart';
 
 import '../core/services/service_locator.dart';
+import '../features/home/bloc/home_bloc/home_bloc.dart';
 import '../features/profile/presentation/bloc/profile_bloc.dart';
 
 class Providers extends StatelessWidget {
@@ -23,8 +25,18 @@ class Providers extends StatelessWidget {
           create: (context) => sl<ProfileBloc>(),
           lazy: false,
         ),
-        BlocProvider(create: (context) => sl<CreateProfileBloc>(),
-        lazy: false,)
+        BlocProvider(
+          create: (context) => sl<CreateProfileBloc>(),
+          lazy: false,
+        ),
+        BlocProvider(
+          create: (context) => sl<HomeBloc>(),
+          lazy: false,
+        ),
+        BlocProvider(
+          create: (context) => sl<QuizBloc>(),
+          lazy: false,
+        ),
       ],
       child: child,
     );

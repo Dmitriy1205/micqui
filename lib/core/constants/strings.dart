@@ -32,6 +32,18 @@ class AppText {
 
   static const String saveEdits = 'Save Edits';
   static const String createProfile = 'Create Profile';
+  static const String enterBucketCode = 'Enter Bucket Code';
+  static const String join = 'JOIN';
+  static const String scanQr = 'Scan QR code';
+  static const String start = 'START';
+  static const String next = 'NEXT';
+  static const String ok = 'OK';
+  static const String finish = 'FINISH';
+  static const String questions = 'Questions';
+  static const String sessionEnded = 'Session ended!';
+  static const String thankYou = 'Thank you for your time. ';
+  static const String yourAnwer = 'Your answer ...';
+  static const String session = 'Session';
 
 
 
