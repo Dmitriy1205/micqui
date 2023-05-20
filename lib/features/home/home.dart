@@ -120,11 +120,14 @@ class _HomeState extends State<Home> {
                   const SizedBox(
                     height: 49,
                   ),
-                  Center(
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 25),
                     child: Text(
+
                       AppText.enterBucketCode,
                       style: AppTheme.themeData.textTheme.headlineMedium!
-                          .copyWith(color: AppColors.text, fontSize: 28),
+                          .copyWith(color: AppColors.text, fontSize: 24),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                   const Spacer(),
@@ -176,6 +179,7 @@ class _HomeState extends State<Home> {
                         },
                         inputFormatters: [
                           LengthLimitingTextInputFormatter(9),
+                          FilteringTextInputFormatter.deny(RegExp('[/\\\\|]')),
                         ],
                         validator: context.validateFieldNotEmpty,
                       ),

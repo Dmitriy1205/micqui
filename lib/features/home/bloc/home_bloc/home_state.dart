@@ -23,5 +23,5 @@ class HomeState with _$HomeState {
 
   const factory HomeState.success({Bucket? bucket,required UserModel user}) = _Success;
 
-  const factory HomeState.error({required String error}) = _Error;
+  const factory HomeState.error({required String error, UserModel? user}) = _Error;
 }

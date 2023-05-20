@@ -393,7 +393,7 @@ mixin _$HomeState {
     required TResult Function() loading,
     required TResult Function(UserModel user) loaded,
     required TResult Function(Bucket? bucket, UserModel user) success,
-    required TResult Function(String error) error,
+    required TResult Function(String error, UserModel? user) error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -402,7 +402,7 @@ mixin _$HomeState {
     TResult? Function()? loading,
     TResult? Function(UserModel user)? loaded,
     TResult? Function(Bucket? bucket, UserModel user)? success,
-    TResult? Function(String error)? error,
+    TResult? Function(String error, UserModel? user)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
@@ -411,7 +411,7 @@ mixin _$HomeState {
     TResult Function()? loading,
     TResult Function(UserModel user)? loaded,
     TResult Function(Bucket? bucket, UserModel user)? success,
-    TResult Function(String error)? error,
+    TResult Function(String error, UserModel? user)? error,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -503,7 +503,7 @@ class _$_Initial extends _Initial {
     required TResult Function() loading,
     required TResult Function(UserModel user) loaded,
     required TResult Function(Bucket? bucket, UserModel user) success,
-    required TResult Function(String error) error,
+    required TResult Function(String error, UserModel? user) error,
   }) {
     return initial();
   }
@@ -515,7 +515,7 @@ class _$_Initial extends _Initial {
     TResult? Function()? loading,
     TResult? Function(UserModel user)? loaded,
     TResult? Function(Bucket? bucket, UserModel user)? success,
-    TResult? Function(String error)? error,
+    TResult? Function(String error, UserModel? user)? error,
   }) {
     return initial?.call();
   }
@@ -527,7 +527,7 @@ class _$_Initial extends _Initial {
     TResult Function()? loading,
     TResult Function(UserModel user)? loaded,
     TResult Function(Bucket? bucket, UserModel user)? success,
-    TResult Function(String error)? error,
+    TResult Function(String error, UserModel? user)? error,
     required TResult orElse(),
   }) {
     if (initial != null) {
@@ -623,7 +623,7 @@ class _$_Loading extends _Loading {
     required TResult Function() loading,
     required TResult Function(UserModel user) loaded,
     required TResult Function(Bucket? bucket, UserModel user) success,
-    required TResult Function(String error) error,
+    required TResult Function(String error, UserModel? user) error,
   }) {
     return loading();
   }
@@ -635,7 +635,7 @@ class _$_Loading extends _Loading {
     TResult? Function()? loading,
     TResult? Function(UserModel user)? loaded,
     TResult? Function(Bucket? bucket, UserModel user)? success,
-    TResult? Function(String error)? error,
+    TResult? Function(String error, UserModel? user)? error,
   }) {
     return loading?.call();
   }
@@ -647,7 +647,7 @@ class _$_Loading extends _Loading {
     TResult Function()? loading,
     TResult Function(UserModel user)? loaded,
     TResult Function(Bucket? bucket, UserModel user)? success,
-    TResult Function(String error)? error,
+    TResult Function(String error, UserModel? user)? error,
     required TResult orElse(),
   }) {
     if (loading != null) {
@@ -778,7 +778,7 @@ class _$_Loaded extends _Loaded {
     required TResult Function() loading,
     required TResult Function(UserModel user) loaded,
     required TResult Function(Bucket? bucket, UserModel user) success,
-    required TResult Function(String error) error,
+    required TResult Function(String error, UserModel? user) error,
   }) {
     return loaded(user);
   }
@@ -790,7 +790,7 @@ class _$_Loaded extends _Loaded {
     TResult? Function()? loading,
     TResult? Function(UserModel user)? loaded,
     TResult? Function(Bucket? bucket, UserModel user)? success,
-    TResult? Function(String error)? error,
+    TResult? Function(String error, UserModel? user)? error,
   }) {
     return loaded?.call(user);
   }
@@ -802,7 +802,7 @@ class _$_Loaded extends _Loaded {
     TResult Function()? loading,
     TResult Function(UserModel user)? loaded,
     TResult Function(Bucket? bucket, UserModel user)? success,
-    TResult Function(String error)? error,
+    TResult Function(String error, UserModel? user)? error,
     required TResult orElse(),
   }) {
     if (loaded != null) {
@@ -960,7 +960,7 @@ class _$_Success extends _Success {
     required TResult Function() loading,
     required TResult Function(UserModel user) loaded,
     required TResult Function(Bucket? bucket, UserModel user) success,
-    required TResult Function(String error) error,
+    required TResult Function(String error, UserModel? user) error,
   }) {
     return success(bucket, user);
   }
@@ -972,7 +972,7 @@ class _$_Success extends _Success {
     TResult? Function()? loading,
     TResult? Function(UserModel user)? loaded,
     TResult? Function(Bucket? bucket, UserModel user)? success,
-    TResult? Function(String error)? error,
+    TResult? Function(String error, UserModel? user)? error,
   }) {
     return success?.call(bucket, user);
   }
@@ -984,7 +984,7 @@ class _$_Success extends _Success {
     TResult Function()? loading,
     TResult Function(UserModel user)? loaded,
     TResult Function(Bucket? bucket, UserModel user)? success,
-    TResult Function(String error)? error,
+    TResult Function(String error, UserModel? user)? error,
     required TResult orElse(),
   }) {
     if (success != null) {
@@ -1051,7 +1051,9 @@ abstract class _$$_ErrorCopyWith<$Res> {
   factory _$$_ErrorCopyWith(_$_Error value, $Res Function(_$_Error) then) =
       __$$_ErrorCopyWithImpl<$Res>;
   @useResult
-  $Res call({String error});
+  $Res call({String error, UserModel? user});
+
+  $UserModelCopyWith<$Res>? get user;
 }
 
 /// @nodoc
@@ -1065,27 +1067,46 @@ class __$$_ErrorCopyWithImpl<$Res>
   @override
   $Res call({
     Object? error = null,
+    Object? user = freezed,
   }) {
     return _then(_$_Error(
       error: null == error
           ? _value.error
           : error // ignore: cast_nullable_to_non_nullable
               as String,
+      user: freezed == user
+          ? _value.user
+          : user // ignore: cast_nullable_to_non_nullable
+              as UserModel?,
     ));
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $UserModelCopyWith<$Res>? get user {
+    if (_value.user == null) {
+      return null;
+    }
+
+    return $UserModelCopyWith<$Res>(_value.user!, (value) {
+      return _then(_value.copyWith(user: value));
+    });
   }
 }
 
 /// @nodoc
 
 class _$_Error extends _Error {
-  const _$_Error({required this.error}) : super._();
+  const _$_Error({required this.error, this.user}) : super._();
 
   @override
   final String error;
+  @override
+  final UserModel? user;
 
   @override
   String toString() {
-    return 'HomeState.error(error: $error)';
+    return 'HomeState.error(error: $error, user: $user)';
   }
 
   @override
@@ -1093,11 +1114,12 @@ class _$_Error extends _Error {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Error &&
-            (identical(other.error, error) || other.error == error));
+            (identical(other.error, error) || other.error == error) &&
+            (identical(other.user, user) || other.user == user));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, error);
+  int get hashCode => Object.hash(runtimeType, error, user);
 
   @JsonKey(ignore: true)
   @override
@@ -1112,9 +1134,9 @@ class _$_Error extends _Error {
     required TResult Function() loading,
     required TResult Function(UserModel user) loaded,
     required TResult Function(Bucket? bucket, UserModel user) success,
-    required TResult Function(String error) error,
+    required TResult Function(String error, UserModel? user) error,
   }) {
-    return error(this.error);
+    return error(this.error, user);
   }
 
   @override
@@ -1124,9 +1146,9 @@ class _$_Error extends _Error {
     TResult? Function()? loading,
     TResult? Function(UserModel user)? loaded,
     TResult? Function(Bucket? bucket, UserModel user)? success,
-    TResult? Function(String error)? error,
+    TResult? Function(String error, UserModel? user)? error,
   }) {
-    return error?.call(this.error);
+    return error?.call(this.error, user);
   }
 
   @override
@@ -1136,11 +1158,11 @@ class _$_Error extends _Error {
     TResult Function()? loading,
     TResult Function(UserModel user)? loaded,
     TResult Function(Bucket? bucket, UserModel user)? success,
-    TResult Function(String error)? error,
+    TResult Function(String error, UserModel? user)? error,
     required TResult orElse(),
   }) {
     if (error != null) {
-      return error(this.error);
+      return error(this.error, user);
     }
     return orElse();
   }
@@ -1187,10 +1209,12 @@ class _$_Error extends _Error {
 }
 
 abstract class _Error extends HomeState {
-  const factory _Error({required final String error}) = _$_Error;
+  const factory _Error({required final String error, final UserModel? user}) =
+      _$_Error;
   const _Error._() : super._();
 
   String get error;
+  UserModel? get user;
   @JsonKey(ignore: true)
   _$$_ErrorCopyWith<_$_Error> get copyWith =>
       throw _privateConstructorUsedError;

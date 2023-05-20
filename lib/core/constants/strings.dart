@@ -6,7 +6,7 @@ class AppText {
   static const String forgotPassword = 'Forgot password?';
   static const String email = 'Email';
   static const String password = 'Password';
-  static const String joinQuestionaire = 'Join questionaire!✏️';
+  static const String joinQuestionaire = 'Check-in!✏️';
   static const String or = 'Or';
 
   static const String createAccount = 'Create account';
@@ -32,14 +32,14 @@ class AppText {
 
   static const String saveEdits = 'Save Edits';
   static const String createProfile = 'Create Profile';
-  static const String enterBucketCode = 'Enter Bucket Code';
+  static const String enterBucketCode = 'Enter unique code to begin session or scan QR code below';
   static const String join = 'JOIN';
   static const String scanQr = 'Scan QR code';
   static const String start = 'START';
   static const String next = 'NEXT';
   static const String ok = 'OK';
   static const String finish = 'FINISH';
-  static const String questions = 'Questions';
+  static const String sessions = 'Sessions';
   static const String sessionEnded = 'Session ended!';
   static const String thankYou = 'Thank you for your time. ';
   static const String yourAnwer = 'Your answer ...';

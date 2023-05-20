@@ -26,6 +26,7 @@ class _QuizRoundsState extends State<QuizRounds> {
   List<TextEditingController> controllers = [];
   List<GlobalKey<FormState>> formKeys = [];
   int _counter = 0;
+  bool isCompleted = true;
 
   @override
   void initState() {
@@ -101,31 +102,54 @@ class _QuizRoundsState extends State<QuizRounds> {
                     const SizedBox(
                       height: 20,
                     ),
-                    RichText(
-                      text: TextSpan(
-                        style: AppTheme.themeData.textTheme.headlineMedium!
-                            .copyWith(
-                          color: AppColors.text,
-                          fontSize: 26,
-                          fontWeight: FontWeight.w500,
-                        ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const TextSpan(
-                            text: '${AppText.session} ',
-                          ),
-                          TextSpan(
-                            text: '${index + 1}',
-                            style: const TextStyle(
-                              fontWeight: FontWeight.bold,
+                          RichText(
+                            text: TextSpan(
+                              style: AppTheme
+                                  .themeData.textTheme.headlineMedium!
+                                  .copyWith(
+                                color: AppColors.text,
+                                fontSize: 26,
+                                fontWeight: FontWeight.w500,
+                              ),
+                              children: [
+                                const TextSpan(
+                                  text: '${AppText.session} ',
+                                ),
+                                TextSpan(
+                                  text: '${index + 1}',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                TextSpan(
+                                  text: '/${widget.questions.length}',
+                                  style: AppTheme
+                                      .themeData.textTheme.headlineMedium!
+                                      .copyWith(
+                                          color: AppColors.text,
+                                          fontSize: 22,
+                                          fontWeight: FontWeight.w500),
+                                ),
+                              ],
                             ),
                           ),
-                          TextSpan(
-                            text: '/${widget.questions.length}',
-                            style: AppTheme.themeData.textTheme.headlineMedium!
-                                .copyWith(
-                                    color: AppColors.text,
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.w500),
+                          SizedBox(
+                            width: 164,
+                            height: 17,
+                            child: ClipRRect(
+                                borderRadius: BorderRadius.circular(40),
+                                child: LinearProgressIndicator(
+                                  value: (index + 1) / widget.questions.length,
+                                  backgroundColor: AppColors.veryLightGrey,
+                                  valueColor:
+                                      const AlwaysStoppedAnimation<Color>(
+                                          AppColors.primary),
+                                )),
                           ),
                         ],
                       ),
@@ -211,15 +235,19 @@ class _QuizRoundsState extends State<QuizRounds> {
                             return;
                           }
                           formKeys[index].currentState!.save();
+                          if (index == widget.questions.length - 1) {
+                            context.read<QuizBloc>().add(QuizEvent.complete(
+                                userId:
+                                    context.read<ProfileBloc>().state.user!.id!,
+                                completed: isCompleted));
+                          }
                           context.read<QuizBloc>().add(QuizEvent.setAnswer(
-                              userId:
-                                  context.read<ProfileBloc>().state.user!.id!,
-                              question: widget.questions[index].name!,
-                              answer: controllers[index].text,
-                              index: index));
-                          // _pageController.nextPage(
-                          //     duration: const Duration(milliseconds: 200),
-                          //     curve: Curves.ease);
+                                userId:
+                                    context.read<ProfileBloc>().state.user!.id!,
+                                question: widget.questions[index].name!,
+                                answer: controllers[index].text,
+                                index: index,
+                              ));
                         },
                       ),
                     ),

@@ -56,7 +56,6 @@ class EditProfileBloc extends Bloc<EditProfileEvent, EditProfileState> {
         'nickName': event.nickName,
         'firstName': firstName,
         'lastName': lastName,
-        'country': event.country,
         'role': event.role,
         'companyName': event.companyName
       });

@@ -9,7 +9,6 @@ class CreateProfileEvent with _$CreateProfileEvent {
     required String fullName,
     required String role,
     required String companyName,
-    required String country,
   }) = _CreateFields;
 
   const factory CreateProfileEvent.checkIfUserCreatedProfile({required String id}) = _CheckIfUserCreatedProfile;

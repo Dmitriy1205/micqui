@@ -21,13 +21,15 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
     await event.map(
       setFields: (e) => _setFields(e, emit),
       setAnswer: (e) => _setAnswer(e, emit),
+      complete: (e) => _complete(e, emit),
     );
   }
 
   Future<void> _setFields(_SetFields event, Emitter<QuizState> emit) async {
     emit(const QuizState.loading());
     try {
-      await questRepo.setFields(userId: event.userId);
+      await questRepo.setFields(
+          userId: event.userId, isCompleted: event.completed, bucketId: event.bucketId);
       emit(const QuizState.joined());
     } on BadRequestException catch (e) {
       emit(QuizState.error(error: e.message));
@@ -38,8 +40,20 @@ class QuizBloc extends Bloc<QuizEvent, QuizState> {
     emit(const QuizState.loading());
     try {
       await questRepo.setAnswers(
-          userId: event.userId, question: event.question, answer: event.answer, answerIndex: event.index);
+          userId: event.userId,
+          question: event.question,
+          answer: event.answer,
+          answerIndex: event.index);
       emit(const QuizState.success());
+    } on BadRequestException catch (e) {
+      emit(QuizState.error(error: e.message));
+    }
+  }
+
+  Future<void> _complete(_Complete event, Emitter<QuizState> emit) async {
+    try {
+      await questRepo.completeQuiz(
+          isCompleted: event.completed, userId: event.userId);
     } on BadRequestException catch (e) {
       emit(QuizState.error(error: e.message));
     }

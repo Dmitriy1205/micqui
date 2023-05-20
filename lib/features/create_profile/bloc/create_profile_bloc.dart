@@ -69,10 +69,10 @@ class CreateProfileBloc extends Bloc<CreateProfileEvent, CreateProfileState> {
     final previousState = state;
     emit(const CreateProfileState.loading());
     try {
-      var id = authBloc.state.user!.uid;
+      var currentUser = authBloc.state.user!;
       String imageUrl;
       if (event.file != null) {
-        String pic = await storage.upload(event.file, 'avatars/$id/$id.png');
+        String pic = await storage.upload(event.file, 'avatars/${currentUser.uid}/${currentUser.uid}.png');
         imageUrl = pic;
       } else {
         imageUrl = event.image;
@@ -81,7 +81,7 @@ class CreateProfileBloc extends Bloc<CreateProfileEvent, CreateProfileState> {
       final firstName = nameParts[0];
       final lastName = nameParts.length > 1 ? nameParts[1] : '';
 
-      await firestore.setProfile(id, {'avatar': imageUrl, 'nickName': event.nickName, 'firstName': firstName, 'lastName': lastName, 'country': event.country, 'companyName': event.companyName, 'role': event.role});
+      await firestore.setProfile(currentUser.uid, {'id':currentUser.uid,'avatar': imageUrl, 'nickName': event.nickName, 'firstName': firstName, 'lastName': lastName,'companyName': event.companyName, 'role': event.role,'email':currentUser.email});
       emit(const CreateProfileState.success());
     } on BadRequestException catch (e) {
       emit(CreateProfileState.error(error: e.message));

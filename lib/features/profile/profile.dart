@@ -129,113 +129,113 @@ class Profile extends StatelessWidget {
                               fontWeight: FontWeight.w400,
                               fontSize: 14),
                         ),
-                        Spacer(),
-                        Container(
-                          width: MediaQuery.of(context).size.width,
-                          decoration: BoxDecoration(
-                            color: AppColors.background,
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          child: Padding(
-                            padding: const EdgeInsets.all(22),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                const Text(
-                                  AppText.additionalInfo,
-                                  style: TextStyle(
-                                      color: AppColors.text,
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 15),
-                                ),
-                                const Text(
-                                  AppText.surveyOrganizers,
-                                  style: TextStyle(
-                                      color: AppColors.text,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 12),
-                                ),
-                                const SizedBox(
-                                  height: 16,
-                                ),
-                                const Text(
-                                  AppText.companyName,
-                                  style: TextStyle(
-                                      color: AppColors.text,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 12),
-                                ),
-                                Text(
-                                  state.user?.companyName ?? '--',
-                                  style: const TextStyle(
-                                      color: AppColors.text,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 12),
-                                ),
-                                const SizedBox(
-                                  height: 16,
-                                ),
-                                const Text(
-                                  AppText.role,
-                                  style: TextStyle(
-                                      color: AppColors.text,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 12),
-                                ),
-                                Text(
-                                  state.user?.role ?? '--',
-                                  style: const TextStyle(
-                                      color: AppColors.text,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 12),
-                                ),
-                                state.user?.firstName == null ||
-                                        state.user!.firstName!.isEmpty
-                                    ? const SizedBox()
-                                    : Column(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          const SizedBox(
-                                            height: 16,
-                                          ),
-                                          const Text(
-                                            AppText.fullName,
-                                            style: TextStyle(
-                                                color: AppColors.text,
-                                                fontWeight: FontWeight.w500,
-                                                fontSize: 12),
-                                          ),
-                                          Text(
-                                            state.user!.fullName!,
-                                            style: const TextStyle(
-                                                color: AppColors.text,
-                                                fontWeight: FontWeight.w400,
-                                                fontSize: 12),
-                                          ),
-                                        ],
-                                      ),
-                                const SizedBox(
-                                  height: 16,
-                                ),
-                                const Text(
-                                  AppText.country,
-                                  style: TextStyle(
-                                      color: AppColors.text,
-                                      fontWeight: FontWeight.w500,
-                                      fontSize: 12),
-                                ),
-                                Text(
-                                  state.user!.country!,
-                                  style: const TextStyle(
-                                      color: AppColors.text,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 12),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
+                        // Spacer(),
+                        // Container(
+                        //   width: MediaQuery.of(context).size.width,
+                        //   decoration: BoxDecoration(
+                        //     color: AppColors.background,
+                        //     borderRadius: BorderRadius.circular(10),
+                        //   ),
+                        //   child: Padding(
+                        //     padding: const EdgeInsets.all(22),
+                        //     child: Column(
+                        //       crossAxisAlignment: CrossAxisAlignment.start,
+                        //       children: [
+                        //         const Text(
+                        //           AppText.additionalInfo,
+                        //           style: TextStyle(
+                        //               color: AppColors.text,
+                        //               fontWeight: FontWeight.w600,
+                        //               fontSize: 15),
+                        //         ),
+                        //         const Text(
+                        //           AppText.surveyOrganizers,
+                        //           style: TextStyle(
+                        //               color: AppColors.text,
+                        //               fontWeight: FontWeight.w400,
+                        //               fontSize: 12),
+                        //         ),
+                        //         const SizedBox(
+                        //           height: 16,
+                        //         ),
+                        //         const Text(
+                        //           AppText.companyName,
+                        //           style: TextStyle(
+                        //               color: AppColors.text,
+                        //               fontWeight: FontWeight.w500,
+                        //               fontSize: 12),
+                        //         ),
+                        //         Text(
+                        //           state.user?.companyName ?? '--',
+                        //           style: const TextStyle(
+                        //               color: AppColors.text,
+                        //               fontWeight: FontWeight.w400,
+                        //               fontSize: 12),
+                        //         ),
+                        //         const SizedBox(
+                        //           height: 16,
+                        //         ),
+                        //         const Text(
+                        //           AppText.role,
+                        //           style: TextStyle(
+                        //               color: AppColors.text,
+                        //               fontWeight: FontWeight.w500,
+                        //               fontSize: 12),
+                        //         ),
+                        //         Text(
+                        //           state.user?.role ?? '--',
+                        //           style: const TextStyle(
+                        //               color: AppColors.text,
+                        //               fontWeight: FontWeight.w400,
+                        //               fontSize: 12),
+                        //         ),
+                        //         state.user?.firstName == null ||
+                        //                 state.user!.firstName!.isEmpty
+                        //             ? const SizedBox()
+                        //             : Column(
+                        //                 crossAxisAlignment:
+                        //                     CrossAxisAlignment.start,
+                        //                 children: [
+                        //                   const SizedBox(
+                        //                     height: 16,
+                        //                   ),
+                        //                   const Text(
+                        //                     AppText.fullName,
+                        //                     style: TextStyle(
+                        //                         color: AppColors.text,
+                        //                         fontWeight: FontWeight.w500,
+                        //                         fontSize: 12),
+                        //                   ),
+                        //                   Text(
+                        //                     state.user!.fullName!,
+                        //                     style: const TextStyle(
+                        //                         color: AppColors.text,
+                        //                         fontWeight: FontWeight.w400,
+                        //                         fontSize: 12),
+                        //                   ),
+                        //                 ],
+                        //               ),
+                        //         const SizedBox(
+                        //           height: 16,
+                        //         ),
+                        //         const Text(
+                        //           AppText.country,
+                        //           style: TextStyle(
+                        //               color: AppColors.text,
+                        //               fontWeight: FontWeight.w500,
+                        //               fontSize: 12),
+                        //         ),
+                        //         Text(
+                        //           state.user!.country!,
+                        //           style: const TextStyle(
+                        //               color: AppColors.text,
+                        //               fontWeight: FontWeight.w400,
+                        //               fontSize: 12),
+                        //         ),
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
                         const Spacer(),
                         AppElevatedButton(
                             text: AppText.logout.toUpperCase(),

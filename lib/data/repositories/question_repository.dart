@@ -21,9 +21,16 @@ class QuestionRepository {
     }
   }
 
-  Future<void> setFields({required String userId}) async {
+  Future<void> setFields(
+      {required String bucketId,required String userId, required bool isCompleted}) async {
     try {
-      Map<String, dynamic> data = {'userId': userId, 'answers': []};
+      Map<String, dynamic> data = {
+        'bucketId':bucketId,
+        'joined': true,
+        'userId': userId,
+        'completed': isCompleted,
+        'answers': []
+      };
       await _firestore.set(
           collectionName: 'answers', docId: userId, data: data);
     } on BadRequestException catch (e) {
@@ -68,6 +75,18 @@ class QuestionRepository {
             nameFieldToUpdate: 'answers',
             data: data);
       }
+    } on BadRequestException catch (e) {
+      throw BadRequestException(message: e.message);
+    }
+  }
+
+  completeQuiz({required bool isCompleted, required String userId}) async {
+    try {
+      await _firestore.update(
+          collectionName: 'answers',
+          docId: userId,
+          nameFieldToUpdate: 'completed',
+          data: isCompleted);
     } on BadRequestException catch (e) {
       throw BadRequestException(message: e.message);
     }

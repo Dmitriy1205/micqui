@@ -16,6 +16,7 @@ import '../../core/widgets/app_elevated_button.dart';
 import '../home/home.dart';
 import 'bloc/create_profile_bloc.dart';
 
+
 class CreateProfile extends StatefulWidget {
   const CreateProfile({
     Key? key,
@@ -65,12 +66,12 @@ class _CreateProfileState extends State<CreateProfile> {
       body: BlocConsumer<CreateProfileBloc, CreateProfileState>(
         listener: (context, state) {
           state.maybeMap(
-              success: (_) => Navigator.pushReplacement(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => const Home(),
-                    ),
-                  ),
+              // success: (_) => Navigator.pushReplacement(
+              //       context,
+              //       MaterialPageRoute(
+              //         builder: (_) => const Home(),
+              //       ),
+              //     ),
               error: (e) {
                 ScaffoldMessenger.of(context).showSnackBar(
                   SnackBar(
@@ -146,7 +147,46 @@ class _CreateProfileState extends State<CreateProfile> {
                               user: UserModel(property: property()),
                             ),
                           ),
-                          SizedBox(
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 15, horizontal: 80),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Flexible(
+                                  // width: 90,
+                                  child: EditableText(
+                                    textAlign: TextAlign.center,
+                                    controller: _nickNameController,
+                                    style: AppTheme
+                                        .themeData.textTheme.headlineMedium!,
+                                    cursorColor: AppColors.background,
+                                    backgroundCursorColor: Colors.grey,
+                                    selectionControls:
+                                    MaterialTextSelectionControls(),
+                                    keyboardType: TextInputType.text,
+                                    maxLines: 1,
+                                    focusNode: _focusNode,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                const FaIcon(
+                                  FontAwesomeIcons.pen,
+                                  color: AppColors.background,
+                                ),
+                              ],
+                            ),
+                          ),
+                          Text(
+                            context.read<AuthBloc>().state.user!.email!,
+                            style: const TextStyle(
+                                color: AppColors.background,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 14),
+                          ),
+                          const SizedBox(
                             height: 48,
                           ),
                           IntrinsicHeight(
@@ -171,13 +211,13 @@ class _CreateProfileState extends State<CreateProfile> {
                                             fontWeight: FontWeight.w600,
                                             fontSize: 15),
                                       ),
-                                      const Text(
-                                        AppText.surveyOrganizers,
-                                        style: TextStyle(
-                                            color: AppColors.text,
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 12),
-                                      ),
+                                      // const Text(
+                                      //   AppText.surveyOrganizers,
+                                      //   style: TextStyle(
+                                      //       color: AppColors.text,
+                                      //       fontWeight: FontWeight.w400,
+                                      //       fontSize: 12),
+                                      // ),
                                       const SizedBox(
                                         height: 16,
                                       ),
@@ -314,70 +354,70 @@ class _CreateProfileState extends State<CreateProfile> {
                                       const SizedBox(
                                         height: 16,
                                       ),
-                                      const Padding(
-                                        padding: EdgeInsets.only(bottom: 5.0),
-                                        child: Text(
-                                          AppText.country,
-                                          style: TextStyle(
-                                              color: AppColors.text,
-                                              fontWeight: FontWeight.w500,
-                                              fontSize: 12),
-                                        ),
-                                      ),
-                                      DropdownButtonFormField<String>(
-                                        autovalidateMode:
-                                            AutovalidateMode.onUserInteraction,
-                                        style: AppTheme
-                                            .themeData.textTheme.labelSmall!
-                                            .copyWith(fontSize: 14),
-                                        value: selectedCountry,
-                                        iconSize: 15,
-                                        decoration: const InputDecoration(
-                                            isDense: true,
-                                            prefix: SizedBox(
-                                              width: 6,
-                                            ),
-                                            contentPadding:
-                                                EdgeInsets.symmetric(
-                                                    horizontal: 5, vertical: 7),
-                                            border: OutlineInputBorder()),
-                                        icon: const Padding(
-                                          padding: EdgeInsets.only(right: 8.0),
-                                          child: FaIcon(
-                                              FontAwesomeIcons.chevronDown),
-                                        ),
-
-                                        items: AppText.countries
-                                            .map(
-                                              (country) =>
-                                                  DropdownMenuItem<String>(
-                                                value: country,
-                                                child: Text(
-                                                  country,
-                                                  style: AppTheme.themeData
-                                                      .textTheme.labelSmall!
-                                                      .copyWith(fontSize: 14),
-                                                ),
-                                              ),
-                                            )
-                                            .toList(),
-                                        onChanged: (country) {
-                                          selectedCountry = country;
-                                        },
-                                        validator: (value) {
-                                          if (value == null) {
-                                            return AppText.fieldIsRequired;
-                                          }
-                                        },
-                                      ),
+                                      // const Padding(
+                                      //   padding: EdgeInsets.only(bottom: 5.0),
+                                      //   child: Text(
+                                      //     AppText.country,
+                                      //     style: TextStyle(
+                                      //         color: AppColors.text,
+                                      //         fontWeight: FontWeight.w500,
+                                      //         fontSize: 12),
+                                      //   ),
+                                      // ),
+                                      // DropdownButtonFormField<String>(
+                                      //   autovalidateMode:
+                                      //       AutovalidateMode.onUserInteraction,
+                                      //   style: AppTheme
+                                      //       .themeData.textTheme.labelSmall!
+                                      //       .copyWith(fontSize: 14),
+                                      //   value: selectedCountry,
+                                      //   iconSize: 15,
+                                      //   decoration: const InputDecoration(
+                                      //       isDense: true,
+                                      //       prefix: SizedBox(
+                                      //         width: 6,
+                                      //       ),
+                                      //       contentPadding:
+                                      //           EdgeInsets.symmetric(
+                                      //               horizontal: 5, vertical: 7),
+                                      //       border: OutlineInputBorder()),
+                                      //   icon: const Padding(
+                                      //     padding: EdgeInsets.only(right: 8.0),
+                                      //     child: FaIcon(
+                                      //         FontAwesomeIcons.chevronDown),
+                                      //   ),
+                                      //
+                                      //   items: AppText.countries
+                                      //       .map(
+                                      //         (country) =>
+                                      //             DropdownMenuItem<String>(
+                                      //           value: country,
+                                      //           child: Text(
+                                      //             country,
+                                      //             style: AppTheme.themeData
+                                      //                 .textTheme.labelSmall!
+                                      //                 .copyWith(fontSize: 14),
+                                      //           ),
+                                      //         ),
+                                      //       )
+                                      //       .toList(),
+                                      //   onChanged: (country) {
+                                      //     selectedCountry = country;
+                                      //   },
+                                      //   validator: (value) {
+                                      //     if (value == null) {
+                                      //       return AppText.fieldIsRequired;
+                                      //     }
+                                      //   },
+                                      // ),
                                     ],
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                          SizedBox(
-                            height: 48,
+                          const SizedBox(
+                            height: 160,
                           ),
                           AppElevatedButton(
                               text: AppText.createProfile.toUpperCase(),
@@ -393,7 +433,7 @@ class _CreateProfileState extends State<CreateProfile> {
                                       file: state.image,
                                       image: '',
                                       fullName: _nameController.text,
-                                      country: selectedCountry!,
+                                      // country: selectedCountry!,
                                       companyName: _companyNameController.text,
                                       role: selectedRole!,
                                       nickName: _nickNameController.text,

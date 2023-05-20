@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:micqui/core/constants/icons.dart';
 import 'package:micqui/core/constants/strings.dart';
 import 'package:micqui/core/widgets/app_elevated_button.dart';
 import 'package:micqui/data/models/bucket/bucket.dart';
@@ -62,6 +63,7 @@ class _QuizIntroductionState extends State<QuizIntroduction> {
             return Padding(
               padding: const EdgeInsets.symmetric(horizontal: 22),
               child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
                     bucket.name!,
@@ -80,10 +82,21 @@ class _QuizIntroductionState extends State<QuizIntroduction> {
                   ),
                   Align(
                     alignment: Alignment.centerRight,
-                    child: Text(
-                      'For ${bucket.category}s',
-                      style: AppTheme.themeData.textTheme.titleMedium!
-                          .copyWith(fontWeight: FontWeight.w500, fontSize: 16),
+                    child: Container(
+                      width: 118,
+                      height: 32,
+                      decoration: BoxDecoration(
+                        color: AppColors.veryLightGrey,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Center(
+                        child: Text(
+                          '${bucket.category}s',
+                          style: AppTheme.themeData.textTheme.titleMedium!
+                              .copyWith(
+                                  fontWeight: FontWeight.w500, fontSize: 16),
+                        ),
+                      ),
                     ),
                   ),
                   const Spacer(),
@@ -92,15 +105,15 @@ class _QuizIntroductionState extends State<QuizIntroduction> {
                     children: [
                       Row(
                         children: [
-                          const FaIcon(
-                            FontAwesomeIcons.question,
+                          const Icon(
+                            AppIcons.mark,
                             size: 25,
                           ),
                           const SizedBox(
                             width: 20,
                           ),
                           Text(
-                            AppText.questions,
+                            AppText.sessions,
                             style: AppTheme.themeData.textTheme.titleMedium!
                                 .copyWith(
                                     fontWeight: FontWeight.w500, fontSize: 16),
@@ -122,7 +135,9 @@ class _QuizIntroductionState extends State<QuizIntroduction> {
                     text: AppText.start,
                     onPressed: () {
                       context.read<QuizBloc>().add(QuizEvent.setFields(
-                          userId: context.read<ProfileBloc>().state.user!.id!));
+                          userId: context.read<ProfileBloc>().state.user!.id!,
+                          completed: false,
+                          bucketId: bucket.id!));
                     },
                   ),
                   const SizedBox(

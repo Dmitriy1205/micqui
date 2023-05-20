@@ -54,7 +54,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
           await repository.getBucket(bucketId: event.bucketId);
       emit(HomeState.success(bucket: bucket,user: event.user));
     } on BadRequestException catch (e) {
-      emit(HomeState.error(error: e.message));
+      emit(HomeState.error(error: e.message,user:event.user));
     }
   }
 }
