@@ -55,7 +55,7 @@ class _QuizIntroductionState extends State<QuizIntroduction> {
                     context,
                     MaterialPageRoute(
                         builder: (context) => QuizRounds(
-                              questions: bucket.questions,
+                              questions: bucket.questions, bucketId: bucket.id!,
                             ))),
                 orElse: () {});
           },
@@ -137,7 +137,7 @@ class _QuizIntroductionState extends State<QuizIntroduction> {
                       context.read<QuizBloc>().add(QuizEvent.setFields(
                           userId: context.read<ProfileBloc>().state.user!.id!,
                           completed: false,
-                          bucketId: bucket.id!));
+                          bucketId: bucket.id!, userName: context.read<ProfileBloc>().state.user!.email!));
                     },
                   ),
                   const SizedBox(

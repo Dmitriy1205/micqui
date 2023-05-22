@@ -16,32 +16,41 @@ final _privateConstructorUsedError = UnsupportedError(
 
 /// @nodoc
 mixin _$QuizEvent {
-  String get userId => throw _privateConstructorUsedError;
+  String get bucketId => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String bucketId, String userId, bool completed)
-        setFields,
     required TResult Function(
-            String userId, String question, String answer, int index)
+            String bucketId, String userId, String userName, bool completed)
+        setFields,
+    required TResult Function(String bucketId, String userEmail,
+            String question, String answer, int index)
         setAnswer,
-    required TResult Function(String userId, bool completed) complete,
+    required TResult Function(String bucketId, String userEmail, bool completed)
+        complete,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String bucketId, String userId, bool completed)?
+    TResult? Function(
+            String bucketId, String userId, String userName, bool completed)?
         setFields,
-    TResult? Function(String userId, String question, String answer, int index)?
+    TResult? Function(String bucketId, String userEmail, String question,
+            String answer, int index)?
         setAnswer,
-    TResult? Function(String userId, bool completed)? complete,
+    TResult? Function(String bucketId, String userEmail, bool completed)?
+        complete,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String bucketId, String userId, bool completed)? setFields,
-    TResult Function(String userId, String question, String answer, int index)?
+    TResult Function(
+            String bucketId, String userId, String userName, bool completed)?
+        setFields,
+    TResult Function(String bucketId, String userEmail, String question,
+            String answer, int index)?
         setAnswer,
-    TResult Function(String userId, bool completed)? complete,
+    TResult Function(String bucketId, String userEmail, bool completed)?
+        complete,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -78,7 +87,7 @@ abstract class $QuizEventCopyWith<$Res> {
   factory $QuizEventCopyWith(QuizEvent value, $Res Function(QuizEvent) then) =
       _$QuizEventCopyWithImpl<$Res, QuizEvent>;
   @useResult
-  $Res call({String userId});
+  $Res call({String bucketId});
 }
 
 /// @nodoc
@@ -94,12 +103,12 @@ class _$QuizEventCopyWithImpl<$Res, $Val extends QuizEvent>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userId = null,
+    Object? bucketId = null,
   }) {
     return _then(_value.copyWith(
-      userId: null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
+      bucketId: null == bucketId
+          ? _value.bucketId
+          : bucketId // ignore: cast_nullable_to_non_nullable
               as String,
     ) as $Val);
   }
@@ -112,7 +121,7 @@ abstract class _$$_SetFieldsCopyWith<$Res> implements $QuizEventCopyWith<$Res> {
       __$$_SetFieldsCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String bucketId, String userId, bool completed});
+  $Res call({String bucketId, String userId, String userName, bool completed});
 }
 
 /// @nodoc
@@ -128,6 +137,7 @@ class __$$_SetFieldsCopyWithImpl<$Res>
   $Res call({
     Object? bucketId = null,
     Object? userId = null,
+    Object? userName = null,
     Object? completed = null,
   }) {
     return _then(_$_SetFields(
@@ -138,6 +148,10 @@ class __$$_SetFieldsCopyWithImpl<$Res>
       userId: null == userId
           ? _value.userId
           : userId // ignore: cast_nullable_to_non_nullable
+              as String,
+      userName: null == userName
+          ? _value.userName
+          : userName // ignore: cast_nullable_to_non_nullable
               as String,
       completed: null == completed
           ? _value.completed
@@ -151,18 +165,23 @@ class __$$_SetFieldsCopyWithImpl<$Res>
 
 class _$_SetFields implements _SetFields {
   const _$_SetFields(
-      {required this.bucketId, required this.userId, required this.completed});
+      {required this.bucketId,
+      required this.userId,
+      required this.userName,
+      required this.completed});
 
   @override
   final String bucketId;
   @override
   final String userId;
   @override
+  final String userName;
+  @override
   final bool completed;
 
   @override
   String toString() {
-    return 'QuizEvent.setFields(bucketId: $bucketId, userId: $userId, completed: $completed)';
+    return 'QuizEvent.setFields(bucketId: $bucketId, userId: $userId, userName: $userName, completed: $completed)';
   }
 
   @override
@@ -173,12 +192,15 @@ class _$_SetFields implements _SetFields {
             (identical(other.bucketId, bucketId) ||
                 other.bucketId == bucketId) &&
             (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.userName, userName) ||
+                other.userName == userName) &&
             (identical(other.completed, completed) ||
                 other.completed == completed));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, bucketId, userId, completed);
+  int get hashCode =>
+      Object.hash(runtimeType, bucketId, userId, userName, completed);
 
   @JsonKey(ignore: true)
   @override
@@ -189,39 +211,48 @@ class _$_SetFields implements _SetFields {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String bucketId, String userId, bool completed)
-        setFields,
     required TResult Function(
-            String userId, String question, String answer, int index)
+            String bucketId, String userId, String userName, bool completed)
+        setFields,
+    required TResult Function(String bucketId, String userEmail,
+            String question, String answer, int index)
         setAnswer,
-    required TResult Function(String userId, bool completed) complete,
+    required TResult Function(String bucketId, String userEmail, bool completed)
+        complete,
   }) {
-    return setFields(bucketId, userId, completed);
+    return setFields(bucketId, userId, userName, completed);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String bucketId, String userId, bool completed)?
+    TResult? Function(
+            String bucketId, String userId, String userName, bool completed)?
         setFields,
-    TResult? Function(String userId, String question, String answer, int index)?
+    TResult? Function(String bucketId, String userEmail, String question,
+            String answer, int index)?
         setAnswer,
-    TResult? Function(String userId, bool completed)? complete,
+    TResult? Function(String bucketId, String userEmail, bool completed)?
+        complete,
   }) {
-    return setFields?.call(bucketId, userId, completed);
+    return setFields?.call(bucketId, userId, userName, completed);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String bucketId, String userId, bool completed)? setFields,
-    TResult Function(String userId, String question, String answer, int index)?
+    TResult Function(
+            String bucketId, String userId, String userName, bool completed)?
+        setFields,
+    TResult Function(String bucketId, String userEmail, String question,
+            String answer, int index)?
         setAnswer,
-    TResult Function(String userId, bool completed)? complete,
+    TResult Function(String bucketId, String userEmail, bool completed)?
+        complete,
     required TResult orElse(),
   }) {
     if (setFields != null) {
-      return setFields(bucketId, userId, completed);
+      return setFields(bucketId, userId, userName, completed);
     }
     return orElse();
   }
@@ -265,11 +296,13 @@ abstract class _SetFields implements QuizEvent {
   const factory _SetFields(
       {required final String bucketId,
       required final String userId,
+      required final String userName,
       required final bool completed}) = _$_SetFields;
 
-  String get bucketId;
   @override
+  String get bucketId;
   String get userId;
+  String get userName;
   bool get completed;
   @override
   @JsonKey(ignore: true)
@@ -284,7 +317,12 @@ abstract class _$$_SetAnswerCopyWith<$Res> implements $QuizEventCopyWith<$Res> {
       __$$_SetAnswerCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String userId, String question, String answer, int index});
+  $Res call(
+      {String bucketId,
+      String userEmail,
+      String question,
+      String answer,
+      int index});
 }
 
 /// @nodoc
@@ -298,15 +336,20 @@ class __$$_SetAnswerCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userId = null,
+    Object? bucketId = null,
+    Object? userEmail = null,
     Object? question = null,
     Object? answer = null,
     Object? index = null,
   }) {
     return _then(_$_SetAnswer(
-      userId: null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
+      bucketId: null == bucketId
+          ? _value.bucketId
+          : bucketId // ignore: cast_nullable_to_non_nullable
+              as String,
+      userEmail: null == userEmail
+          ? _value.userEmail
+          : userEmail // ignore: cast_nullable_to_non_nullable
               as String,
       question: null == question
           ? _value.question
@@ -328,13 +371,16 @@ class __$$_SetAnswerCopyWithImpl<$Res>
 
 class _$_SetAnswer implements _SetAnswer {
   const _$_SetAnswer(
-      {required this.userId,
+      {required this.bucketId,
+      required this.userEmail,
       required this.question,
       required this.answer,
       required this.index});
 
   @override
-  final String userId;
+  final String bucketId;
+  @override
+  final String userEmail;
   @override
   final String question;
   @override
@@ -344,7 +390,7 @@ class _$_SetAnswer implements _SetAnswer {
 
   @override
   String toString() {
-    return 'QuizEvent.setAnswer(userId: $userId, question: $question, answer: $answer, index: $index)';
+    return 'QuizEvent.setAnswer(bucketId: $bucketId, userEmail: $userEmail, question: $question, answer: $answer, index: $index)';
   }
 
   @override
@@ -352,7 +398,10 @@ class _$_SetAnswer implements _SetAnswer {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_SetAnswer &&
-            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.bucketId, bucketId) ||
+                other.bucketId == bucketId) &&
+            (identical(other.userEmail, userEmail) ||
+                other.userEmail == userEmail) &&
             (identical(other.question, question) ||
                 other.question == question) &&
             (identical(other.answer, answer) || other.answer == answer) &&
@@ -360,7 +409,8 @@ class _$_SetAnswer implements _SetAnswer {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, userId, question, answer, index);
+  int get hashCode =>
+      Object.hash(runtimeType, bucketId, userEmail, question, answer, index);
 
   @JsonKey(ignore: true)
   @override
@@ -371,39 +421,48 @@ class _$_SetAnswer implements _SetAnswer {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String bucketId, String userId, bool completed)
-        setFields,
     required TResult Function(
-            String userId, String question, String answer, int index)
+            String bucketId, String userId, String userName, bool completed)
+        setFields,
+    required TResult Function(String bucketId, String userEmail,
+            String question, String answer, int index)
         setAnswer,
-    required TResult Function(String userId, bool completed) complete,
+    required TResult Function(String bucketId, String userEmail, bool completed)
+        complete,
   }) {
-    return setAnswer(userId, question, answer, index);
+    return setAnswer(bucketId, userEmail, question, answer, index);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String bucketId, String userId, bool completed)?
+    TResult? Function(
+            String bucketId, String userId, String userName, bool completed)?
         setFields,
-    TResult? Function(String userId, String question, String answer, int index)?
+    TResult? Function(String bucketId, String userEmail, String question,
+            String answer, int index)?
         setAnswer,
-    TResult? Function(String userId, bool completed)? complete,
+    TResult? Function(String bucketId, String userEmail, bool completed)?
+        complete,
   }) {
-    return setAnswer?.call(userId, question, answer, index);
+    return setAnswer?.call(bucketId, userEmail, question, answer, index);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String bucketId, String userId, bool completed)? setFields,
-    TResult Function(String userId, String question, String answer, int index)?
+    TResult Function(
+            String bucketId, String userId, String userName, bool completed)?
+        setFields,
+    TResult Function(String bucketId, String userEmail, String question,
+            String answer, int index)?
         setAnswer,
-    TResult Function(String userId, bool completed)? complete,
+    TResult Function(String bucketId, String userEmail, bool completed)?
+        complete,
     required TResult orElse(),
   }) {
     if (setAnswer != null) {
-      return setAnswer(userId, question, answer, index);
+      return setAnswer(bucketId, userEmail, question, answer, index);
     }
     return orElse();
   }
@@ -445,13 +504,15 @@ class _$_SetAnswer implements _SetAnswer {
 
 abstract class _SetAnswer implements QuizEvent {
   const factory _SetAnswer(
-      {required final String userId,
+      {required final String bucketId,
+      required final String userEmail,
       required final String question,
       required final String answer,
       required final int index}) = _$_SetAnswer;
 
   @override
-  String get userId;
+  String get bucketId;
+  String get userEmail;
   String get question;
   String get answer;
   int get index;
@@ -468,7 +529,7 @@ abstract class _$$_CompleteCopyWith<$Res> implements $QuizEventCopyWith<$Res> {
       __$$_CompleteCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String userId, bool completed});
+  $Res call({String bucketId, String userEmail, bool completed});
 }
 
 /// @nodoc
@@ -482,13 +543,18 @@ class __$$_CompleteCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? userId = null,
+    Object? bucketId = null,
+    Object? userEmail = null,
     Object? completed = null,
   }) {
     return _then(_$_Complete(
-      userId: null == userId
-          ? _value.userId
-          : userId // ignore: cast_nullable_to_non_nullable
+      bucketId: null == bucketId
+          ? _value.bucketId
+          : bucketId // ignore: cast_nullable_to_non_nullable
+              as String,
+      userEmail: null == userEmail
+          ? _value.userEmail
+          : userEmail // ignore: cast_nullable_to_non_nullable
               as String,
       completed: null == completed
           ? _value.completed
@@ -501,16 +567,21 @@ class __$$_CompleteCopyWithImpl<$Res>
 /// @nodoc
 
 class _$_Complete implements _Complete {
-  const _$_Complete({required this.userId, required this.completed});
+  const _$_Complete(
+      {required this.bucketId,
+      required this.userEmail,
+      required this.completed});
 
   @override
-  final String userId;
+  final String bucketId;
+  @override
+  final String userEmail;
   @override
   final bool completed;
 
   @override
   String toString() {
-    return 'QuizEvent.complete(userId: $userId, completed: $completed)';
+    return 'QuizEvent.complete(bucketId: $bucketId, userEmail: $userEmail, completed: $completed)';
   }
 
   @override
@@ -518,13 +589,16 @@ class _$_Complete implements _Complete {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_Complete &&
-            (identical(other.userId, userId) || other.userId == userId) &&
+            (identical(other.bucketId, bucketId) ||
+                other.bucketId == bucketId) &&
+            (identical(other.userEmail, userEmail) ||
+                other.userEmail == userEmail) &&
             (identical(other.completed, completed) ||
                 other.completed == completed));
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, userId, completed);
+  int get hashCode => Object.hash(runtimeType, bucketId, userEmail, completed);
 
   @JsonKey(ignore: true)
   @override
@@ -535,39 +609,48 @@ class _$_Complete implements _Complete {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String bucketId, String userId, bool completed)
-        setFields,
     required TResult Function(
-            String userId, String question, String answer, int index)
+            String bucketId, String userId, String userName, bool completed)
+        setFields,
+    required TResult Function(String bucketId, String userEmail,
+            String question, String answer, int index)
         setAnswer,
-    required TResult Function(String userId, bool completed) complete,
+    required TResult Function(String bucketId, String userEmail, bool completed)
+        complete,
   }) {
-    return complete(userId, completed);
+    return complete(bucketId, userEmail, completed);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String bucketId, String userId, bool completed)?
+    TResult? Function(
+            String bucketId, String userId, String userName, bool completed)?
         setFields,
-    TResult? Function(String userId, String question, String answer, int index)?
+    TResult? Function(String bucketId, String userEmail, String question,
+            String answer, int index)?
         setAnswer,
-    TResult? Function(String userId, bool completed)? complete,
+    TResult? Function(String bucketId, String userEmail, bool completed)?
+        complete,
   }) {
-    return complete?.call(userId, completed);
+    return complete?.call(bucketId, userEmail, completed);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String bucketId, String userId, bool completed)? setFields,
-    TResult Function(String userId, String question, String answer, int index)?
+    TResult Function(
+            String bucketId, String userId, String userName, bool completed)?
+        setFields,
+    TResult Function(String bucketId, String userEmail, String question,
+            String answer, int index)?
         setAnswer,
-    TResult Function(String userId, bool completed)? complete,
+    TResult Function(String bucketId, String userEmail, bool completed)?
+        complete,
     required TResult orElse(),
   }) {
     if (complete != null) {
-      return complete(userId, completed);
+      return complete(bucketId, userEmail, completed);
     }
     return orElse();
   }
@@ -609,11 +692,13 @@ class _$_Complete implements _Complete {
 
 abstract class _Complete implements QuizEvent {
   const factory _Complete(
-      {required final String userId,
+      {required final String bucketId,
+      required final String userEmail,
       required final bool completed}) = _$_Complete;
 
   @override
-  String get userId;
+  String get bucketId;
+  String get userEmail;
   bool get completed;
   @override
   @JsonKey(ignore: true)

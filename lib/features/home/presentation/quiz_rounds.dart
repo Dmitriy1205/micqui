@@ -14,8 +14,10 @@ import '../bloc/quiz_bloc/quiz_bloc.dart';
 
 class QuizRounds extends StatefulWidget {
   final List<Questions> questions;
+  final String bucketId;
 
-  const QuizRounds({Key? key, required this.questions}) : super(key: key);
+  const QuizRounds({Key? key, required this.questions, required this.bucketId})
+      : super(key: key);
 
   @override
   State<QuizRounds> createState() => _QuizRoundsState();
@@ -237,16 +239,23 @@ class _QuizRoundsState extends State<QuizRounds> {
                           formKeys[index].currentState!.save();
                           if (index == widget.questions.length - 1) {
                             context.read<QuizBloc>().add(QuizEvent.complete(
-                                userId:
-                                    context.read<ProfileBloc>().state.user!.id!,
-                                completed: isCompleted));
+                                
+                                completed: isCompleted, bucketId: widget.bucketId, userEmail: context
+                                .read<ProfileBloc>()
+                                .state
+                                .user!
+                                .email!,));
                           }
                           context.read<QuizBloc>().add(QuizEvent.setAnswer(
-                                userId:
-                                    context.read<ProfileBloc>().state.user!.id!,
                                 question: widget.questions[index].name!,
                                 answer: controllers[index].text,
                                 index: index,
+                                bucketId: widget.bucketId,
+                                userEmail: context
+                                    .read<ProfileBloc>()
+                                    .state
+                                    .user!
+                                    .email!,
                               ));
                         },
                       ),

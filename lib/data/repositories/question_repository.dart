@@ -22,30 +22,34 @@ class QuestionRepository {
   }
 
   Future<void> setFields(
-      {required String bucketId,required String userId, required bool isCompleted}) async {
+      {required String bucketId,
+      required String userId,
+      required String userName,
+      required bool isCompleted}) async {
     try {
       Map<String, dynamic> data = {
-        'bucketId':bucketId,
+        'bucketId': bucketId,
         'joined': true,
         'userId': userId,
         'completed': isCompleted,
         'answers': []
       };
       await _firestore.set(
-          collectionName: 'answers', docId: userId, data: data);
+          collectionName: 'answers', docId: '$userName-$bucketId', data: data);
     } on BadRequestException catch (e) {
       throw BadRequestException(message: e.message);
     }
   }
 
   Future<void> setAnswers(
-      {required String userId,
+      {required String bucketId,
+      required String userEmail,
       required String question,
       required int? answerIndex,
       required String answer}) async {
     try {
-      final answerRef =
-          await _firestore.read(collectionName: 'answers', docId: userId);
+      final answerRef = await _firestore.read(
+          collectionName: 'answers', docId: '$userEmail-$bucketId');
 
       List<dynamic>? data = answerRef.data()!['answers'] as List<dynamic>;
 
@@ -60,7 +64,7 @@ class QuestionRepository {
 
         await _firestore.updateSingleField(
             collectionName: 'answers',
-            docId: userId,
+            docId: '$userEmail-$bucketId',
             answer: 'answers',
             data: data);
       } else {
@@ -71,7 +75,7 @@ class QuestionRepository {
         data.add(singleData);
         await _firestore.update(
             collectionName: 'answers',
-            docId: userId,
+            docId: '$userEmail-$bucketId',
             nameFieldToUpdate: 'answers',
             data: data);
       }
@@ -80,11 +84,15 @@ class QuestionRepository {
     }
   }
 
-  completeQuiz({required bool isCompleted, required String userId}) async {
+  completeQuiz({
+    required bool isCompleted,
+    required String bucketId,
+    required String userEmail,
+  }) async {
     try {
       await _firestore.update(
           collectionName: 'answers',
-          docId: userId,
+          docId: '$userEmail-$bucketId',
           nameFieldToUpdate: 'completed',
           data: isCompleted);
     } on BadRequestException catch (e) {
